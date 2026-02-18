@@ -1,0 +1,301 @@
+/* ========================================
+   Hero — AGNT premium statement layout
+   ======================================== */
+
+.hero {
+  position: relative;
+  min-height: 82vh;
+  padding-top: 112px;
+  padding-bottom: 112px;
+  overflow: hidden;
+  background: #08090c;
+}
+
+.hero__car-bg {
+  position: absolute;
+  top: -4%;
+  right: -6%;
+  width: min(74vw, 980px);
+  height: min(74vh, 740px);
+  background-image: url('/hero-car-schematic.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(194, 138, 58, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(194, 138, 58, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.55;
+  mask-image: radial-gradient(ellipse 90% 75% at 56% 44%, black, transparent);
+  -webkit-mask-image: radial-gradient(ellipse 90% 75% at 56% 44%, black, transparent);
+}
+
+/* ========================================
+   12-col style composition
+   ======================================== */
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  min-height: min(74vh, 760px);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 40px;
+  align-items: center;
+}
+
+.hero__copy {
+  grid-column: 1 / span 5;
+  max-width: 520px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.hero__copy--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__headline {
+  margin-bottom: 18px;
+  line-height: 1.01;
+  letter-spacing: -0.033em;
+  text-align: left;
+}
+
+.hero__headline-accent {
+  color: rgba(236, 236, 238, 0.98);
+}
+
+.hero__sub {
+  margin: 0 0 28px;
+  max-width: 48ch;
+  font-size: clamp(15px, 1.02vw, 16px);
+  line-height: 1.66;
+  color: rgba(160, 160, 170, 0.96);
+  text-align: left;
+}
+
+.hero__cta {
+  min-width: 220px;
+}
+
+/* ========================================
+   Demoted proof chips
+   ======================================== */
+
+.hero__chips {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+  transition-delay: 0.15s;
+}
+
+.hero__chips--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #aab2c3;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+  padding: 5px 11px;
+  white-space: nowrap;
+}
+
+.hero__chip-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--bronze);
+  opacity: 0.8;
+}
+
+/* ========================================
+   Integrations bottom strip
+   ======================================== */
+
+.hero__bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.hero__bottom--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero__bottom-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: 72px;
+}
+
+.hero__integrations-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(160, 160, 170, 0.92);
+  margin-bottom: 10px;
+}
+
+.hero__integrations-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.hero__logo {
+  height: 22px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease-out;
+}
+
+.hero__logo:hover {
+  opacity: 1;
+}
+
+.hero__site-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  padding: 0 11px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(160, 160, 170, 0.95);
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 1000px) {
+  .hero__inner {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .hero__car-bg {
+    right: -16%;
+    top: 18%;
+    width: min(132vw, 920px);
+    height: min(54vh, 480px);
+    opacity: 0.72;
+  }
+
+  .hero__copy {
+    grid-column: 1;
+    max-width: none;
+  }
+
+  .hero__headline,
+  .hero__sub {
+    text-align: left;
+  }
+
+  .hero__bottom-inner {
+    min-height: 66px;
+    gap: 12px;
+  }
+
+  .hero__integrations-label {
+    flex-basis: 100%;
+    margin-bottom: 2px;
+  }
+
+  .hero__integrations-row {
+    gap: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero {
+    padding-top: 104px;
+    padding-bottom: 96px;
+    min-height: 74vh;
+  }
+
+  .hero__headline {
+    font-size: clamp(34px, 10vw, 48px);
+  }
+
+  .hero__sub {
+    max-width: 42ch;
+    margin-bottom: 22px;
+  }
+
+  .hero__cta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .hero__chips {
+    margin-top: 14px;
+    gap: 6px;
+  }
+
+  .hero__chip {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .hero__logo {
+    height: 16px;
+  }
+
+  .hero__bottom-inner {
+    min-height: 62px;
+    gap: 8px;
+    align-items: flex-start;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .hero__integrations-label {
+    margin-bottom: 0;
+  }
+
+  .hero__integrations-row {
+    gap: 10px;
+  }
+}

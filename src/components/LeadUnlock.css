@@ -1,0 +1,299 @@
+/* ========================================
+   Lead Unlock
+   ======================================== */
+
+.lead {
+  background: var(--bg-0);
+}
+
+.lead__header {
+  text-align: center;
+  margin-bottom: clamp(48px, 6vw, 72px);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lead__header h2 {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.lead__sub {
+  font-size: clamp(16px, 1.2vw, 18px);
+  color: var(--text-1);
+}
+
+.lead__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+
+/* ========================================
+   Mocks
+   ======================================== */
+
+.lead__mock {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s var(--ease-premium);
+}
+
+.lead__mock--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lead__mock-plate {
+  background: var(--bg-1);
+  border: 1px solid rgba(194, 138, 58, 0.1);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 2vw, 28px);
+  overflow: hidden;
+}
+
+.lead__mock-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.lead__mock-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(194, 138, 58, 0.2);
+}
+
+/* ========================================
+   Vehicle mock (left)
+   ======================================== */
+
+.lead__vehicle-img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, var(--bg-0), var(--bg-2));
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.lead__vehicle-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 20px,
+      rgba(194, 138, 58, 0.04) 20px,
+      rgba(194, 138, 58, 0.04) 21px
+    );
+}
+
+.lead__vehicle-info {
+  margin-bottom: 20px;
+}
+
+.lead__vehicle-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-0);
+  margin-bottom: 4px;
+}
+
+.lead__vehicle-price {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text-0);
+  margin-bottom: 8px;
+}
+
+.lead__vehicle-specs {
+  display: flex;
+  gap: 16px;
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+/* ========================================
+   Lock panel
+   ======================================== */
+
+.lead__lock-panel {
+  background: var(--bg-0);
+  border: 1px solid rgba(194, 138, 58, 0.15);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  transform: translateY(10px);
+  opacity: 0.7;
+  transition: all 1s var(--ease-premium) 0.8s;
+}
+
+.lead__lock-panel--open {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.lead__lock-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bronze-dim);
+  color: var(--bronze);
+  margin-bottom: 12px;
+}
+
+.lead__lock-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-0);
+  margin-bottom: 16px;
+}
+
+.lead__lock-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.lead__lock-field {
+  background: var(--bg-1);
+  border: 1px solid rgba(194, 138, 58, 0.1);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text-2);
+  text-align: left;
+}
+
+.lead__lock-btn {
+  display: inline-block;
+  background: var(--red);
+  color: var(--text-0);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 28px;
+  border-radius: 10px;
+}
+
+/* ========================================
+   Lead card mock (right)
+   ======================================== */
+
+.lead__card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(194, 138, 58, 0.08);
+}
+
+.lead__card-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--bronze), var(--bronze-light));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bg-0);
+  flex-shrink: 0;
+}
+
+.lead__card-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-0);
+}
+
+.lead__card-phone {
+  font-size: 13px;
+  color: var(--text-2);
+  margin-top: 2px;
+}
+
+.lead__card-badge {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(230, 57, 70, 0.12);
+  color: var(--red);
+  white-space: nowrap;
+}
+
+.lead__card-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lead__card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.lead__card-label {
+  font-size: 13px;
+  color: var(--text-2);
+  flex-shrink: 0;
+}
+
+.lead__card-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-1);
+  text-align: right;
+}
+
+.lead__card-value--hot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--red);
+  font-weight: 700;
+}
+
+.lead__card-score-bar {
+  width: 80px;
+  height: 6px;
+  background: var(--bg-0);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.lead__card-score-fill {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--bronze), var(--red));
+  border-radius: 3px;
+  transition: width 1.5s var(--ease-premium) 1s;
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 900px) {
+  .lead__grid {
+    grid-template-columns: 1fr;
+  }
+}

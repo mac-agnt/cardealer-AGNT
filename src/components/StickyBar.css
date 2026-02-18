@@ -1,0 +1,37 @@
+/* ========================================
+   Mobile Sticky Bar
+   ======================================== */
+
+.sticky-bar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sticky-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1500;
+    display: flex;
+    gap: 10px;
+    padding: 12px 16px;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    background: rgba(11, 13, 16, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(194, 138, 58, 0.1);
+    transform: translateY(100%);
+    transition: transform var(--duration-med) var(--ease-premium);
+  }
+
+  .sticky-bar--visible {
+    transform: translateY(0);
+  }
+
+  .sticky-bar__btn {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}

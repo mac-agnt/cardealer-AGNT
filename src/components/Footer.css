@@ -1,0 +1,46 @@
+/* ========================================
+   Footer
+   ======================================== */
+
+.footer {
+  padding-bottom: 40px;
+  padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+}
+
+.footer__inner {
+  padding-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footer__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+
+.footer__brand strong {
+  color: var(--bronze);
+  font-weight: 700;
+}
+
+.footer__copy {
+  font-size: 13px;
+  color: var(--text-2);
+}
+
+@media (max-width: 600px) {
+  .footer__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer {
+    padding-bottom: 100px;
+  }
+}

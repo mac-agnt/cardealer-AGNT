@@ -1,0 +1,113 @@
+/* ========================================
+   What you get — 8-item feature wall
+   ======================================== */
+
+.wyg {
+  background: var(--bg-1);
+  scroll-margin-top: 80px;
+}
+
+.wyg__header {
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.wyg__header h2 {
+  margin-top: 8px;
+  letter-spacing: -0.025em;
+}
+
+.wyg__sub {
+  font-size: clamp(15px, 1.15vw, 17px);
+  color: var(--text-1);
+  max-width: 56ch;
+  margin: 16px auto 0;
+  line-height: 1.65;
+}
+
+/* ========================================
+   Grid — 4 cols desktop, 2 tablet, 1 mobile
+   ======================================== */
+
+.wyg__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.wyg__card {
+  background: var(--bg-0);
+  border: 1px solid rgba(194, 138, 58, 0.1);
+  border-radius: var(--radius-md);
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, border-color 0.2s ease-out;
+}
+
+.wyg__card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wyg__card:hover {
+  border-color: rgba(194, 138, 58, 0.25);
+}
+
+.wyg__card-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-0);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+/* ========================================
+   Footer CTA
+   ======================================== */
+
+.wyg__footer {
+  text-align: center;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.wyg__cta {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--bronze);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: gap 0.2s ease-out, color 0.15s ease-out;
+}
+
+.wyg__cta:hover {
+  gap: 10px;
+  color: var(--bronze-light);
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 900px) {
+  .wyg__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .wyg__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wyg__card {
+    padding: 22px 20px;
+  }
+}

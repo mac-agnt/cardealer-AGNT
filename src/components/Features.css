@@ -1,0 +1,73 @@
+/* ========================================
+   Feature Pillars
+   ======================================== */
+
+.features {
+  background: var(--bg-1);
+  scroll-margin-top: 80px;
+}
+
+.features__header {
+  text-align: center;
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.features__header h2 {
+  margin-top: 8px;
+  letter-spacing: -0.025em;
+}
+
+.features__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+
+.features__card {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: all 0.6s ease-out;
+}
+
+.features__card--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.features__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid rgba(194, 138, 58, 0.15);
+  color: var(--bronze);
+  margin-bottom: 22px;
+  background: var(--bg-0);
+}
+
+.features__card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  letter-spacing: -0.015em;
+}
+
+.features__card p {
+  font-size: 14px;
+  color: var(--text-1);
+  line-height: 1.6;
+}
+
+/* ========================================
+   Mobile
+   ======================================== */
+
+@media (max-width: 768px) {
+  .features__grid {
+    grid-template-columns: 1fr;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}

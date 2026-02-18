@@ -1,0 +1,50 @@
+/* ========================================
+   Final CTA
+   ======================================== */
+
+.final-cta {
+  background: var(--bg-0);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.final-cta__watermark {
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  width: 60%;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.final-cta__watermark img {
+  width: 100%;
+  mix-blend-mode: screen;
+  filter: brightness(1.3);
+}
+
+.final-cta__inner {
+  position: relative;
+  z-index: 1;
+}
+
+.final-cta__headline {
+  font-size: clamp(28px, 4vw, 48px);
+  margin-bottom: 20px;
+}
+
+.final-cta__sub {
+  font-size: clamp(16px, 1.3vw, 19px);
+  color: var(--text-1);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  line-height: 1.65;
+}
+
+.final-cta__buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
