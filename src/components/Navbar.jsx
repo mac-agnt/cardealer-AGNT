@@ -50,7 +50,7 @@ export default function Navbar({ onBookDemo }) {
 
   return (
     <nav className="navbar-wrap">
-      <div className={`navbar ${scrolled ? 'navbar--scrolled' : ''} container`}>
+        <div className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
         <a
           href="#hero"
@@ -61,7 +61,7 @@ export default function Navbar({ onBookDemo }) {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <img src="/agnt-logo.png" alt="Car Dealer AGNT" width="32" height="32" />
+          AGNT.IE
         </a>
 
         <div className={`navbar__links ${mobileOpen ? 'navbar__links--open' : ''}`}>
@@ -77,7 +77,7 @@ export default function Navbar({ onBookDemo }) {
           ))}
         </div>
 
-        <button className="btn btn-primary navbar__cta" onClick={onBookDemo}>
+        <button className="navbar__cta" onClick={onBookDemo}>
           Book a 10-minute demo
         </button>
 
