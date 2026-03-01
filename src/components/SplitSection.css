@@ -1,254 +1,284 @@
-/* ========================================
-   Split Section — Two sides. One system.
-   ======================================== */
+/* ==========================================================
+   Split Section — "The complete dealer stack"
+   Minimal, skimmable, red-accent system
+   ========================================================== */
 
 .split {
+  position: relative;
   background: var(--bg-0);
   scroll-margin-top: 80px;
 }
 
+.split__accent-line {
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--red) 30%,
+    var(--red) 70%,
+    transparent
+  );
+  opacity: 0.25;
+}
+
+/* ----------------------------------------------------------
+   Header — tight and scannable
+   ---------------------------------------------------------- */
+
 .split__header {
   text-align: center;
-  margin-bottom: clamp(48px, 6vw, 72px);
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+.split__pill {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--red);
+  background: rgba(208, 35, 45, 0.1);
+  padding: 5px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
 }
 
 .split__header h2 {
-  margin-top: 8px;
-  letter-spacing: -0.025em;
+  margin-top: 0;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 .split__sub {
-  font-size: clamp(15px, 1.15vw, 17px);
+  font-size: clamp(14px, 1.1vw, 16px);
   color: var(--text-1);
-  max-width: 52ch;
-  margin: 14px auto 0;
-  line-height: 1.6;
+  margin: 12px auto 0;
+  line-height: 1.5;
 }
 
-.split__header-rule {
-  width: 48px;
-  height: 1px;
-  background: var(--bronze);
-  opacity: 0.3;
-  margin: 28px auto 0;
-}
-
-/* ========================================
-   Grid — wider gutter, equal height
-   ======================================== */
+/* ----------------------------------------------------------
+   Two-column grid
+   ---------------------------------------------------------- */
 
 .split__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(20px, 3vw, 40px);
-  align-items: stretch;
+  align-items: start;
 }
 
-/* Card animation */
-.split__card {
-  opacity: 0;
-  transition: all 0.8s var(--ease-premium);
+/* ----------------------------------------------------------
+   Panel cards
+   ---------------------------------------------------------- */
+
+.split__panel {
   display: flex;
   flex-direction: column;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  padding: clamp(20px, 2.5vw, 32px);
+  opacity: 0;
+  transition: all 0.7s var(--ease-premium);
 }
 
-.split__card--visible-left {
+.split__panel:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.split__panel--visible-left,
+.split__panel--visible-right {
   opacity: 1;
   transform: translateX(0) !important;
 }
 
-.split__card--visible-right {
-  opacity: 1;
-  transform: translateX(0) !important;
+.split__grid .split__panel:first-child {
+  transform: translateX(-32px);
 }
 
-.split__grid .split__card:first-child {
-  transform: translateX(-40px);
+.split__grid .split__panel:last-child {
+  transform: translateX(32px);
 }
 
-.split__grid .split__card:last-child {
-  transform: translateX(40px);
+/* ----------------------------------------------------------
+   Panel copy block
+   ---------------------------------------------------------- */
+
+.split__panel-copy {
+  margin-bottom: 20px;
 }
 
-/* ========================================
-   Card content
-   ======================================== */
-
-.split__card h3 {
-  margin-bottom: 6px;
-  letter-spacing: -0.02em;
-}
-
-.split__micro {
-  display: block;
-  font-size: 12px;
-  font-weight: 500;
+.split__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--bronze);
-  opacity: 0.7;
-  margin-bottom: 24px;
+  letter-spacing: 0.14em;
+  color: var(--text-1);
+  margin-bottom: 10px;
+}
+
+.split__signal {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 6px var(--red-glow);
+}
+
+.split__title {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  color: var(--text-0);
 }
 
 .split__bullets {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 28px;
+  gap: 9px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .split__bullets li {
   display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 15px;
+  align-items: baseline;
+  gap: 9px;
+  font-size: 13px;
   color: var(--text-1);
   line-height: 1.5;
 }
 
-.split__bullet-icon {
-  color: var(--bronze);
-  font-size: 7px;
-  margin-top: 7px;
-  flex-shrink: 0;
-  opacity: 0.6;
-}
-
-/* ========================================
-   Preview plates
-   ======================================== */
-
-.split__preview {
-  margin-top: auto;
-  perspective: 800px;
-}
-
-.split__preview-plate {
-  background: var(--bg-0);
-  border: 1px solid rgba(194, 138, 58, 0.08);
-  border-radius: var(--radius-md);
-  padding: 14px;
-  transform: rotateY(-3deg) rotateX(1.5deg);
-  transition: transform 0.4s var(--ease-premium);
-}
-
-.split__card:hover .split__preview-plate {
-  transform: rotateY(0) rotateX(0);
-}
-
-.split__preview-bar {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 12px;
-}
-
 .split__dot {
-  width: 7px;
-  height: 7px;
+  display: block;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: rgba(194, 138, 58, 0.15);
+  background: var(--red);
+  flex-shrink: 0;
+  position: relative;
+  top: 1px;
+  opacity: 0.7;
 }
 
-/* Website grid mock */
-.split__preview-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
+/* ----------------------------------------------------------
+   Mac OS window frame
+   ---------------------------------------------------------- */
 
-.split__preview-car-card {
-  aspect-ratio: 4/3;
+.mac {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   background: var(--bg-1);
-  border: 1px solid rgba(194, 138, 58, 0.04);
-  border-radius: 6px;
+  overflow: hidden;
+  margin-top: auto;
 }
 
-/* Lead feed mock */
-.split__preview-plate--panel {
-  transform: rotateY(3deg) rotateX(1.5deg);
-}
-
-.split__card:hover .split__preview-plate--panel {
-  transform: rotateY(0) rotateX(0);
-}
-
-.split__preview-leads {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.split__lead-row {
+.mac__bar {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 7px 9px;
-  background: var(--bg-1);
-  border-radius: 7px;
-  border: 1px solid rgba(194, 138, 58, 0.04);
+  height: 36px;
+  padding: 0 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(0, 0, 0, 0.4);
 }
 
-.split__lead-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--bronze-dim), rgba(194, 138, 58, 0.2));
-  flex-shrink: 0;
-}
-
-.split__lead-info {
-  flex: 1;
+.mac__dots {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  margin-right: 12px;
 }
 
-.split__lead-name {
-  width: 65%;
-  height: 7px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+.mac__dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
-.split__lead-detail {
-  width: 40%;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+.mac__dot--red { background: #ec6a5e; }
+.mac__dot--yellow { background: #f4bf4f; }
+.mac__dot--green { background: #61c554; }
+
+.mac__title {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: rgba(180, 184, 194, 0.6);
 }
 
-.split__lead-badge {
-  font-size: 9px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: rgba(230, 57, 70, 0.12);
-  color: var(--red);
+.mac__viewport {
+  aspect-ratio: 16 / 10;
+  background: var(--bg-0);
 }
 
-.split__lead-badge--warm {
-  background: rgba(194, 138, 58, 0.12);
-  color: var(--bronze);
+.mac__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
 }
 
-/* ========================================
-   Mobile
-   ======================================== */
+.mac__fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.005));
+}
+
+/* ----------------------------------------------------------
+   Bottom CTA row
+   ---------------------------------------------------------- */
+
+.split__cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: clamp(40px, 4.5vw, 56px);
+  flex-wrap: wrap;
+}
+
+.split__cta-label {
+  font-size: clamp(14px, 1.05vw, 16px);
+  color: var(--text-1);
+}
+
+/* ----------------------------------------------------------
+   Responsive
+   ---------------------------------------------------------- */
 
 @media (max-width: 900px) {
   .split__grid {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
 
-  .split__grid .split__card:first-child,
-  .split__grid .split__card:last-child {
+  .split__grid .split__panel:first-child,
+  .split__grid .split__panel:last-child {
     transform: translateY(24px);
   }
 
-  .split__card--visible-left,
-  .split__card--visible-right {
+  .split__panel--visible-left,
+  .split__panel--visible-right {
     transform: translateY(0) !important;
+  }
+
+  .split__cta-row {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
   }
 }

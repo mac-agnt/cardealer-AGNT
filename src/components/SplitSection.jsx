@@ -1,11 +1,45 @@
+import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import './SplitSection.css';
 
-export default function SplitSection() {
+function MacFrame({ title, src, alt }) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className="mac">
+      <div className="mac__bar">
+        <span className="mac__dots" aria-hidden="true">
+          <i className="mac__dot mac__dot--red" />
+          <i className="mac__dot mac__dot--yellow" />
+          <i className="mac__dot mac__dot--green" />
+        </span>
+        <span className="mac__title">{title}</span>
+      </div>
+      <div className="mac__viewport">
+        {failed ? (
+          <div className="mac__fallback" />
+        ) : (
+          <img
+            src={src}
+            alt={alt}
+            className="mac__img"
+            loading="lazy"
+            decoding="async"
+            onError={() => setFailed(true)}
+          />
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default function SplitSection({ onBookDemo }) {
   const [ref, visible] = useReveal(0.12);
 
   return (
     <section className="split section" id="system" ref={ref}>
+      <div className="split__accent-line" aria-hidden="true" />
+
       <div className="container">
         <div
           className="split__header"
@@ -15,103 +49,67 @@ export default function SplitSection() {
             transition: 'all 0.7s ease-out',
           }}
         >
-          <span className="section-label">Two sides. One system.</span>
-          <h2>The complete dealer stack.</h2>
+          <span className="split__pill">The complete dealer stack</span>
+          <h2>Website + Dealer OS. One system.</h2>
           <p className="split__sub">
-            A premium customer experience on the front. A dealer operating system behind it.
+            List faster. Capture real leads. Follow up with context.
           </p>
-          <div className="split__header-rule" aria-hidden="true" />
         </div>
 
         <div className="split__grid">
-          {/* Website card */}
-          <div className={`card split__card ${visible ? 'split__card--visible-left' : ''}`}>
-            <h3>Premium dealer website</h3>
-            <span className="split__micro">Built to convert</span>
-            <ul className="split__bullets">
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Fast stock browsing that feels expensive
-              </li>
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Vehicle pages built to convert enquiries
-              </li>
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Clean, mobile-first, frictionless
-              </li>
-            </ul>
-
-            <div className="split__preview">
-              <div className="split__preview-plate">
-                <div className="split__preview-bar">
-                  <span className="split__dot" /><span className="split__dot" /><span className="split__dot" />
-                </div>
-                <div className="split__preview-grid">
-                  <div className="split__preview-car-card" />
-                  <div className="split__preview-car-card" />
-                  <div className="split__preview-car-card" />
-                  <div className="split__preview-car-card" />
-                  <div className="split__preview-car-card" />
-                  <div className="split__preview-car-card" />
-                </div>
-              </div>
+          <div className={`split__panel ${visible ? 'split__panel--visible-left' : ''}`}>
+            <div className="split__panel-copy">
+              <span className="split__label">
+                <i className="split__signal" aria-hidden="true" />
+                Website
+              </span>
+              <h3 className="split__title">Convert browsers into enquiries</h3>
+              <ul className="split__bullets">
+                <li><span className="split__dot" aria-hidden="true" />Fast stock search (mobile-first)</li>
+                <li><span className="split__dot" aria-hidden="true" />Finance + trust cues in the right places</li>
+                <li><span className="split__dot" aria-hidden="true" />Designed to trigger calls &amp; forms</li>
+              </ul>
             </div>
+            <MacFrame
+              title="Website"
+              src="/car dealer website template.png"
+              alt="AGNT dealer website showing vehicle stock grid with pricing and enquiry prompts"
+            />
           </div>
 
-          {/* Control Panel card */}
-          <div className={`card split__card ${visible ? 'split__card--visible-right' : ''}`}>
-            <h3>Dealer control panel</h3>
-            <span className="split__micro">Built to move stock</span>
-            <ul className="split__bullets">
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Add reg + photos &rarr; AI generates the listing
-              </li>
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Publish across platforms via API
-              </li>
-              <li>
-                <span className="split__bullet-icon" aria-hidden="true">&#9670;</span>
-                Live lead feed with buyer intent signals
-              </li>
-            </ul>
-
-            <div className="split__preview">
-              <div className="split__preview-plate split__preview-plate--panel">
-                <div className="split__preview-bar">
-                  <span className="split__dot" /><span className="split__dot" /><span className="split__dot" />
-                </div>
-                <div className="split__preview-leads">
-                  <div className="split__lead-row">
-                    <div className="split__lead-avatar" />
-                    <div className="split__lead-info">
-                      <div className="split__lead-name" />
-                      <div className="split__lead-detail" />
-                    </div>
-                    <div className="split__lead-badge">Hot</div>
-                  </div>
-                  <div className="split__lead-row">
-                    <div className="split__lead-avatar" />
-                    <div className="split__lead-info">
-                      <div className="split__lead-name" />
-                      <div className="split__lead-detail" />
-                    </div>
-                    <div className="split__lead-badge split__lead-badge--warm">Warm</div>
-                  </div>
-                  <div className="split__lead-row">
-                    <div className="split__lead-avatar" />
-                    <div className="split__lead-info">
-                      <div className="split__lead-name" />
-                      <div className="split__lead-detail" />
-                    </div>
-                  </div>
-                </div>
-              </div>
+          <div className={`split__panel ${visible ? 'split__panel--visible-right' : ''}`}>
+            <div className="split__panel-copy">
+              <span className="split__label">
+                <i className="split__signal" aria-hidden="true" />
+                Dealer OS
+              </span>
+              <h3 className="split__title">Run stock &amp; leads without admin drag</h3>
+              <ul className="split__bullets">
+                <li><span className="split__dot" aria-hidden="true" />Reg + photos &rarr; instant listing draft</li>
+                <li><span className="split__dot" aria-hidden="true" />Hot/Warm leads with intent</li>
+                <li><span className="split__dot" aria-hidden="true" />Edit once, publish everywhere</li>
+              </ul>
             </div>
+            <MacFrame
+              title="Dealer OS"
+              src="/car dealer dashbaord template.png"
+              alt="AGNT dealer operating system dashboard showing lead feed with intent signals"
+            />
           </div>
+        </div>
+
+        <div
+          className="split__cta-row"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(16px)',
+            transition: 'all 0.7s ease-out 0.15s',
+          }}
+        >
+          <span className="split__cta-label">Want to see it on your stock?</span>
+          <button className="btn btn-primary" onClick={onBookDemo} type="button">
+            Request a 10-minute demo
+          </button>
         </div>
       </div>
     </section>

@@ -1,43 +1,41 @@
 import { useReveal } from '../hooks/useReveal';
 import './Features.css';
+import { Timeline } from './ui/timeline';
 
-const PILLARS = [
+const ONBOARDING_STEPS = [
   {
-    title: 'List Once, Done',
-    desc: 'AI generates your listing from a reg plate and photos. No manual data entry.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M9 14l3 3 7-7" />
-        <circle cx="14" cy="14" r="11" />
-      </svg>
-    ),
+    title: 'Fill out a short form',
+    desc: 'Tell us about your dealership, stock volume, and preferences.',
   },
   {
-    title: 'Publish Everywhere',
-    desc: 'One click pushes your stock to Carzone, DoneDeal, Cars.ie, and your own site.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M14 4v10" />
-        <path d="M9 9l5 5 5-5" />
-        <path d="M4 18v4a2 2 0 002 2h16a2 2 0 002-2v-4" />
-      </svg>
-    ),
+    title: 'Quick setup call',
+    desc: 'We jump on a call to finalise specs and walk you through the system.',
   },
   {
-    title: 'Lead Intelligence',
-    desc: 'Know who\'s looking, what they want, and how hot they are — before you call.',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="14" cy="10" r="5" />
-        <path d="M6 24c0-4.4 3.6-8 8-8s8 3.6 8 8" />
-        <path d="M20 7l2-2M22 7l-2-2" />
-      </svg>
-    ),
+    title: 'See your website',
+    desc: 'We build your site and system. You review it and request changes.',
+  },
+  {
+    title: 'Optimised & launched',
+    desc: 'We optimise everything for Google and publish it live.',
+  },
+  {
+    title: 'In-person handover',
+    desc: 'We walk you through the full system so you’re confident using it day one.',
   },
 ];
 
-export default function Features() {
+export default function Features({ onBookDemo }) {
   const [ref, visible] = useReveal(0.15);
+  const timelineData = ONBOARDING_STEPS.map((step, index) => ({
+    title: `Step ${index + 1}`,
+    content: (
+      <div>
+        <h3>{step.title}</h3>
+        <p>{step.desc}</p>
+      </div>
+    ),
+  }));
 
   return (
     <section className="features section" id="features" ref={ref}>
@@ -50,22 +48,47 @@ export default function Features() {
             transition: 'all 0.7s ease-out',
           }}
         >
-          <span className="section-label">Why dealers choose AGNT</span>
-          <h2>Three pillars. Zero compromise.</h2>
+          <span className="section-label">Onboarding</span>
+          <h2>From first call to live site — handled for you.</h2>
+          <p className="features__sub">
+            A simple, guided setup designed around how dealerships actually work.
+          </p>
         </div>
 
-        <div className="features__grid">
-          {PILLARS.map((pillar, i) => (
-            <div
-              key={pillar.title}
-              className={`card features__card brackets ${visible ? 'features__card--visible' : ''}`}
-              style={{ transitionDelay: `${0.15 + i * 0.12}s` }}
-            >
-              <div className="features__icon">{pillar.icon}</div>
-              <h3>{pillar.title}</h3>
-              <p>{pillar.desc}</p>
-            </div>
-          ))}
+        <div
+          className="features__timeline-wrap"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(20px)',
+            transition: 'all 0.7s ease-out 0.1s',
+          }}
+        >
+          <Timeline data={timelineData} />
+        </div>
+
+        <p
+          className="features__reassurance"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(10px)',
+            transition: 'all 0.6s ease-out 0.5s',
+          }}
+        >
+          No contracts. No tech headaches. You stay in control.
+        </p>
+
+        <div
+          className="features__cta-row"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible ? 'translateY(0)' : 'translateY(10px)',
+            transition: 'all 0.6s ease-out 0.62s',
+          }}
+        >
+          <span>Ready to get started?</span>
+          <button className="btn btn-primary" onClick={onBookDemo} type="button">
+            Request a 10-minute demo
+          </button>
         </div>
       </div>
     </section>

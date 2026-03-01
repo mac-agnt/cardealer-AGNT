@@ -1,6 +1,6 @@
-/* ========================================
-   Feature Pillars
-   ======================================== */
+/* ==========================================================
+   Onboarding Journey
+   ========================================================== */
 
 .features {
   background: var(--bg-1);
@@ -17,57 +17,57 @@
   letter-spacing: -0.025em;
 }
 
-.features__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--gap);
+.features__sub {
+  font-size: clamp(15px, 1.1vw, 17px);
+  color: var(--text-1);
+  max-width: 56ch;
+  margin: 14px auto 0;
+  line-height: 1.5;
 }
 
-.features__card {
-  text-align: center;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: all 0.6s ease-out;
+.features__timeline-wrap {
+  max-width: 980px;
+  margin: 0 auto;
 }
 
-.features__card--visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.features__icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: 1px solid rgba(194, 138, 58, 0.15);
-  color: var(--bronze);
-  margin-bottom: 22px;
-  background: var(--bg-0);
-}
-
-.features__card h3 {
+.features__timeline-wrap h3 {
+  margin: 0;
   font-size: 18px;
-  margin-bottom: 10px;
   letter-spacing: -0.015em;
+  line-height: 1.25;
 }
 
-.features__card p {
+.features__timeline-wrap p {
+  margin: 8px 0 0;
   font-size: 14px;
   color: var(--text-1);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-/* ========================================
-   Mobile
-   ======================================== */
+.features__reassurance {
+  margin: clamp(26px, 3.5vw, 34px) 0 0;
+  text-align: center;
+  font-size: clamp(16px, 1.35vw, 20px);
+  letter-spacing: -0.01em;
+  color: rgba(236, 239, 244, 0.94);
+}
 
-@media (max-width: 768px) {
-  .features__grid {
-    grid-template-columns: 1fr;
-    max-width: 380px;
-    margin: 0 auto;
+.features__cta-row {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.features__cta-row span {
+  color: var(--text-1);
+  font-size: 14px;
+}
+
+@media (max-width: 1100px) {
+  .features__timeline-wrap {
+    max-width: 760px;
   }
 }

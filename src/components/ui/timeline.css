@@ -1,0 +1,105 @@
+.timeline {
+  width: 100%;
+}
+
+.timeline__entries {
+  position: relative;
+}
+
+.timeline__entry {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 20px;
+  padding-top: 24px;
+}
+
+.timeline__left {
+  position: sticky;
+  top: 110px;
+  align-self: start;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2;
+}
+
+.timeline__dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 0 0 6px rgba(11, 14, 17, 0.9);
+  transition: all 0.2s ease-out;
+}
+
+.timeline__dot--active {
+  background: rgba(208, 35, 45, 0.72);
+  border-color: rgba(208, 35, 45, 0.9);
+}
+
+.timeline__step {
+  margin: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(212, 218, 227, 0.82);
+}
+
+.timeline__right {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  padding: 18px;
+  transition: border-color 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.timeline__right:hover {
+  border-color: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.timeline__line-wrap {
+  position: absolute;
+  left: 8px;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.22),
+    rgba(255, 255, 255, 0)
+  );
+  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.timeline__line-progress {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, rgba(208, 35, 45, 0.9), rgba(208, 35, 45, 0.16));
+  border-radius: 999px;
+}
+
+@media (max-width: 900px) {
+  .timeline__entry {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .timeline__left {
+    position: relative;
+    top: auto;
+    margin-left: 18px;
+  }
+
+  .timeline__right {
+    margin-left: 30px;
+  }
+
+  .timeline__line-wrap {
+    left: 26px;
+  }
+}
