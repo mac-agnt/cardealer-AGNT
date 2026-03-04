@@ -15,6 +15,28 @@ function CheckIcon() {
   );
 }
 
+function WebsitePreviewCard({ title, src, alt, aspectClass, hint }) {
+  return (
+    <div className="split__website-card">
+      <div className="split__website-card-head">
+        <p className="split__website-card-title">{title}</p>
+        {hint ? <p className="split__website-card-hint">{hint}</p> : null}
+      </div>
+      <div className="split__website-card-body">
+        <div className={`split__website-card-frame ${aspectClass}`}>
+          <img
+            src={src}
+            alt={alt}
+            className="split__website-card-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SystemCard({ outcomeLabel, title, description, bullets, replaces, imageSrc, imageAlt, visibleClass }) {
   const isWebsiteCard = outcomeLabel === 'More calls';
   const isDealerCard = outcomeLabel === 'Faster listings';
@@ -46,44 +68,46 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
               </div>
 
               <div className="split__journey" aria-label="Website conversion journey">
-                <div className="split__journey-grid">
-                  {WEBSITE_FLOW.map((item, idx) => (
-                      <div key={item.title} className="split__journey-item">
-                      <div className="split__journey-step card-micro reveal-sm">
-                        <span className="split__journey-label">{item.title}</span>
-                        <div className="split__journey-frame">
-                          <img
-                            src={item.src}
-                            alt={item.alt}
-                            className="split__journey-img"
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
-                      </div>
-                      {idx < WEBSITE_FLOW.length - 1 ? (
-                        <>
-                          <span className="split__journey-arrow split__journey-arrow--desktop" aria-hidden="true">→</span>
-                          <span className="split__journey-arrow split__journey-arrow--mobile" aria-hidden="true">↓</span>
-                        </>
-                      ) : null}
-                    </div>
+                <div className="split__website-previews split__website-previews--desktop">
+                  {WEBSITE_FLOW.map((item) => (
+                    <WebsitePreviewCard
+                      key={item.title}
+                      title={item.title}
+                      src={item.src}
+                      alt={item.alt}
+                      aspectClass="split__aspect-16-10"
+                    />
                   ))}
-                </div>
-                <div className="split__mobile-preview card-micro reveal-sm" aria-label="Mobile-first preview">
-                  <div className="split__mobile-preview-head">
-                    <p className="split__mobile-preview-title">Mobile-first preview</p>
-                    <p className="split__mobile-preview-note">Tap-to-call • WhatsApp • Fast enquiry</p>
-                  </div>
-                  <div className="split__mobile-preview-frame">
-                    <img
-                      src="/mobile first design.png"
-                      alt="Mobile-first website preview"
-                      className="split__mobile-preview-img"
-                      loading="lazy"
-                      decoding="async"
+
+                  <div className="split__website-wide">
+                    <WebsitePreviewCard
+                      title="Website"
+                      src="/stock grid .png"
+                      alt="Website overall preview"
+                      aspectClass="split__aspect-21-9"
+                      hint="Stock → VDP → enquiry"
                     />
                   </div>
+                </div>
+
+                <div className="split__website-previews split__website-previews--mobile">
+                  {WEBSITE_FLOW.map((item) => (
+                    <WebsitePreviewCard
+                      key={`mobile-${item.title}`}
+                      title={item.title}
+                      src={item.src}
+                      alt={item.alt}
+                      aspectClass="split__aspect-16-10"
+                    />
+                  ))}
+
+                  <WebsitePreviewCard
+                    title="Website"
+                    src="/stock grid .png"
+                    alt="Website overall preview"
+                    aspectClass="split__aspect-16-9"
+                    hint="Stock → VDP → enquiry"
+                  />
                 </div>
               </div>
             </>

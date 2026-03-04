@@ -94,7 +94,7 @@ export default function DemoModal({ open, onClose }) {
           </div>
         ) : (
           <>
-            <h3 className="modal__title">Book a 10-min Demo</h3>
+            <h3 className="modal__title">Book a 10-minute demo</h3>
             <p className="modal__desc">See how AGNT works with your stock. No commitment.</p>
 
             <form className="modal__form" onSubmit={handleSubmit} noValidate>
@@ -178,7 +178,7 @@ export default function DemoModal({ open, onClose }) {
               </div>
 
               <button type="submit" className="btn btn-primary modal__submit" disabled={submitting}>
-                {submitting ? 'Sending...' : 'Request Demo'}
+                {submitting ? 'Sending...' : 'Book a 10-minute demo'}
               </button>
             </form>
           </>

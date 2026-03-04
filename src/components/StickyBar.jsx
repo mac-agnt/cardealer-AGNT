@@ -6,8 +6,8 @@ export default function StickyBar({ onBookDemo }) {
 
   return (
     <div className={`sticky-bar ${visible ? 'sticky-bar--visible' : ''}`}>
-      <button className="btn btn-primary sticky-bar__btn" onClick={onBookDemo}>
-        Book a 10-min Demo
+      <button className="btn btn-secondary sticky-bar__btn" onClick={onBookDemo}>
+        Book a 10-minute demo
       </button>
     </div>
   );
