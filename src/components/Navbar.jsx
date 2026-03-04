@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useScrolled } from '../hooks/useScrolled';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#hero' },
-  { label: 'The System', href: '#system' },
-  { label: 'Features', href: '#features' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
+  { label: 'HOME', href: '#hero' },
+  { label: 'SYSTEMS', href: '#system' },
+  { label: 'FEATURES', href: '#features' },
+  { label: 'PRICING', href: '#pricing' },
+  { label: 'CONTACT', href: '#contact' },
 ];
 
-export default function Navbar({ onBookDemo }) {
-  const scrolled = useScrolled(24);
+export default function Navbar() {
+  const scrolled = useScrolled(8);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHref, setActiveHref] = useState('#hero');
 
@@ -50,46 +51,84 @@ export default function Navbar({ onBookDemo }) {
 
   return (
     <nav className="navbar-wrap">
-        <div className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
+      <div className="navbar-grid-backdrop" aria-hidden="true" />
+      <header className={`navbar nav-settle ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
-        <a
-          href="#hero"
-          className="navbar__logo"
-          onClick={(e) => {
-            e.preventDefault();
-            setActiveHref('#hero');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-        >
-          AGNT.IE
-        </a>
+          <a
+            href="#hero"
+            className="navbar__logo"
+            onClick={(e) => {
+              e.preventDefault();
+              setMobileOpen(false);
+              setActiveHref('#hero');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          >
+            AGNT.IE
+          </a>
 
-        <div className={`navbar__links ${mobileOpen ? 'navbar__links--open' : ''}`}>
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className={`navbar__link ${activeHref === link.href ? 'navbar__link--active' : ''}`}
-              onClick={(e) => handleNav(e, link.href)}
+          <div className="navbar__links" role="navigation" aria-label="Primary">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`navbar__link link-micro ${activeHref === link.href ? 'navbar__link--active' : ''}`}
+                onClick={(e) => handleNav(e, link.href)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="navbar__actions">
+            <Link to="/spec" className="btn btn-primary btn-micro navbar__cta navbar__cta--primary">
+              Spec out your system
+            </Link>
+          </div>
+
+          <div className="navbar__mobile-controls">
+            <button
+              className={`navbar__burger ${mobileOpen ? 'navbar__burger--open' : ''}`}
+              onClick={() => setMobileOpen((prev) => !prev)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-panel"
             >
-              {link.label}
-            </a>
-          ))}
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                {mobileOpen ? (
+                  <path d="M6 6 18 18M18 6 6 18" />
+                ) : (
+                  <path d="M4 7h16M4 12h16M4 17h16" />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
 
-        <button className="navbar__cta" onClick={onBookDemo}>
-          Book a 10-minute demo
-        </button>
-
-        <button
-          className={`navbar__burger ${mobileOpen ? 'navbar__burger--open' : ''}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          <span /><span /><span />
-        </button>
+        <div id="mobile-nav-panel" className={`navbar__mobile-panel ${mobileOpen ? 'navbar__mobile-panel--open' : ''}`}>
+          <div className="navbar__mobile-links" role="navigation" aria-label="Mobile primary">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={`mobile-${link.href}`}
+                href={link.href}
+                className={`navbar__mobile-link link-micro ${activeHref === link.href ? 'navbar__mobile-link--active' : ''}`}
+                onClick={(e) => handleNav(e, link.href)}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+          <div className="navbar__mobile-ctas">
+            <Link
+              to="/spec"
+              className="btn btn-primary btn-micro navbar__mobile-cta"
+              onClick={() => setMobileOpen(false)}
+            >
+              Spec out your system
+            </Link>
+          </div>
         </div>
-      </div>
+      </header>
     </nav>
   );
 }

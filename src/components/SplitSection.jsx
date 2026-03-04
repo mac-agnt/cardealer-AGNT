@@ -1,39 +1,165 @@
-import { useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import './SplitSection.css';
 
-function MacFrame({ title, src, alt }) {
-  const [failed, setFailed] = useState(false);
+const WEBSITE_FLOW = [
+  { title: 'Stock grid', src: '/stock grid .png', alt: 'Stock grid preview' },
+  { title: 'Vehicle detail', src: '/vehicle detail.png', alt: 'Vehicle detail preview' },
+  { title: 'Inquiry form', src: '/enquiry form.png', alt: 'Inquiry form preview' },
+];
 
+function CheckIcon() {
   return (
-    <div className="mac">
-      <div className="mac__bar">
-        <span className="mac__dots" aria-hidden="true">
-          <i className="mac__dot mac__dot--red" />
-          <i className="mac__dot mac__dot--yellow" />
-          <i className="mac__dot mac__dot--green" />
-        </span>
-        <span className="mac__title">{title}</span>
-      </div>
-      <div className="mac__viewport">
-        {failed ? (
-          <div className="mac__fallback" />
-        ) : (
-          <img
-            src={src}
-            alt={alt}
-            className="mac__img"
-            loading="lazy"
-            decoding="async"
-            onError={() => setFailed(true)}
-          />
-        )}
-      </div>
-    </div>
+    <svg viewBox="0 0 16 16" aria-hidden="true" className="split__check-icon">
+      <path d="M3.5 8.5 6.5 11.5 12.5 5.5" />
+    </svg>
   );
 }
 
-export default function SplitSection({ onBookDemo }) {
+function SystemCard({ outcomeLabel, title, description, bullets, replaces, imageSrc, imageAlt, visibleClass }) {
+  const isWebsiteCard = outcomeLabel === 'More calls';
+  const isDealerCard = outcomeLabel === 'Faster listings';
+
+  return (
+    <article className={`split__card card-micro reveal ${visibleClass}`}>
+      <div className="split__card-layout">
+        <div className="split__card-copy">
+          <span className="split__outcome-pill">{outcomeLabel}</span>
+          <h3 className="split__card-title">{title}</h3>
+          <p className="split__card-desc">{description}</p>
+          <ul className="split__bullets">
+            {bullets.map((item) => (
+              <li key={item}>
+                <CheckIcon />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          {isWebsiteCard ? (
+            <>
+              <div className="split__stats" aria-label="Designed to increase">
+                <span className="split__stats-label">Designed to increase</span>
+                <div className="split__stats-pills">
+                  <span className="split__stat-pill">+calls</span>
+                  <span className="split__stat-pill">+forms</span>
+                  <span className="split__stat-pill">+finance enquiries</span>
+                </div>
+              </div>
+
+              <div className="split__journey" aria-label="Website conversion journey">
+                <div className="split__journey-grid">
+                  {WEBSITE_FLOW.map((item, idx) => (
+                      <div key={item.title} className="split__journey-item">
+                      <div className="split__journey-step card-micro reveal-sm">
+                        <span className="split__journey-label">{item.title}</span>
+                        <div className="split__journey-frame">
+                          <img
+                            src={item.src}
+                            alt={item.alt}
+                            className="split__journey-img"
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        </div>
+                      </div>
+                      {idx < WEBSITE_FLOW.length - 1 ? (
+                        <>
+                          <span className="split__journey-arrow split__journey-arrow--desktop" aria-hidden="true">→</span>
+                          <span className="split__journey-arrow split__journey-arrow--mobile" aria-hidden="true">↓</span>
+                        </>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+                <div className="split__mobile-preview card-micro reveal-sm" aria-label="Mobile-first preview">
+                  <div className="split__mobile-preview-head">
+                    <p className="split__mobile-preview-title">Mobile-first preview</p>
+                    <p className="split__mobile-preview-note">Tap-to-call • WhatsApp • Fast enquiry</p>
+                  </div>
+                  <div className="split__mobile-preview-frame">
+                    <img
+                      src="/mobile first design.png"
+                      alt="Mobile-first website preview"
+                      className="split__mobile-preview-img"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : null}
+          {isDealerCard ? (
+            <div className="split__timeline" aria-label="Dealer OS workflow timeline">
+              <div className="split__timeline-step">
+                <span className="split__timeline-num">Step 1</span>
+                <p className="split__timeline-title">Reg + photos in</p>
+                <p className="split__timeline-note">Upload photos and enter the reg.</p>
+              </div>
+              <div className="split__timeline-step">
+                <span className="split__timeline-num">Step 2</span>
+                <p className="split__timeline-title">Instant draft</p>
+                <p className="split__timeline-note">Title, description, highlights and finance info generated automatically.</p>
+              </div>
+              <div className="split__timeline-step">
+                <span className="split__timeline-num">Step 3</span>
+                <p className="split__timeline-title">Publish everywhere</p>
+                <p className="split__timeline-note">Listing goes live across marketplaces while leads flow into the inbox.</p>
+              </div>
+            </div>
+          ) : null}
+          {isDealerCard ? (
+            <p className="split__reassurance">Full edit control with audit history on every listing.</p>
+          ) : null}
+          <p className="split__replaces">
+            <strong>What this replaces:</strong> {replaces}
+          </p>
+        </div>
+        <span className="split__card-media">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="split__image"
+            loading="lazy"
+            decoding="async"
+          />
+          {isDealerCard ? (
+            <>
+              <span className="split__os-overlay split__os-overlay--input">Photos uploaded • Reg detected</span>
+              <span className="split__os-overlay split__os-overlay--draft">Generated listing preview</span>
+          <span className="split__os-publish reveal-sm">
+                <span className="split__os-publish-chip split__os-publish-chip--agnt">
+                  <span className="split__os-agnt">AGNT</span>
+                  <i>Live</i>
+                </span>
+                <span className="split__os-publish-chip">
+                  <img src="/logo-carzone.svg" alt="Carzone logo" className="split__os-publish-logo logo-micro" loading="lazy" />
+                  <i>Queued</i>
+                </span>
+                <span className="split__os-publish-chip">
+                  <img src="/logo-donedeal.svg" alt="DoneDeal logo" className="split__os-publish-logo logo-micro" loading="lazy" />
+                  <i>Live</i>
+                </span>
+                <span className="split__os-publish-chip">
+                  <img src="/logo-carsie.svg" alt="Cars.ie logo" className="split__os-publish-logo logo-micro" loading="lazy" />
+                  <i>Queued</i>
+                </span>
+              </span>
+              <span className="split__os-lead">
+                <p>James • Dublin</p>
+                <div>
+                  <span className="split__os-lead-hot">HOT</span>
+                  <small>Unlocked phone</small>
+                </div>
+              </span>
+            </>
+          ) : null}
+        </span>
+      </div>
+    </article>
+  );
+}
+
+export default function SplitSection() {
   const [ref, visible] = useReveal(0.12);
 
   return (
@@ -42,75 +168,67 @@ export default function SplitSection({ onBookDemo }) {
 
       <div className="container">
         <div
-          className="split__header"
+          className="split__header reveal"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? 'translateY(0)' : 'translateY(24px)',
             transition: 'all 0.7s ease-out',
           }}
         >
-          <span className="split__pill">The complete dealer stack</span>
-          <h2>Website + Dealer OS. One system.</h2>
-          <p className="split__sub">
-            List faster. Capture real leads. Follow up with context.
-          </p>
+          <h2>The complete dealer stack</h2>
+          <p className="split__sub">Website + Dealer OS. One system.</p>
         </div>
 
         <div className="split__grid">
-          <div className={`split__panel ${visible ? 'split__panel--visible-left' : ''}`}>
-            <div className="split__panel-copy">
-              <span className="split__label">
-                <i className="split__signal" aria-hidden="true" />
-                Website
-              </span>
-              <h3 className="split__title">Convert browsers into enquiries</h3>
-              <ul className="split__bullets">
-                <li><span className="split__dot" aria-hidden="true" />Fast stock search (mobile-first)</li>
-                <li><span className="split__dot" aria-hidden="true" />Finance + trust cues in the right places</li>
-                <li><span className="split__dot" aria-hidden="true" />Designed to trigger calls &amp; forms</li>
-              </ul>
-            </div>
-            <MacFrame
-              title="Website"
-              src="/car dealer website template.png"
-              alt="AGNT dealer website showing vehicle stock grid with pricing and enquiry prompts"
-            />
-          </div>
+          <SystemCard
+            outcomeLabel="More calls"
+            title="Premium dealer website"
+            description="Built to turn stock views into calls, WhatsApps, finance leads, and trade-in valuations."
+            bullets={[
+              'Tap-to-call sticky bar (mobile)',
+              'WhatsApp CTA (optional)',
+              'Finance calculator placed where buyers decide',
+              'Trade-in / valuation funnel',
+              'Reserve / deposit button (optional)',
+            ]}
+            replaces="template sites + slow stock pages + missed calls."
+            imageSrc="/car dealer website template.png"
+            imageAlt="Premium dealer website interface showing stock and enquiry flow"
+            visibleClass={visible ? 'split__card--visible' : ''}
+          />
 
-          <div className={`split__panel ${visible ? 'split__panel--visible-right' : ''}`}>
-            <div className="split__panel-copy">
-              <span className="split__label">
-                <i className="split__signal" aria-hidden="true" />
-                Dealer OS
-              </span>
-              <h3 className="split__title">Run stock &amp; leads without admin drag</h3>
-              <ul className="split__bullets">
-                <li><span className="split__dot" aria-hidden="true" />Reg + photos &rarr; instant listing draft</li>
-                <li><span className="split__dot" aria-hidden="true" />Hot/Warm leads with intent</li>
-                <li><span className="split__dot" aria-hidden="true" />Edit once, publish everywhere</li>
-              </ul>
-            </div>
-            <MacFrame
-              title="Dealer OS"
-              src="/car dealer dashbaord template.png"
-              alt="AGNT dealer operating system dashboard showing lead feed with intent signals"
-            />
+          <SystemCard
+            outcomeLabel="Faster listings"
+            title="Dealer OS"
+            description="Turn reg + photos into a live listing — then publish everywhere and capture leads automatically."
+            bullets={[
+              'Reg + photos → instant listing draft',
+              'Hot/Warm intent on every lead',
+              'Edit once, publish everywhere',
+              'Unified inbox for calls & enquiries',
+            ]}
+            replaces="spreadsheets + marketplace logins + missed enquiries"
+            imageSrc="/car dealer dashbaord template.png"
+            imageAlt="Dealer OS dashboard for listings, lead intent, and follow-up"
+            visibleClass={visible ? 'split__card--visible' : ''}
+          />
+        </div>
+
+        <div className={`split__publish-strip card-micro reveal-sm ${visible ? 'split__publish-strip--visible' : ''}`} aria-label="Publishing flow">
+          <p className="split__publish-strip-title">Edit once, publish everywhere</p>
+          <div className="split__publish-strip-flow">
+            <span className="split__publish-chip split__publish-chip--agnt">AGNT</span>
+            <i aria-hidden="true">→</i>
+            <span className="split__publish-chip"><img className="logo-micro" src="/logo-carzone.svg" alt="Carzone logo" /></span>
+            <i aria-hidden="true">→</i>
+            <span className="split__publish-chip"><img className="logo-micro" src="/logo-donedeal.svg" alt="DoneDeal logo" /></span>
+            <i aria-hidden="true">→</i>
+            <span className="split__publish-chip"><img className="logo-micro" src="/logo-carsie.svg" alt="Cars.ie logo" /></span>
+            <i aria-hidden="true">→</i>
+            <span className="split__publish-chip split__publish-chip--site">+ your website</span>
           </div>
         </div>
 
-        <div
-          className="split__cta-row"
-          style={{
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'all 0.7s ease-out 0.15s',
-          }}
-        >
-          <span className="split__cta-label">Want to see it on your stock?</span>
-          <button className="btn btn-primary" onClick={onBookDemo} type="button">
-            Request a 10-minute demo
-          </button>
-        </div>
       </div>
     </section>
   );
