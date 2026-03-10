@@ -15,7 +15,7 @@
 
 .feature-updates__header h2 {
   margin: 0;
-  max-width: 18ch;
+  max-width: 12ch;
   line-height: 1.1;
   letter-spacing: -0.025em;
 }
@@ -90,20 +90,17 @@
 .feature-updates__progress-fill {
   display: block;
   height: 100%;
-  width: 100%;
+  width: 20%;
   transform-origin: left center;
   background: rgba(208, 35, 45, 0.88);
-  animation: featureProgress 7000ms linear forwards;
-}
-
-.feature-updates__progress-fill.is-paused {
-  animation-play-state: paused;
+  transition: width 220ms ease-out;
 }
 
 .feature-updates__content {
   margin-top: clamp(18px, 2.6vw, 26px);
   display: grid;
   gap: clamp(20px, 3vw, 34px);
+  min-height: 760px;
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 340ms ease-out 90ms, transform 340ms ease-out 90ms;
@@ -119,8 +116,14 @@
   animation: featureFadeIn 220ms ease-out;
 }
 
+.feature-updates__copy {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
 .feature-updates__preview {
-  min-height: 460px;
+  min-height: 500px;
 }
 
 .feature-updates__benefit {
@@ -159,7 +162,8 @@
 }
 
 .feature-updates__copy .btn {
-  margin-top: 18px;
+  margin-top: auto;
+  align-self: flex-start;
 }
 
 .update-preview-frame {
@@ -168,6 +172,10 @@
   background: rgba(255, 255, 255, 0.015);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
   overflow: hidden;
+  min-height: 500px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr;
 }
 
 .update-preview-frame > header {
@@ -195,6 +203,9 @@
   padding: 12px;
   display: grid;
   gap: 10px;
+  min-height: 0;
+  overflow: auto;
+  align-content: start;
 }
 
 .update-preview__inner--two-col {
@@ -744,15 +755,15 @@
 @media (max-width: 767px) {
   .feature-updates__content {
     grid-template-columns: 1fr;
+    min-height: 900px;
   }
 
   .update-preview-frame {
-    max-height: 620px;
+    min-height: 560px;
   }
 
   .update-preview__inner {
-    max-height: 560px;
-    overflow: auto;
+    max-height: 500px;
   }
 }
 
@@ -760,6 +771,7 @@
   .feature-updates__content {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
     align-items: start;
+    min-height: 560px;
   }
 
   .update-preview__inner--two-col {
@@ -795,8 +807,7 @@
   }
 
   .feature-updates__progress-fill {
-    animation: none;
-    transform: scaleX(1);
+    transition: none;
   }
 }
 
@@ -809,11 +820,3 @@
   }
 }
 
-@keyframes featureProgress {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}

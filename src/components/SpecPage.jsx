@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Footer from './Footer';
 import './SpecPage.css';
@@ -10,15 +10,9 @@ const PATHS = {
 
 const DEALER_PRO = {
   name: 'Dealer Pro System',
-  price: 2600,
+  price: 2800,
+  previousPrice: 3200,
   subtitle: 'Complete custom system for active dealerships.',
-  bullets: [
-    'Premium dealer website',
-    'Full Dealer OS',
-    'Unified inbox',
-    'Multi-platform publishing',
-    'Buyer intent signals',
-  ],
   websiteFeatures: [
     'Premium website architecture',
     'Unified lead capture points',
@@ -27,11 +21,30 @@ const DEALER_PRO = {
     'Stock publishing controls',
   ],
   osFeatures: [
-    'Dealer OS workspace',
+    'Dealer Operating System workspace',
     'Unified inbox and routing',
     'Lead priority queue',
     'Stock movement controls',
     'Performance dashboard views',
+  ],
+  websiteImage: '/car dealer website template.png',
+  osImage: '/car dealer dashbaord template.png',
+};
+
+const DEALER_PRO_SUMMARY = {
+  website: [
+    'Premium dealer website',
+    'Mobile-first stock pages',
+    'Finance calculator',
+    'Trade-in / valuation funnel',
+    'Reserve / deposit option',
+  ],
+  software: [
+    'Reg + photos → instant listing drafts',
+    'Publish to Carzone, DoneDeal and Cars.ie',
+    'Unified inbox for enquiries',
+    'Buyer intent signals (Hot/Warm)',
+    'Dealer analytics and lead tracking',
   ],
 };
 
@@ -39,13 +52,6 @@ const BASE_SITE = {
   name: 'Base Site (Brochure Level)',
   price: 999,
   subtitle: 'Basic online presence. No automation layer.',
-  bullets: [
-    'Vehicle listings (manual)',
-    'Basic enquiry form',
-    'Static finance calculator',
-    'Basic admin panel',
-    'No unified inbox',
-  ],
   websiteFeatures: [
     'Brochure website shell',
     'Manual listings and edits',
@@ -60,7 +66,18 @@ const BASE_SITE = {
     'No lead scoring or routing',
     'No unified communication feed',
   ],
+  websiteImage: '/6bf5949e-e739-4a94-b0d4-8d4da72fe715.png',
+  osImage: '/car dealer dashbaord template.png',
 };
+
+const BASE_SITE_FLAT_BULLETS = [
+  'Brochure website shell',
+  'Manual vehicle listings',
+  'Basic search and filters',
+  'Standard enquiry forms',
+  'Basic admin access',
+  'Manual listing workflow',
+];
 
 const formatCurrency = (value) =>
   new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
@@ -74,36 +91,59 @@ function MacFrame({ title, src, alt }) {
         <span />
         <p>{title}</p>
       </div>
-      <img src={src} alt={alt} loading="lazy" />
+      <div className="spec-macframe__media">
+        <img src={src} alt={alt} loading="lazy" />
+      </div>
+    </div>
+  );
+}
+
+function PackageSummary({ website, software }) {
+  return (
+    <div className="spec-choice__summary" aria-label="Package feature summary">
+      <div className="spec-choice__summary-group">
+        <p className="spec-choice__summary-title">Website features</p>
+        <ul>
+          {website.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </div>
+      <div className="spec-choice__summary-group">
+        <p className="spec-choice__summary-title">Dealer Operating System features</p>
+        <ul>
+          {software.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </div>
     </div>
   );
 }
 
 function DetailView({ pkg, onModify, onLock }) {
+  const isBasePackage = pkg.name === 'Base Site (Brochure Level)';
+
   return (
-    <section className="spec-detail card">
+    <section className={`spec-detail card ${isBasePackage ? 'spec-detail--base' : ''}`}>
       <h2>{`What’s included in ${pkg.name}`}</h2>
       <div className="spec-detail__cols">
-        <article>
+        <article className="spec-detail__panel">
           <h3>Website Features</h3>
           <ul>
             {pkg.websiteFeatures.map((item) => <li key={item}>{item}</li>)}
           </ul>
           <MacFrame
             title="Website"
-            src="/car dealer website template.png"
-            alt="Dealer website template preview"
+            src={pkg.websiteImage}
+            alt={`${pkg.name} website preview`}
           />
         </article>
-        <article>
-          <h3>Dealer OS Features</h3>
+        <article className="spec-detail__panel">
+          <h3>Dealer Operating System Features</h3>
           <ul>
             {pkg.osFeatures.map((item) => <li key={item}>{item}</li>)}
           </ul>
           <MacFrame
-            title="Dealer OS"
-            src="/car dealer dashbaord template.png"
-            alt="Dealer dashboard template preview"
+            title="Dealer Operating System"
+            src={pkg.osImage}
+            alt={`${pkg.name} operating system preview`}
           />
         </article>
       </div>
@@ -115,27 +155,63 @@ function DetailView({ pkg, onModify, onLock }) {
   );
 }
 
-function RequestModal({ open, onClose, total, onBookDemo }) {
+function RequestModal({ open, onClose, total, packageType }) {
   if (!open) return null;
+
+  const isDealerPro = packageType === PATHS.pro;
+  const contactBody = isDealerPro
+    ? [
+      'Hi AGNT,',
+      '',
+      "I'm interested in the Dealer Pro System.",
+      '',
+      'Dealership name:',
+      'Location:',
+      'Approx stock size:',
+      '',
+      'Could we discuss setup and next steps?',
+    ].join('\n')
+    : [
+      'Hi AGNT,',
+      '',
+      "I'm interested in the Base Site package for my dealership.",
+      '',
+      'Dealership name:',
+      'Location:',
+      'Approx stock size:',
+      '',
+      'Could we discuss setup?',
+    ].join('\n');
+
+  const emailHref = `mailto:info@agnt.ie?subject=${encodeURIComponent(
+    isDealerPro ? 'Dealer Pro System enquiry' : 'Base Site package enquiry'
+  )}&body=${encodeURIComponent(contactBody)}`;
+
+  const whatsappHref = `https://wa.me/353830828731?text=${encodeURIComponent(contactBody)}`;
+
   return (
     <div className="spec-modal__overlay" onClick={onClose}>
       <div className="spec-modal card" onClick={(event) => event.stopPropagation()} role="dialog" aria-modal="true">
-        <h2>Lock in this setup</h2>
+        <h2>Contact AGNT</h2>
         <p>{`Total: ${formatCurrency(total)}`}</p>
-        <p>We’ll review and confirm everything before build.</p>
+        <p>Send us your setup and we’ll talk it through.</p>
         <div className="spec-modal__actions">
-          <button type="button" className="btn btn-primary" onClick={onClose}>Submit interest</button>
-          <button type="button" className="spec-btn-outline" onClick={onBookDemo}>Book a 10-minute demo</button>
+          <a href={emailHref} className="btn btn-primary">Email us</a>
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer" className="spec-btn-outline">WhatsApp us</a>
         </div>
       </div>
     </div>
   );
 }
 
-export default function SpecPage({ onBookDemo }) {
+export default function SpecPage() {
   const navigate = useNavigate();
   const [selectedPath, setSelectedPath] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, []);
 
   const handleSelectPath = (path) => {
     setSelectedPath(path);
@@ -150,9 +226,6 @@ export default function SpecPage({ onBookDemo }) {
       <header className="spec-topbar">
         <div className="container spec-topbar__inner">
           <Link to="/" className="spec-topbar__back">← Back to home</Link>
-          <button className="spec-topbar__demo" onClick={onBookDemo} type="button">
-            Book a 10-minute demo
-          </button>
         </div>
       </header>
 
@@ -176,7 +249,7 @@ export default function SpecPage({ onBookDemo }) {
               </ul>
               <div className="spec-build-hero__actions">
                 <button type="button" className="btn btn-primary" onClick={() => navigate('/build')}>
-                  Start building
+                  Build It Step-by-Step
                 </button>
                 <a href="#packages" className="spec-build-hero__compare">Compare packages</a>
               </div>
@@ -186,21 +259,23 @@ export default function SpecPage({ onBookDemo }) {
               <article className="spec-choice spec-choice--pro spec-choice--compact">
                 <p className="spec-choice__badge">Most Chosen</p>
                 <h3>Dealer Pro System</h3>
-                <strong>{formatCurrency(DEALER_PRO.price)}</strong>
+                <div className="spec-price-row">
+                  <strong>{formatCurrency(DEALER_PRO.price)}</strong>
+                  <span>{formatCurrency(DEALER_PRO.previousPrice)}</span>
+                </div>
                 <p>{DEALER_PRO.subtitle}</p>
                 <div className="spec-choice__thumb">
                   <img src="/car dealer website template.png" alt="Dealer Pro website preview" loading="lazy" />
                 </div>
-                <ul>{DEALER_PRO.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
+                <PackageSummary website={DEALER_PRO_SUMMARY.website} software={DEALER_PRO_SUMMARY.software} />
                 <button type="button" className="btn btn-primary" onClick={() => handleSelectPath(PATHS.pro)}>
                   View what’s included
                 </button>
               </article>
 
-              <article className="spec-choice spec-choice--compact">
+              <article className="spec-choice spec-choice--compact spec-choice--base">
                 <h3>Base Site (Brochure Level)</h3>
                 <strong>{`From ${formatCurrency(BASE_SITE.price)}`}</strong>
-                <p>{BASE_SITE.subtitle}</p>
                 <div className="spec-choice__thumb">
                   <img
                     src="/6bf5949e-e739-4a94-b0d4-8d4da72fe715.png"
@@ -208,7 +283,11 @@ export default function SpecPage({ onBookDemo }) {
                     loading="lazy"
                   />
                 </div>
-                <ul>{BASE_SITE.bullets.map((item) => <li key={item}>{item}</li>)}</ul>
+                <ul className="spec-choice__flat-list" aria-label="Base Site included features">
+                  {BASE_SITE_FLAT_BULLETS.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
                 <button type="button" className="spec-btn-outline" onClick={() => handleSelectPath(PATHS.base)}>
                   View what’s included
                 </button>
@@ -227,7 +306,7 @@ export default function SpecPage({ onBookDemo }) {
         </div>
       </main>
 
-      <RequestModal open={showModal} onClose={() => setShowModal(false)} total={summaryTotal} onBookDemo={onBookDemo} />
+      <RequestModal open={showModal} onClose={() => setShowModal(false)} total={summaryTotal} packageType={selectedPath} />
 
       <Footer />
     </div>

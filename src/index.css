@@ -32,7 +32,7 @@
   --gap: clamp(16px, 2vw, 32px);
 
   /* Radius */
-  --radius-sm: 12px;
+  --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 24px;
 

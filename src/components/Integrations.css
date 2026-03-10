@@ -17,6 +17,8 @@
   line-height: 1.12;
   letter-spacing: -0.02em;
   max-width: 26ch;
+  margin-inline: auto;
+  text-align: center;
 }
 
 .integrations__subhead {
@@ -24,70 +26,33 @@
   color: var(--text-1);
   font-size: clamp(14px, 1.05vw, 16px);
   line-height: 1.55;
+  text-align: center;
 }
 
 .integrations__diagram {
   margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
 }
 
-.integrations__agnt-chip {
-  min-height: 26px;
-  display: inline-flex;
+.integrations__flow {
+  display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 999px;
-  border: 1px solid rgba(194, 138, 58, 0.3);
-  background: rgba(194, 138, 58, 0.08);
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.integrations__agnt-word {
   color: rgba(231, 218, 194, 0.95);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 12px;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   font-weight: 700;
-  padding: 0 12px;
 }
 
-.integrations__arrow {
-  color: rgba(185, 193, 205, 0.72);
+.integrations__flow-item {
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
-  font-size: 14px;
-  line-height: 1;
-}
-
-.integrations__logos {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.integrations__logo-unit {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.integrations__logo-chip {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  padding: 0;
-}
-
-.integrations__logo {
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
+  gap: 8px;
 }
 
 .integrations__logo-img {
@@ -100,24 +65,29 @@
   object-fit: contain;
 }
 
-.integrations__logo:hover .integrations__logo-img {
+.integrations__logo-img:hover {
   opacity: 1;
 }
 
 .integrations__pill {
-  min-height: 26px;
+  display: none;
+}
+
+.integrations__arrow {
+  color: rgba(185, 193, 205, 0.72);
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.integrations__website-label {
+  margin-left: 6px;
+  color: rgba(184, 192, 205, 0.92);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  color: rgba(184, 192, 205, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 999px;
-  padding: 0 11px;
-  background: rgba(255, 255, 255, 0.04);
-  flex-shrink: 0;
+  text-transform: uppercase;
 }
 
 @media (max-width: 767px) {
@@ -130,42 +100,24 @@
   }
 
   .integrations__diagram {
-    gap: 10px;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-inline: -16px;
-    padding: 8px 16px;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+    margin-inline: 0;
+    padding: 0;
   }
 
-  .integrations__logos {
-    gap: 10px;
-    flex-wrap: nowrap;
-  }
-
-  .integrations__logo-chip {
-    min-height: 34px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.04);
-    padding: 0 12px;
-  }
-
-  .integrations__agnt-chip,
-  .integrations__logos,
-  .integrations__logo-unit,
-  .integrations__pill {
-    flex-shrink: 0;
-    scroll-snap-align: start;
+  .integrations__flow {
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .integrations__logo-img {
-    height: 20px;
+    height: 18px;
   }
 
-  .integrations__diagram::-webkit-scrollbar {
-    display: none;
+  .integrations__website-label {
+    width: 100%;
+    margin-left: 0;
+    text-align: center;
   }
 }

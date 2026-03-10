@@ -16,13 +16,18 @@ export default function MobileSummaryDrawer({
   hasSoftware,
   baseMonthly,
   baseOneTime,
+  websiteOneTime,
+  softwareOneTime,
+  softwareMonthly,
   tierHint,
   onBookDemo,
 }) {
+  const safeTotalOneTime = Number.isFinite(totalOneTime) ? totalOneTime : 0;
+
   return (
     <>
       <div className="build-mobile-bar">
-        <strong>{`Total ${formatCurrency(totalOneTime)}`}</strong>
+        <strong>{`Total ${formatCurrency(safeTotalOneTime)}`}</strong>
         <button type="button" onClick={onOpen}>View build</button>
       </div>
 
@@ -43,6 +48,9 @@ export default function MobileSummaryDrawer({
                 hasSoftware={hasSoftware}
                 baseMonthly={baseMonthly}
                 baseOneTime={baseOneTime}
+                websiteOneTime={websiteOneTime}
+                softwareOneTime={softwareOneTime}
+                softwareMonthly={softwareMonthly}
                 tierHint={tierHint}
                 onBookDemo={onBookDemo}
                 compact

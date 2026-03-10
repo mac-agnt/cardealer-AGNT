@@ -1,4 +1,5 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const formatCurrency = (value) =>
   new Intl.NumberFormat('en-IE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
@@ -6,152 +7,113 @@ const formatCurrency = (value) =>
 export default function BuilderSummary({
   enabledFeatures,
   totalOneTime,
-  totalMonthly,
   discountMonthly,
   finalMonthly,
   hasSoftware,
-  baseMonthly,
   baseOneTime,
+  websiteOneTime,
+  softwareOneTime,
+  softwareMonthly,
   tierHint,
-  onBookDemo,
   compact = false,
 }) {
-  const [sheetOpen, setSheetOpen] = useState(false);
   const [success, setSuccess] = useState('');
-  const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    dealership: '',
-    website: '',
-    stockVolume: '0–30',
-    marketplaces: [],
-    contactMethod: 'Email',
-    preferredTime: 'Today',
-    message: '',
-  });
-  const sheetRef = useRef(null);
+  const [chooserOpen, setChooserOpen] = useState(false);
 
-  const tierLabel = hasSoftware ? 'Website + Software (€394/mo)' : 'Website-only (€200/mo)';
-
-  const specText = useMemo(() => {
-    const featuresText = enabledFeatures.length
-      ? enabledFeatures.map((feature) => `- ${feature.name}: ${formatCurrency(feature.priceOneTime)}`).join('\n')
-      : '- No optional modules selected';
-
-    return [
-      'Your AGNT Build Spec',
-      `Date: ${new Date().toLocaleDateString('en-IE')}`,
-      '',
-      `Package: Brochure website (${formatCurrency(baseOneTime)} one-time, €${baseMonthly}/mo)`,
-      `Tier: ${tierLabel}`,
-      '',
-      'Selected modules:',
-      featuresText,
-      '',
-      `One-time total: ${formatCurrency(totalOneTime)}`,
-      `Final monthly: €${finalMonthly}/mo`,
-      '',
-      'No contracts • Live in 5–7 days',
-    ].join('\n');
-  }, [enabledFeatures, totalOneTime, finalMonthly, baseOneTime, baseMonthly, tierLabel]);
-
-  const openSheet = () => {
-    setSheetOpen(true);
-    requestAnimationFrame(() => {
-      sheetRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  };
-
-  const copySpec = async () => {
-    try {
-      await navigator.clipboard.writeText(specText);
-      setSuccess('Spec copied to clipboard.');
-    } catch {
-      setSuccess('Unable to copy right now.');
-    }
-  };
-
-  const updateField = (field, value) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-    setErrors((prev) => ({ ...prev, [field]: undefined }));
-    setSuccess('');
-  };
-
-  const toggleMarketplace = (name) => {
-    setForm((prev) => {
-      const exists = prev.marketplaces.includes(name);
-      return {
-        ...prev,
-        marketplaces: exists
-          ? prev.marketplaces.filter((item) => item !== name)
-          : [...prev.marketplaces, name],
-      };
-    });
-  };
-
-  const validate = () => {
-    const nextErrors = {};
-    if (!form.name.trim()) nextErrors.name = 'Name is required.';
-    if (!form.email.trim()) {
-      nextErrors.email = 'Email is required.';
-    } else if (!/.+@.+\..+/.test(form.email.trim())) {
-      nextErrors.email = 'Enter a valid email.';
-    }
-    return nextErrors;
-  };
-
-  const submitSpec = (event) => {
-    event.preventDefault();
-    const nextErrors = validate();
-    if (Object.keys(nextErrors).length) {
-      setErrors(nextErrors);
-      return;
-    }
-
-    const payload = {
-      contact: {
-        name: form.name.trim(),
-        email: form.email.trim(),
-        phone: form.phone.trim(),
-        dealership: form.dealership.trim(),
-        website: form.website.trim(),
+  const safeTotalOneTime = Number.isFinite(totalOneTime) ? totalOneTime : 0;
+  const safeFinalMonthly = Number.isFinite(finalMonthly) ? finalMonthly : 0;
+  const safeWebsiteOneTime = Number.isFinite(websiteOneTime) ? websiteOneTime : baseOneTime;
+  const safeSoftwareOneTime = Number.isFinite(softwareOneTime) ? softwareOneTime : 0;
+  const safeSoftwareMonthly = Number.isFinite(softwareMonthly) ? softwareMonthly : 0;
+  const specPayload = useMemo(
+    () => ({
+      package: {
+        name: 'Brochure website',
+        oneTime: baseOneTime,
       },
-      preferences: {
-        contactMethod: form.contactMethod,
-        preferredTime: form.preferredTime,
-        stockVolume: form.stockVolume,
-        marketplaces: form.marketplaces,
-        message: form.message.trim(),
-      },
-      build: {
-        package: {
-          name: 'Brochure website',
-          oneTime: baseOneTime,
-          monthly: baseMonthly,
-        },
-        tier: hasSoftware ? 'website_plus_software' : 'website_only',
-        monthlyTierPrice: hasSoftware ? 394 : 200,
-        hasSoftware,
-        modules: enabledFeatures.map((feature) => ({
-          id: feature.id,
-          name: feature.name,
-          type: feature.type,
-          priceOneTime: feature.priceOneTime,
-          priceMonthly: feature.priceMonthly ?? 0,
-        })),
-        totals: {
-          oneTimeTotal: totalOneTime,
-          monthlyFinal: finalMonthly,
-        },
+      tier: hasSoftware ? 'website_plus_software' : 'website_only',
+      modules: enabledFeatures.map((feature) => ({
+        id: feature.id,
+        name: feature.name,
+        type: feature.type,
+        oneTime: feature.priceOneTime,
+      })),
+      totals: {
+        websiteOneTime: safeWebsiteOneTime,
+        softwareOneTime: safeSoftwareOneTime,
+        oneTimeTotal: safeTotalOneTime,
+        monthlyTotal: safeFinalMonthly,
       },
       timestamp: new Date().toISOString(),
       pageUrl: typeof window !== 'undefined' ? window.location.href : '',
-    };
+    }),
+    [
+      baseOneTime,
+      hasSoftware,
+      enabledFeatures,
+      safeWebsiteOneTime,
+      safeSoftwareOneTime,
+      safeTotalOneTime,
+      safeFinalMonthly,
+    ],
+  );
 
-    console.log('build-spec-submit', payload);
-    setSuccess('Spec sent. Typical reply within 2 hours.');
+  const featureSummary = useMemo(
+    () => (enabledFeatures.length
+      ? enabledFeatures.map((feature) => `- ${feature.name}`).join('\n')
+      : '- No optional modules selected'),
+    [enabledFeatures],
+  );
+
+  const buildMessage = useMemo(
+    () => [
+      'Hi AGNT,',
+      '',
+      "I'd like to discuss the following dealership setup:",
+      '',
+      `Package: ${hasSoftware ? 'Dealer Pro' : 'Base Site'}`,
+      'Website: Yes',
+      `Website total: ${formatCurrency(safeWebsiteOneTime)} one-time`,
+      `Software total: ${formatCurrency(safeSoftwareOneTime)} one-time`,
+      `Monthly total: €${safeFinalMonthly}/mo`,
+      '',
+      'Selected features:',
+      featureSummary,
+      '',
+      'Dealership name:',
+      'Location:',
+      'Stock size:',
+      '',
+      'Please let me know the next steps.',
+    ].join('\n'),
+    [featureSummary, hasSoftware, safeWebsiteOneTime, safeSoftwareOneTime, safeFinalMonthly],
+  );
+
+  const buildMailtoHref = useMemo(() => (
+    `mailto:info@agnt.ie?subject=${encodeURIComponent('Dealership system setup enquiry')}&body=${encodeURIComponent(buildMessage)}`
+  ), [buildMessage]);
+
+  const buildWhatsAppHref = useMemo(() => (
+    `https://wa.me/353830828731?text=${encodeURIComponent(buildMessage)}`
+  ), [buildMessage]);
+
+  useEffect(() => {
+    if (!chooserOpen) return undefined;
+
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [chooserOpen]);
+
+  const openChooser = () => {
+    setChooserOpen(true);
+  };
+
+  const handleChannelSelect = () => {
+    console.log('build-spec-submit', specPayload);
+    setSuccess('Build details loaded. Send via your selected channel.');
+    setChooserOpen(false);
   };
 
   return (
@@ -174,184 +136,82 @@ export default function BuilderSummary({
         <div className="build-summary__totals-grid">
           <div className="build-summary__total-card">
             <span>One-time total</span>
-            <strong>{formatCurrency(totalOneTime)}</strong>
+            <strong>{formatCurrency(safeTotalOneTime)}</strong>
             <small>Includes brochure site + selected build</small>
           </div>
           <div className="build-summary__total-card">
             <span>Final monthly</span>
-            <strong>{`€${finalMonthly}/mo`}</strong>
+            <strong>{`€${safeFinalMonthly}/mo`}</strong>
             <small>{hasSoftware ? 'Includes software platform access' : 'Website-only monthly access'}</small>
           </div>
         </div>
         <div className="build-summary__breakdown">
           <div className="build-summary__row">
-            <span>Base package</span>
-            <strong>{`${formatCurrency(baseOneTime)} + €${baseMonthly}/mo`}</strong>
+            <span>Website total</span>
+            <strong>{`${formatCurrency(safeWebsiteOneTime)} one-time`}</strong>
           </div>
           <div className="build-summary__row">
-            <span>Tier</span>
-            <strong>{tierLabel}</strong>
+            <span>Software total</span>
+            <strong>{`${formatCurrency(safeSoftwareOneTime)} one-time`}</strong>
+          </div>
+          <div className="build-summary__row">
+            <span>Software monthly</span>
+            <strong>{hasSoftware ? `€${safeSoftwareMonthly}/mo` : '€0/mo'}</strong>
           </div>
           <div className="build-summary__row">
             <span>Discounts</span>
             <strong>{discountMonthly > 0 ? `€${discountMonthly}/mo` : '—'}</strong>
           </div>
         </div>
-        <p className="build-summary__monthly-note">Monthly switches to €394/mo when any software is included.</p>
+        <p className="build-summary__monthly-note">Monthly is €200/mo for website only, and €394/mo when any software module is included.</p>
         {tierHint ? <p className="build-summary__tier-hint">{tierHint}</p> : null}
       </div>
 
-      {!compact ? (
-        <div className="build-summary__section">
-          <h4 className="build-summary__done">You’re done.</h4>
-          <p className="build-summary__done-sub">Send your spec and we’ll reply with exact delivery + next steps.</p>
-          <div className="build-summary__cta-pair">
-            <button type="button" className="btn btn-primary" onClick={openSheet}>
-              Send my spec for a quick quote
-            </button>
-            <button type="button" className="btn btn-secondary" onClick={onBookDemo}>
-              Talk it through (10 min)
-            </button>
-          </div>
-        </div>
-      ) : null}
-
-      {(sheetOpen || compact) ? (
-        <div className="build-summary__section build-summary__sheet" ref={sheetRef}>
-          <h4>Your AGNT Build Spec</h4>
-          <p className="build-summary__sheet-date">{new Date().toLocaleDateString('en-IE')}</p>
-          <div className="build-summary__sheet-block">
-            <p>Package: Brochure website ({formatCurrency(baseOneTime)} one-time, €{baseMonthly}/mo)</p>
-            <p>Tier: {tierLabel}</p>
-          </div>
-          <ul className="build-summary__sheet-list">
-            {enabledFeatures.map((feature) => (
-              <li key={`sheet-${feature.id}`}>
-                <span>{feature.name}</span>
-                <strong>{formatCurrency(feature.priceOneTime)}</strong>
-              </li>
-            ))}
-          </ul>
+      <div className="build-summary__section build-summary__sheet" id="build-done-actions">
+        <h4 className="build-summary__done">You’re done.</h4>
+        <p className="build-summary__done-sub">Send your build and we’ll confirm delivery and next steps.</p>
+        {!compact ? (
           <div className="build-summary__sheet-totals">
-            <p><span>One-time total</span><strong>{formatCurrency(totalOneTime)}</strong></p>
-            <p><span>Final monthly</span><strong>{`€${finalMonthly}/mo`}</strong></p>
+            <p><span>Website</span><strong>{`${formatCurrency(safeWebsiteOneTime)} one-time`}</strong></p>
+            <p><span>Software</span><strong>{`${formatCurrency(safeSoftwareOneTime)} one-time`}</strong></p>
+            <p><span>Total</span><strong>{formatCurrency(safeTotalOneTime)}</strong></p>
+            <p><span>Monthly</span><strong>{`€${safeFinalMonthly}/mo`}</strong></p>
           </div>
-          <p className="build-summary__sheet-disclaimer">No contracts • Live in 5–7 days</p>
-
-          <form className="build-summary__contact" onSubmit={submitSpec}>
-            <label>
-              Name
-              <input
-                value={form.name}
-                onChange={(e) => updateField('name', e.target.value)}
-                aria-invalid={!!errors.name}
-              />
-              {errors.name ? <small>{errors.name}</small> : null}
-            </label>
-            <label>
-              Email
-              <input
-                type="email"
-                value={form.email}
-                onChange={(e) => updateField('email', e.target.value)}
-                aria-invalid={!!errors.email}
-              />
-              {errors.email ? <small>{errors.email}</small> : null}
-            </label>
-            <label>
-              Phone (optional)
-              <input value={form.phone} onChange={(e) => updateField('phone', e.target.value)} />
-            </label>
-            <label>
-              Dealership name
-              <input value={form.dealership} onChange={(e) => updateField('dealership', e.target.value)} />
-            </label>
-            <label>
-              Website (optional)
-              <input value={form.website} onChange={(e) => updateField('website', e.target.value)} />
-            </label>
-            <label>
-              Stock volume
-              <select value={form.stockVolume} onChange={(e) => updateField('stockVolume', e.target.value)}>
-                <option>0–30</option>
-                <option>30–80</option>
-                <option>80–150</option>
-                <option>150+</option>
-              </select>
-            </label>
-            <div className="build-summary__segments">
-              <p>Main marketplaces used</p>
-              <div className="build-summary__checks">
-                {['Carzone', 'DoneDeal', 'Cars.ie', 'Other'].map((market) => (
-                  <label key={market} className="build-summary__check-item">
-                    <input
-                      type="checkbox"
-                      checked={form.marketplaces.includes(market)}
-                      onChange={() => toggleMarketplace(market)}
-                    />
-                    <span>{market}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            <div className="build-summary__segments">
-              <p>Preferred contact method</p>
-              <div>
-                {['Call', 'WhatsApp', 'Email'].map((method) => (
-                  <button
-                    key={method}
-                    type="button"
-                    className={form.contactMethod === method ? 'is-active' : ''}
-                    onClick={() => updateField('contactMethod', method)}
-                  >
-                    {method}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="build-summary__segments">
-              <p>Preferred time</p>
-              <div>
-                {['Today', 'Tomorrow', 'This week'].map((slot) => (
-                  <button
-                    key={slot}
-                    type="button"
-                    className={form.preferredTime === slot ? 'is-active' : ''}
-                    onClick={() => updateField('preferredTime', slot)}
-                  >
-                    {slot}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <label>
-              Message (optional)
-              <textarea
-                rows={3}
-                value={form.message}
-                onChange={(e) => updateField('message', e.target.value)}
-              />
-            </label>
-
-            <div className="build-summary__sheet-actions">
-              <button type="button" className="btn btn-secondary" onClick={copySpec}>
-                Copy spec
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Send my spec
-              </button>
-              <button type="button" className="btn btn-secondary" onClick={onBookDemo}>
-                Talk it through (10 min)
-              </button>
-            </div>
-            <p className="build-summary__reply-time">Typical reply within 2 hours.</p>
-            {success ? <p className="build-summary__success">{success}</p> : null}
-          </form>
+        ) : null}
+        <div className="build-summary__cta-pair">
+          <div className="build-summary__cta-primary-wrap">
+            <button type="button" className="btn btn-primary" onClick={openChooser}>
+              Send setup to AGNT
+            </button>
+            <p className="build-summary__cta-sub">We’ll review your build and contact you with next steps.</p>
+          </div>
         </div>
-      ) : null}
+        {success ? <p className="build-summary__success">{success}</p> : null}
+      </div>
+
+      {chooserOpen
+        ? createPortal(
+          <div className="build-summary__chooser-overlay">
+            <div className="build-summary__chooser" role="dialog" aria-modal="true" aria-label="Send your setup">
+              <h4>Send your setup</h4>
+              <p>Choose how you&apos;d like to send your build.</p>
+              <div className="build-summary__chooser-actions">
+                <a href={buildMailtoHref} className="btn btn-secondary" onClick={handleChannelSelect}>Email us</a>
+                <a
+                  href={buildWhatsAppHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary"
+                  onClick={handleChannelSelect}
+                >
+                  WhatsApp us
+                </a>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )
+        : null}
     </aside>
   );
 }

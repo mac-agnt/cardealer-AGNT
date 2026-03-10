@@ -42,13 +42,13 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
   const isDealerCard = outcomeLabel === 'Faster listings';
 
   return (
-    <article className={`split__card card-micro reveal ${visibleClass}`}>
+    <article className={`split__card card-micro reveal ${isDealerCard ? 'split__card--dealer' : ''} ${visibleClass}`}>
       <div className="split__card-layout">
-        <div className="split__card-copy">
+        <div className={`split__card-copy ${isDealerCard ? 'split__card-copy--dealer' : ''}`}>
           <span className="split__outcome-pill">{outcomeLabel}</span>
           <h3 className="split__card-title">{title}</h3>
           <p className="split__card-desc">{description}</p>
-          <ul className="split__bullets">
+          <ul className={`split__bullets ${isDealerCard ? 'split__bullets--dealer' : ''}`}>
             {bullets.map((item) => (
               <li key={item}>
                 <CheckIcon />
@@ -78,16 +78,6 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
                       aspectClass="split__aspect-16-10"
                     />
                   ))}
-
-                  <div className="split__website-wide">
-                    <WebsitePreviewCard
-                      title="Website"
-                      src="/stock grid .png"
-                      alt="Website overall preview"
-                      aspectClass="split__aspect-21-9"
-                      hint="Stock → VDP → enquiry"
-                    />
-                  </div>
                 </div>
 
                 <div className="split__website-previews split__website-previews--mobile">
@@ -100,20 +90,12 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
                       aspectClass="split__aspect-16-10"
                     />
                   ))}
-
-                  <WebsitePreviewCard
-                    title="Website"
-                    src="/stock grid .png"
-                    alt="Website overall preview"
-                    aspectClass="split__aspect-16-9"
-                    hint="Stock → VDP → enquiry"
-                  />
                 </div>
               </div>
             </>
           ) : null}
           {isDealerCard ? (
-            <div className="split__timeline" aria-label="Dealer OS workflow timeline">
+            <div className="split__timeline split__timeline--dealer" aria-label="Dealer OS workflow timeline">
               <div className="split__timeline-step">
                 <span className="split__timeline-num">Step 1</span>
                 <p className="split__timeline-title">Reg + photos in</p>
@@ -132,25 +114,36 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
             </div>
           ) : null}
           {isDealerCard ? (
-            <p className="split__reassurance">Full edit control with audit history on every listing.</p>
-          ) : null}
-          <p className="split__replaces">
-            <strong>What this replaces:</strong> {replaces}
-          </p>
+            <div className="split__dealer-meta">
+              <p className="split__reassurance split__reassurance--dealer">Full edit control with audit history on every listing.</p>
+              <p className="split__replaces split__replaces--dealer">
+                <strong>What this replaces:</strong> {replaces}
+              </p>
+              <p className="split__integration-note split__integration-note--dealer">Fully integrated with Cartell&apos;s database</p>
+            </div>
+          ) : (
+            <p className="split__replaces">
+              <strong>What this replaces:</strong> {replaces}
+            </p>
+          )}
         </div>
-        <span className="split__card-media">
+        <span className={`split__card-media ${isWebsiteCard ? 'split__card-media--website' : ''} ${isDealerCard ? 'split__card-media--dealer' : ''}`}>
+          {isWebsiteCard ? (
+            <span className="split__card-media-head">
+              <span className="split__card-media-title">Website</span>
+              <span className="split__card-media-hint">Stock → VDP → enquiry</span>
+            </span>
+          ) : null}
           <img
             src={imageSrc}
             alt={imageAlt}
-            className="split__image"
+            className={`split__image ${isWebsiteCard ? 'split__image--website' : ''} ${isDealerCard ? 'split__image--dealer' : ''}`}
             loading="lazy"
             decoding="async"
           />
           {isDealerCard ? (
             <>
-              <span className="split__os-overlay split__os-overlay--input">Photos uploaded • Reg detected</span>
-              <span className="split__os-overlay split__os-overlay--draft">Generated listing preview</span>
-          <span className="split__os-publish reveal-sm">
+              <span className="split__os-publish reveal-sm">
                 <span className="split__os-publish-chip split__os-publish-chip--agnt">
                   <span className="split__os-agnt">AGNT</span>
                   <i>Live</i>
@@ -167,13 +160,6 @@ function SystemCard({ outcomeLabel, title, description, bullets, replaces, image
                   <img src="/logo-carsie.svg" alt="Cars.ie logo" className="split__os-publish-logo logo-micro" loading="lazy" />
                   <i>Queued</i>
                 </span>
-              </span>
-              <span className="split__os-lead">
-                <p>James • Dublin</p>
-                <div>
-                  <span className="split__os-lead-hot">HOT</span>
-                  <small>Unlocked phone</small>
-                </div>
               </span>
             </>
           ) : null}
@@ -200,7 +186,7 @@ export default function SplitSection() {
           }}
         >
           <h2>The complete dealer stack</h2>
-          <p className="split__sub">Website + Dealer OS. One system.</p>
+          <p className="split__sub">Website + Dealer Operating System. One system.</p>
         </div>
 
         <div className="split__grid">
@@ -223,34 +209,19 @@ export default function SplitSection() {
 
           <SystemCard
             outcomeLabel="Faster listings"
-            title="Dealer OS"
+            title="Dealer Operating System"
             description="Turn reg + photos into a live listing — then publish everywhere and capture leads automatically."
             bullets={[
-              'Reg + photos → instant listing draft',
-              'Hot/Warm intent on every lead',
-              'Edit once, publish everywhere',
-              'Unified inbox for calls & enquiries',
+              'Inventory Management – vehicle listings and stock tracking',
+              'Lead Management – capturing and responding to buyer enquiries',
+              'Marketing Tools – social media promotion for vehicles',
+              'Dealer Analytics – inventory performance metrics',
             ]}
             replaces="spreadsheets + marketplace logins + missed enquiries"
             imageSrc="/car dealer dashbaord template.png"
             imageAlt="Dealer OS dashboard for listings, lead intent, and follow-up"
             visibleClass={visible ? 'split__card--visible' : ''}
           />
-        </div>
-
-        <div className={`split__publish-strip card-micro reveal-sm ${visible ? 'split__publish-strip--visible' : ''}`} aria-label="Publishing flow">
-          <p className="split__publish-strip-title">Edit once, publish everywhere</p>
-          <div className="split__publish-strip-flow">
-            <span className="split__publish-chip split__publish-chip--agnt">AGNT</span>
-            <i aria-hidden="true">→</i>
-            <span className="split__publish-chip"><img className="logo-micro" src="/logo-carzone.svg" alt="Carzone logo" /></span>
-            <i aria-hidden="true">→</i>
-            <span className="split__publish-chip"><img className="logo-micro" src="/logo-donedeal.svg" alt="DoneDeal logo" /></span>
-            <i aria-hidden="true">→</i>
-            <span className="split__publish-chip"><img className="logo-micro" src="/logo-carsie.svg" alt="Cars.ie logo" /></span>
-            <i aria-hidden="true">→</i>
-            <span className="split__publish-chip split__publish-chip--site">+ your website</span>
-          </div>
         </div>
 
       </div>

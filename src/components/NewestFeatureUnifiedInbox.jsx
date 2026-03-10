@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useReveal } from '../hooks/useReveal';
 import './NewestFeatureUnifiedInbox.css';
 
@@ -327,47 +327,24 @@ function PreviewByType({ type }) {
 export default function NewestFeatureUnifiedInbox({ onBookDemo }) {
   const [ref, visible] = useReveal(0.12);
   const [activeId, setActiveId] = useState(FEATURES[0].id);
-  const [paused, setPaused] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
   const activeFeature = useMemo(
     () => FEATURES.find((item) => item.id === activeId) ?? FEATURES[0],
     [activeId],
   );
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const handleChange = () => setReducedMotion(media.matches);
-    handleChange();
-    media.addEventListener('change', handleChange);
-    return () => media.removeEventListener('change', handleChange);
-  }, []);
-
-  useEffect(() => {
-    if (reducedMotion || paused) return undefined;
-    const timer = window.setInterval(() => {
-      setActiveId((prev) => {
-        const currentIndex = FEATURES.findIndex((item) => item.id === prev);
-        const nextIndex = (currentIndex + 1) % FEATURES.length;
-        return FEATURES[nextIndex].id;
-      });
-    }, 7000); // 7 second rotation
-    return () => window.clearInterval(timer);
-  }, [paused, reducedMotion]);
+  const activeIndex = useMemo(
+    () => FEATURES.findIndex((item) => item.id === activeId),
+    [activeId],
+  );
 
   return (
     <section className="feature-updates section" id="feature-updates" ref={ref}>
       <div className="container">
         <header className={`feature-updates__header ${visible ? 'is-visible' : ''}`}>
-          <h2>Signature features that reduce admin and increase calls.</h2>
-          <p>Built around how independent dealerships actually list, publish, and follow up.</p>
+          <h2>New features</h2>
+          <p>These are the core features included in the system. Click through each one to see how it works.</p>
         </header>
 
-        <div
-          className={`feature-updates__tabs-wrap ${visible ? 'is-visible' : ''}`}
-          onMouseEnter={() => setPaused(true)}
-          onMouseLeave={() => setPaused(false)}
-        >
+        <div className={`feature-updates__tabs-wrap ${visible ? 'is-visible' : ''}`}>
           <div className="feature-updates__tabs" role="tablist" aria-label="Signature features">
             {FEATURES.map((feature) => {
               const isActive = feature.id === activeId;
@@ -388,14 +365,14 @@ export default function NewestFeatureUnifiedInbox({ onBookDemo }) {
           </div>
           <div className="feature-updates__progress-track" aria-hidden="true">
             <span
-              key={activeId}
-              className={`feature-updates__progress-fill ${paused ? 'is-paused' : ''}`}
+              className="feature-updates__progress-fill"
+              style={{ width: `${((activeIndex + 1) / FEATURES.length) * 100}%` }}
             />
           </div>
         </div>
 
         <div className={`feature-updates__content ${visible ? 'is-visible' : ''}`}>
-          <div className="feature-updates__copy" key={activeFeature.id}>
+          <div className="feature-updates__copy">
             <p className="feature-updates__benefit">{activeFeature.benefit}</p>
             <ul>
               {activeFeature.bullets.map((item) => (
@@ -405,8 +382,8 @@ export default function NewestFeatureUnifiedInbox({ onBookDemo }) {
             <button className="btn btn-secondary btn-micro" onClick={onBookDemo} type="button" aria-label="Book a 10-minute demo">Book a 10-minute demo</button>
           </div>
 
-          <div className="feature-updates__preview" key={`${activeFeature.id}-preview`}>
-            <article className="update-preview-frame card-micro" aria-label={`${activeFeature.title} preview`}>
+          <div className="feature-updates__preview">
+            <article className="update-preview-frame card-micro" aria-label={`${activeFeature.label} preview`}>
               <header>
                 <p>{activeFeature.label}</p>
                 <span>Live preview</span>

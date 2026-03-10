@@ -59,6 +59,11 @@
   border-color: rgba(255, 255, 255, 0.16);
 }
 
+.split__card--dealer {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.024);
+}
+
 .split__card-layout {
   display: grid;
   gap: clamp(18px, 2.6vw, 28px);
@@ -68,6 +73,12 @@
 
 .split__card-copy {
   min-width: 0;
+}
+
+.split__card-copy--dealer {
+  display: grid;
+  gap: 10px;
+  align-content: start;
 }
 
 .split__outcome-pill {
@@ -106,6 +117,11 @@
   gap: 10px;
 }
 
+.split__bullets--dealer {
+  margin-top: 10px;
+  gap: 9px;
+}
+
 .split__bullets li {
   display: grid;
   grid-template-columns: 16px 1fr;
@@ -142,6 +158,19 @@
   margin-top: 14px;
   display: grid;
   gap: 10px;
+}
+
+.split__timeline--dealer {
+  margin-top: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 12px;
+  gap: 11px;
+}
+
+.split__timeline--dealer .split__timeline-step {
+  padding-left: 20px;
 }
 
 .split__timeline-step {
@@ -191,6 +220,27 @@
   line-height: 1.45;
 }
 
+.split__dealer-meta {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  gap: 8px;
+}
+
+.split__reassurance--dealer,
+.split__replaces--dealer,
+.split__integration-note--dealer {
+  margin-top: 0;
+}
+
+.split__integration-note {
+  margin-top: 10px;
+  color: rgba(176, 186, 200, 0.9);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .split__card-media {
   position: relative;
   display: block;
@@ -204,6 +254,44 @@
   overflow: hidden;
 }
 
+.split__card-media--website {
+  border-radius: 20px;
+  padding: 16px;
+  min-height: 350px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.split__card-media--dealer {
+  border-radius: 20px;
+  padding: 16px;
+  min-height: 350px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.split__card-media-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.split__card-media-title {
+  color: rgba(208, 214, 224, 0.88);
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.split__card-media-hint {
+  color: rgba(166, 176, 190, 0.74);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 .split__image {
   width: 100%;
   height: 100%;
@@ -211,6 +299,19 @@
   object-fit: contain;
   object-position: center;
   border-radius: 10px;
+}
+
+.split__image--website {
+  min-height: 300px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.split__image--dealer {
+  min-height: 300px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .split__stats {
@@ -629,8 +730,24 @@
     min-height: 360px;
   }
 
+  .split__card-media--website {
+    min-height: 420px;
+  }
+
+  .split__card-media--dealer {
+    min-height: 410px;
+  }
+
   .split__image {
     min-height: 334px;
+  }
+
+  .split__image--website {
+    min-height: 360px;
+  }
+
+  .split__image--dealer {
+    min-height: 350px;
   }
 
   .split__website-previews--mobile {
@@ -642,10 +759,6 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
     align-items: start;
-  }
-
-  .split__website-wide {
-    grid-column: span 2;
   }
 }
 
@@ -716,10 +829,40 @@
     overflow: hidden;
   }
 
+  .split__card-media--website {
+    padding: 12px;
+    min-height: 280px;
+  }
+
+  .split__card-media--dealer {
+    padding: 12px;
+    min-height: 280px;
+  }
+
+  .split__card-media-head {
+    margin-bottom: 10px;
+  }
+
+  .split__card-media-title {
+    font-size: 13px;
+  }
+
+  .split__card-media-hint {
+    font-size: 10px;
+  }
+
   .split__image {
     min-height: 220px;
     width: 100%;
     max-width: 100%;
+  }
+
+  .split__image--website {
+    min-height: 230px;
+  }
+
+  .split__image--dealer {
+    min-height: 230px;
   }
 
   .split__journey {
@@ -735,9 +878,7 @@
     font-size: 12px;
   }
 
-  .split__website-card-hint {
-    display: none;
-  }
+  .split__website-card-hint { display: none; }
 
   .split__website-card-body {
     padding: 10px 12px 12px;
@@ -747,6 +888,12 @@
     margin-top: 12px;
     display: flex;
     flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .split__timeline--dealer {
+    margin-top: 6px;
+    padding: 10px;
     gap: 8px;
   }
 
@@ -780,6 +927,12 @@
 
   .split__reassurance {
     margin-top: 10px;
+  }
+
+  .split__dealer-meta {
+    margin-top: 2px;
+    padding-top: 10px;
+    gap: 7px;
   }
 
   .split__os-overlay {

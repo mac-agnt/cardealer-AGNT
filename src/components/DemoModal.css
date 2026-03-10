@@ -68,128 +68,19 @@
 .modal__desc {
   font-size: 15px;
   color: var(--text-1);
-  margin-bottom: 28px;
-}
-
-/* ========================================
-   Form
-   ======================================== */
-
-.modal__form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.modal__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-}
-
-.modal__field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.modal__field label {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-1);
-}
-
-.modal__optional {
-  font-weight: 400;
-  color: var(--text-2);
-}
-
-.modal__field input,
-.modal__field select,
-.modal__field textarea {
-  background: var(--bg-0);
-  border: 1px solid rgba(194, 138, 58, 0.12);
-  border-radius: 10px;
-  padding: 12px 14px;
-  font-size: 15px;
-  color: var(--text-0);
-  font-family: inherit;
-  transition: border-color var(--duration-fast) var(--ease-smooth);
-  outline: none;
-  resize: vertical;
-}
-
-.modal__field input:focus,
-.modal__field select:focus,
-.modal__field textarea:focus {
-  border-color: var(--bronze);
-}
-
-.modal__field input::placeholder,
-.modal__field textarea::placeholder {
-  color: var(--text-2);
-}
-
-.modal__select--placeholder {
-  color: var(--text-2);
-}
-
-.modal__input--error {
-  border-color: var(--red) !important;
-}
-
-.modal__error {
-  font-size: 12px;
-  color: var(--red);
-}
-
-.modal__field select {
-  appearance: none;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23A9B1BC' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
-}
-
-.modal__field select option {
-  background: var(--bg-1);
-  color: var(--text-0);
-}
-
-.modal__submit {
-  margin-top: 8px;
-  width: 100%;
-}
-
-.modal__submit:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-}
-
-/* ========================================
-   Success state
-   ======================================== */
-
-.modal__success {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.modal__success-icon {
-  color: var(--bronze);
   margin-bottom: 20px;
 }
 
-.modal__success h3 {
-  font-size: 24px;
-  margin-bottom: 12px;
+.modal__actions {
+  display: grid;
+  gap: 10px;
 }
 
-.modal__success p {
-  font-size: 15px;
-  color: var(--text-1);
-  margin-bottom: 28px;
+.modal__action-btn {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
 }
 
 /* ========================================
@@ -200,8 +91,10 @@
   .modal {
     padding: 24px 20px;
   }
+}
 
-  .modal__row {
-    grid-template-columns: 1fr;
+@media (min-width: 521px) {
+  .modal__actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

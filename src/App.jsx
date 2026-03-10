@@ -74,6 +74,7 @@ export default function App() {
     <>
       <Routes>
         <Route path="/" element={<HomePage onBookDemo={openModal} />} />
+        <Route path="/contact" element={<Navigate to="/#contact" replace />} />
         <Route path="/spec" element={<SpecPage onBookDemo={openModal} />} />
         <Route path="/build" element={<BuildPage onBookDemo={openModal} />} />
         <Route path="*" element={<Navigate to="/" replace />} />
