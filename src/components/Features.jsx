@@ -106,7 +106,7 @@ export default function Features({ onBookDemo }) {
                     <StepIcon type={step.icon} />
                   </span>
                   <div>
-                    <h3>{`Step ${index + 1} — ${step.title}`}</h3>
+                    <h3>{`Step ${index + 1}: ${step.title}`}</h3>
                     <p>{step.desc}</p>
                   </div>
                 </div>

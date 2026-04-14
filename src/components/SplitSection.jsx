@@ -210,7 +210,7 @@ export default function SplitSection() {
           <SystemCard
             outcomeLabel="Faster listings"
             title="Dealer Operating System"
-            description="Turn reg + photos into a live listing — then publish everywhere and capture leads automatically."
+            description="Turn reg + photos into a live listing, then publish everywhere and capture leads automatically."
             bullets={[
               'Inventory Management – vehicle listings and stock tracking',
               'Lead Management – capturing and responding to buyer enquiries',

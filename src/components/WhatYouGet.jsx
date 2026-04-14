@@ -84,7 +84,7 @@ function Mark({ value, muted = false }) {
           </svg>
         </span>
       ) : (
-        <span className="wyg__mark wyg__mark--no" aria-label="Not offered or not clearly advertised as standard">—</span>
+        <span className="wyg__mark wyg__mark--no" aria-label="Not offered or not clearly advertised as standard">N/A</span>
       )}
     </span>
   );

@@ -1,0 +1,99 @@
+.why {
+  scroll-margin-top: 72px;
+  background: var(--bg-0);
+}
+
+.why__header {
+  max-width: 36rem;
+  margin-bottom: clamp(28px, 5vw, 40px);
+}
+
+.why__title {
+  font-size: clamp(26px, 3.5vw, 40px);
+  line-height: 1.08;
+  letter-spacing: -0.034em;
+  font-weight: 600;
+  font-family: var(--font-headline);
+}
+
+.why__lede {
+  margin-top: 12px;
+  margin-bottom: 0;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.45;
+  max-width: 42ch;
+  color: var(--text-1);
+}
+
+.why__cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 720px) {
+  .why__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(14px, 2vw, 18px);
+  }
+}
+
+@media (min-width: 1100px) {
+  .why__cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(14px, 1.5vw, 18px);
+  }
+}
+
+.why__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin: 0;
+  padding: clamp(18px, 2.4vw, 24px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-fine);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.042) 0%, transparent 42%),
+    var(--surface);
+  box-shadow:
+    var(--shadow-inner-glow),
+    var(--shadow-inner-foot),
+    0 0 0 1px var(--border-edge);
+  transition:
+    border-color 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .why__card:hover {
+    border-color: var(--border-subtle);
+    box-shadow:
+      var(--shadow-inner-glow),
+      var(--shadow-inner-foot),
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 12px 32px rgba(0, 0, 0, 0.18);
+  }
+}
+
+.why__card-title {
+  margin: 0 0 10px;
+  font-family: var(--font-headline);
+  font-size: clamp(15px, 1.35vw, 17px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-0);
+}
+
+.why__card-body {
+  margin: 0;
+  flex: 1;
+  font-size: 13px;
+  line-height: 1.5;
+  letter-spacing: -0.008em;
+  color: var(--text-1);
+}

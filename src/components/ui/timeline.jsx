@@ -1,9 +1,4 @@
-import {
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  motion,
-} from 'framer-motion';
+import { useMotionValueEvent, useScroll, useTransform } from 'framer-motion';
 import { useEffect, useRef, useState } from 'react';
 import './timeline.css';
 

@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 import './DemoModal.css';
 
-const EMAIL_HREF = "mailto:info@agnt.ie?subject=Dealer%20Website%20Enquiry&body=Hi%20AGNT%20team,%0A%0AI%E2%80%99m%20interested%20in%20getting%20a%20website%20and%20dealer%20system%20for%20my%20dealership.%0A%0APlease%20let%20me%20know%20the%20next%20steps.%0A%0ADealership%20Name:%0ALocation:%0AStock%20Size:%0A%0AThanks";
-const WHATSAPP_HREF = "https://wa.me/353830828731?text=Hi%20AGNT,%20I%E2%80%99m%20interested%20in%20getting%20a%20website%20and%20dealer%20system%20for%20my%20dealership.%20Could%20we%20discuss%20the%20setup?";
+const EMAIL_HREF =
+  "mailto:info@agnt.ie?subject=Dealer%20website%20enquiry&body=Hi%20AGNT%20team,%0A%0AI%E2%80%99m%20interested%20in%20a%20premium%20dealer%20website%20with%20your%20built-in%20tools.%0A%0APlease%20let%20me%20know%20the%20next%20steps.%0A%0ADealership%20name:%0ALocation:%0AStock%20size:%0A%0AThanks";
+const WHATSAPP_HREF =
+  "https://wa.me/353830828731?text=Hi%20AGNT,%20I%E2%80%99m%20interested%20in%20a%20premium%20dealer%20website%20with%20your%20built-in%20tools.%20Could%20we%20discuss%20setup?";
 
 export default function DemoModal({ open, onClose }) {
   const overlayRef = useRef(null);

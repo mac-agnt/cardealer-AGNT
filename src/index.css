@@ -1,55 +1,109 @@
 /* ========================================
-   CAR DEALER AGNT — Design Tokens & Global
+   CAR DEALER AGNT — Dark premium design tokens
+   (Espresso / graphite system — aligned with “Built-in internal tools”)
    ======================================== */
 
 :root {
-  /* Colors */
-  --bg-0: #08090C;
-  --bg-1: #0E0F13;
-  --bg-2: #181A21;
-  --text-0: #ECECEE;
-  --text-1: #B0B2BA;
-  --text-2: #9095A1;
-  --bronze: #C28A3A;
-  --bronze-light: #D4A85C;
-  --bronze-dim: rgba(194, 138, 58, 0.12);
-  --red: #D0232D;
-  --red-hover: #DE2B37;
-  --red-glow: rgba(208, 35, 45, 0.2);
+  /* Canvas — depth hierarchy, not flat black */
+  --bg-0: #131210;
+  --bg-1: #181614;
+  --bg-2: #1e1c19;
+  --bg-deep: #0c0b0a;
+  /* Flat canvas under nav + hero (dominant hero tone — no top-to-bottom banding) */
+  --bg-hero-canvas: var(--bg-0);
+  --bg-elevated: #22201d;
 
-  /* Typography */
+  /* Panels — stepped above canvas */
+  --surface: #252320;
+  --surface-pearl: #2c2926;
+  --surface-raised: #32302c;
+  --surface-glass: rgba(22, 20, 18, 0.78);
+
+  /* Reference panel (internal tools block) */
+  --gradient-panel: linear-gradient(165deg, #2c2a28 0%, #1a1918 100%);
+  --gradient-panel-lifted: linear-gradient(168deg, #32302c 0%, #232220 100%);
+
+  /* Text — warm ivory / stone (no cold blue-greys) */
+  --text-0: #f3f0ea;
+  --text-1: #c4bdb2;
+  --text-2: #958d82;
+  --text-3: #6f6860;
+  --text-on-dark: #f3f0ea;
+
+  /* Accents — metallic bronze / champagne */
+  --metal: #b5a691;
+  --metal-light: #d1c4b0;
+  --metal-dim: rgba(181, 166, 145, 0.16);
+  /* Rare emphasis only — muted, not loud automotive red */
+  --red: #8f4a4e;
+  --red-hover: #7a3f43;
+  --red-soft: rgba(143, 74, 78, 0.12);
+  --red-glow: rgba(0, 0, 0, 0.32);
+
+  --bronze: var(--metal);
+  --bronze-light: var(--metal-light);
+  --bronze-dim: var(--metal-dim);
+
+  /* Primary CTA — warm ivory / light stone (premium, high contrast on dark) */
+  --cta-ivory-top: #f2ede4;
+  --cta-ivory-bot: #ddd4c6;
+  --cta-ivory-hover-top: #f7f3ec;
+  --cta-ivory-hover-bot: #e5dbd0;
+  --cta-on-ivory: #161412;
+
+  /* Typography — Inter (UI / reference match) + Plus Jakarta Sans (display complement) */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-headline: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
-  --h1-size: clamp(36px, 5vw, 68px);
-  --h2-size: clamp(26px, 3.5vw, 40px);
-  --h3-size: clamp(20px, 2.5vw, 28px);
-  --body-size: clamp(16px, 1.2vw, 18px);
-  --small-size: 13px;
+  --font-headline: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-ui: var(--font-family);
+  --h1-size: clamp(40px, 5.8vw, 76px);
+  --h2-size: clamp(28px, 3.6vw, 48px);
+  --h3-size: clamp(19px, 2vw, 24px);
+  --body-size: clamp(15px, 1.08vw, 16.5px);
+  --small-size: 11px;
 
-  /* Spacing */
-  --section-pad: clamp(64px, 10vw, 140px);
-  --container-max: 1240px;
-  --gap: clamp(16px, 2vw, 32px);
+  --section-pad: clamp(68px, 11vw, 128px);
+  --section-pad-tight: clamp(44px, 7.5vw, 88px);
+  --container-max: 1200px;
+  --container-wide: min(1320px, 100%);
+  --gap: clamp(14px, 1.85vw, 24px);
 
-  /* Radius */
+  /* Controls: slightly squarer than pill-SaaS, still premium */
   --radius-sm: 10px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
+  --radius-md: 13px;
+  --radius-lg: 17px;
+  --radius-xl: 22px;
+  --radius-pill: 999px;
 
-  /* Transitions */
+  --border-subtle: rgba(255, 255, 255, 0.078);
+  --border-strong: rgba(255, 255, 255, 0.115);
+  --border-fine: rgba(255, 255, 255, 0.058);
+  --border-edge: rgba(230, 220, 205, 0.095);
+  /* Calmer depth — precision, not bloom */
+  --shadow-soft: 0 22px 56px rgba(0, 0, 0, 0.34);
+  --shadow-card: 0 14px 40px rgba(0, 0, 0, 0.24);
+  --shadow-lift: 0 8px 24px rgba(0, 0, 0, 0.2);
+  /* Top-edge luminance (machined surface) */
+  --shadow-inner-glow: inset 0 1px 0 rgba(255, 255, 255, 0.078);
+  --shadow-inner-foot: inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+  --shadow-product: 0 32px 72px rgba(0, 0, 0, 0.38);
+
   --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-slow: 0.8s;
   --duration-med: 0.5s;
   --duration-fast: 0.3s;
-  --ease-out: cubic-bezier(.16, 1, .3, 1);
-  --ease-io: cubic-bezier(.4, 0, .2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io: cubic-bezier(0.4, 0, 0.2, 1);
   --dur-1: 140ms;
   --dur-2: 220ms;
-  --dur-3: 420ms;
-  --rise-sm: 8px;
-  --rise-md: 14px;
-  --ring: 0 0 0 3px rgba(184, 115, 51, 0.35);
+  --dur-3: 560ms;
+  --rise-sm: 12px;
+  --rise-md: 18px;
+  --ring: 0 0 0 3px rgba(209, 196, 176, 0.28);
+
+  /* Configurator / spec routes — same world, warm base */
+  --spec-canvas: radial-gradient(ellipse 75% 55% at 18% 0%, rgba(181, 166, 145, 0.08) 0%, transparent 55%), var(--bg-deep);
+  --spec-topbar: rgba(12, 11, 10, 0.88);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -59,6 +113,14 @@
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+
+  /* Scroll-reveal: show final state immediately (no reliance on first IO tick) */
+  .reveal,
+  .reveal-sm,
+  [data-stagger] > * {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -119,8 +181,15 @@
     color var(--dur-2) var(--ease-out);
 }
 
-.btn-micro:hover { transform: translateY(-1px); }
-.btn-micro:active { transform: translateY(0) scale(0.98); }
+@media (hover: hover) {
+  .btn-micro:hover {
+    transform: translateY(-0.5px);
+  }
+}
+
+.btn-micro:active {
+  transform: translateY(0) scale(0.99);
+}
 .btn-micro:focus-visible { box-shadow: var(--ring); outline: none; }
 
 .card-micro {
@@ -132,8 +201,9 @@
 
 @media (hover: hover) {
   .card-micro:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-inner-glow), var(--shadow-card);
+    border-color: var(--border-subtle);
   }
 }
 
@@ -147,12 +217,12 @@
   transition:
     transform var(--dur-2) var(--ease-out),
     opacity var(--dur-2) var(--ease-out);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 @media (hover: hover) {
   .logo-micro:hover {
-    transform: translateY(-2px);
+    transform: translateY(-1px);
     opacity: 1;
   }
 }
@@ -165,7 +235,7 @@
   transition:
     background-size var(--dur-2) var(--ease-out),
     opacity var(--dur-2) var(--ease-out);
-  opacity: 0.85;
+  opacity: 0.88;
 }
 
 .link-micro:hover {
@@ -173,9 +243,7 @@
   opacity: 1;
 }
 
-/* ========================================
-   Reset & Base
-   ======================================== */
+/* Reset & Base */
 
 *,
 *::before,
@@ -189,57 +257,28 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  /* clip (not hidden) — avoids scroll-container quirks that break position:sticky */
+  overflow-x: clip;
+  background: var(--bg-hero-canvas);
 }
 
 body {
   font-family: var(--font-family);
   font-size: var(--body-size);
-  line-height: 1.6;
+  line-height: 1.58;
+  letter-spacing: -0.011em;
   color: var(--text-0);
-  background:
-    radial-gradient(120% 60% at 50% -20%, rgba(255, 255, 255, 0.05), transparent 60%),
-    var(--bg-0);
-  overflow-x: hidden;
+  background: var(--bg-hero-canvas);
+  overflow-x: clip;
   position: relative;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 #root,
 main {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
-}
-
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.045;
-  background-image:
-    radial-gradient(rgba(255, 255, 255, 0.7) 0.4px, transparent 0.4px),
-    radial-gradient(rgba(255, 255, 255, 0.45) 0.3px, transparent 0.3px);
-  background-size: 3px 3px, 4px 4px;
-  background-position: 0 0, 1px 1px;
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: 112vh;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.08;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 95% 75% at 50% 28%, black, transparent 78%);
-  mask-image: radial-gradient(ellipse 95% 75% at 50% 28%, black, transparent 78%);
+  overflow-x: clip;
 }
 
 img {
@@ -264,62 +303,130 @@ ul, ol {
   list-style: none;
 }
 
-/* ========================================
-   Typography
-   ======================================== */
+/* Typography */
 
 h1, h2, h3, h4 {
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text-0);
 }
 
 h1 {
   font-size: var(--h1-size);
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  font-weight: 600;
+  letter-spacing: -0.042em;
   font-family: var(--font-headline);
-  line-height: 1.08;
+  line-height: 1.05;
+  text-rendering: optimizeLegibility;
 }
 
 h2 {
   font-size: var(--h2-size);
   font-family: var(--font-headline);
-  line-height: 1.12;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.038em;
+  text-rendering: optimizeLegibility;
 }
 
 h3 {
   font-size: var(--h3-size);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 p {
   color: var(--text-1);
+  letter-spacing: -0.008em;
 }
 
-/* ========================================
-   Layout
-   ======================================== */
+/* Editorial gradient emphasis — champagne / ivory on dark */
+.text-gradient {
+  color: var(--text-0);
+}
+
+@supports ((-webkit-background-clip: text) and (color: transparent)) or (background-clip: text) {
+  .text-gradient {
+    color: transparent;
+    background-image: linear-gradient(
+      105deg,
+      #f5f1ea 0%,
+      #c9bba8 32%,
+      #ebe4d8 52%,
+      #a89884 72%,
+      #f3ede4 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+/* Staged product frame — precision product object */
+.product-stage {
+  position: relative;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-fine);
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.045) 0%, transparent 52%),
+    var(--surface);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-inner-glow),
+    var(--shadow-inner-foot),
+    var(--shadow-product),
+    0 0 0 1px var(--border-edge);
+}
+
+.product-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.product-stage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Layout */
 
 .container {
   max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 40px);
+}
+
+.container--wide {
+  max-width: var(--container-wide);
   margin: 0 auto;
   padding: 0 clamp(20px, 4vw, 48px);
 }
 
 .section {
-  padding: 64px 0;
+  padding: var(--section-pad) 0;
   position: relative;
 }
 
-@media (min-width: 768px) {
-  .section {
-    padding: 96px 0;
-  }
+.section--airy {
+  padding: calc(var(--section-pad) * 1.02) 0;
 }
 
-/* ========================================
-   Buttons
-   ======================================== */
+.section--compact {
+  padding: var(--section-pad-tight) 0;
+}
+
+.section--tight {
+  padding: clamp(40px, 5.5vw, 72px) 0;
+}
+
+/* Buttons — configurator / premium software */
 
 .btn {
   display: inline-flex;
@@ -327,93 +434,146 @@ p {
   justify-content: center;
   gap: 8px;
   min-height: 46px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.15;
   padding: 0 24px;
   border-radius: var(--radius-sm);
-  transition: all 0.18s ease-out;
+  transition:
+    background 0.18s var(--ease-out),
+    color 0.18s var(--ease-out),
+    border-color 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out),
+    transform 0.18s var(--ease-out);
   white-space: nowrap;
-  letter-spacing: -0.005em;
+  letter-spacing: -0.012em;
+  font-family: var(--font-ui);
 }
 
+/* Premium command surface — subtle sheen, no streak */
 .btn-primary {
-  background: var(--red);
-  color: var(--text-0);
-  box-shadow: 0 0 0 0 var(--red-glow);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14) 0%, transparent 42%),
+    linear-gradient(180deg, var(--cta-ivory-top) 0%, var(--cta-ivory-bot) 100%);
+  color: var(--cta-on-ivory);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35) inset,
+    0 2px 4px rgba(255, 255, 255, 0.04) inset,
+    0 12px 32px rgba(0, 0, 0, 0.32);
 }
 
 .btn-primary:hover {
-  background: var(--red-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 24px var(--red-glow);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, transparent 40%),
+    linear-gradient(180deg, var(--cta-ivory-hover-top) 0%, var(--cta-ivory-hover-bot) 100%);
+  transform: translateY(-0.5px);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.32) inset,
+    0 2px 5px rgba(255, 255, 255, 0.05) inset,
+    0 14px 36px rgba(0, 0, 0, 0.34);
 }
 
 .btn-primary:focus-visible {
-  outline: 2px solid var(--red);
-  outline-offset: 2px;
+  outline: 2px solid var(--metal-light);
+  outline-offset: 3px;
+}
+
+.btn-primary:active {
+  transform: translateY(0) scale(0.99);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--bronze);
-  border: 1px solid rgba(194, 138, 58, 0.42);
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-0);
+  border: 1px solid var(--border-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
 }
 
 .btn-secondary:focus-visible {
-  outline: 2px solid var(--bronze);
-  outline-offset: 2px;
+  outline: 2px solid var(--metal);
+  outline-offset: 3px;
 }
 
 .btn-secondary:hover {
-  background: rgba(194, 138, 58, 0.08);
-  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-0.5px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* ========================================
-   Cards
-   ======================================== */
+.btn-secondary:active {
+  transform: translateY(0) scale(0.99);
+}
+
+/* Cards */
 
 .card {
-  background: var(--bg-1);
-  border: 1px solid rgba(194, 138, 58, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035) 0%, transparent 40%),
+    var(--surface);
+  border: 1px solid var(--border-fine);
   border-radius: var(--radius-lg);
-  padding: clamp(28px, 3vw, 40px);
-  transition: all 0.3s ease-out;
+  padding: clamp(22px, 2.85vw, 32px);
+  transition:
+    border-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+  box-shadow:
+    var(--shadow-inner-glow),
+    var(--shadow-inner-foot),
+    0 0 0 1px var(--border-edge),
+    var(--shadow-lift);
 }
 
 .card:hover {
-  border-color: rgba(194, 138, 58, 0.18);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  border-color: var(--border-subtle);
+  box-shadow:
+    var(--shadow-inner-glow),
+    var(--shadow-inner-foot),
+    0 0 0 1px var(--border-edge),
+    var(--shadow-card);
 }
-
-/* ========================================
-   Bronze Dividers
-   ======================================== */
 
 .bronze-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--bronze), transparent);
-  opacity: 0.3;
+  background: linear-gradient(90deg, transparent, var(--metal), transparent);
+  opacity: 0.22;
 }
-
-/* ========================================
-   Section label
-   ======================================== */
 
 .section-label {
   font-size: var(--small-size);
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--bronze);
+  letter-spacing: 0.14em;
+  color: var(--metal);
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
+  line-height: 1.35;
 }
 
-/* ========================================
-   Schematic corner brackets
-   ======================================== */
+/* Chips / pills — same language as modern control surfaces */
+.chip-surface {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-fine);
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    border-color 0.18s var(--ease-out),
+    background 0.18s var(--ease-out),
+    box-shadow 0.18s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .chip-surface:hover {
+    border-color: var(--border-subtle);
+    background: rgba(255, 255, 255, 0.048);
+  }
+}
 
 .brackets {
   position: relative;
@@ -423,10 +583,10 @@ p {
 .brackets::after {
   content: '';
   position: absolute;
-  width: 20px;
-  height: 20px;
-  border-color: var(--bronze);
-  opacity: 0.3;
+  width: 16px;
+  height: 16px;
+  border-color: var(--metal);
+  opacity: 0.22;
   pointer-events: none;
 }
 
@@ -444,27 +604,11 @@ p {
   border-right: 1px solid;
 }
 
-/* ========================================
-   Scroll animations
-   ======================================== */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity var(--duration-slow) var(--ease-premium),
-              transform var(--duration-slow) var(--ease-premium);
-}
+/* Legacy reveal (Pricing etc.) */
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-.reveal-left {
-  opacity: 0;
-  transform: translateX(-60px);
-  transition: opacity var(--duration-slow) var(--ease-premium),
-              transform var(--duration-slow) var(--ease-premium);
 }
 
 .reveal-left.visible {
@@ -472,44 +616,43 @@ p {
   transform: translateX(0);
 }
 
-.reveal-right {
-  opacity: 0;
-  transform: translateX(60px);
-  transition: opacity var(--duration-slow) var(--ease-premium),
-              transform var(--duration-slow) var(--ease-premium);
-}
-
 .reveal-right.visible {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* ========================================
-   Selection
-   ======================================== */
-
-::selection {
-  background: rgba(194, 138, 58, 0.3);
-  color: var(--text-0);
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--duration-slow) var(--ease-premium),
+    transform var(--duration-slow) var(--ease-premium);
 }
 
-/* ========================================
-   Scrollbar
-   ======================================== */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--duration-slow) var(--ease-premium),
+    transform var(--duration-slow) var(--ease-premium);
+}
+
+::selection {
+  background: rgba(181, 166, 145, 0.22);
+  color: var(--text-0);
+}
 
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-0);
+  background: var(--bg-deep);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--bg-2);
+  background: var(--surface-pearl);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(194, 138, 58, 0.3);
+  background: rgba(181, 166, 145, 0.35);
 }

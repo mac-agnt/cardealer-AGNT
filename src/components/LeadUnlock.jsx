@@ -11,12 +11,12 @@ export default function LeadUnlock() {
           <span className="section-label">Signature feature</span>
           <h2>Stop anonymous browsing.</h2>
           <p className="lead__sub">
-            Buyers unlock full vehicle details with their name + phone — your team gets a real lead with intent.
+            Buyers unlock full vehicle details with their name + phone. Your team gets a real lead with intent.
           </p>
         </div>
 
         <div className="lead__grid">
-          {/* Left — vehicle page mock */}
+          {/* Left: vehicle page mock */}
           <div className={`lead__mock lead__mock--vehicle ${visible ? 'lead__mock--visible' : ''}`} style={{ transitionDelay: '0.2s' }}>
             <div className="lead__mock-plate brackets">
               <div className="lead__mock-bar">
@@ -26,7 +26,7 @@ export default function LeadUnlock() {
               {/* Vehicle preview */}
               <div className="lead__vehicle-img" />
               <div className="lead__vehicle-info">
-                <div className="lead__vehicle-title">2024 BMW 3 Series — 320d M Sport</div>
+                <div className="lead__vehicle-title">2024 BMW 3 Series: 320d M Sport</div>
                 <div className="lead__vehicle-price">€42,950</div>
                 <div className="lead__vehicle-specs">
                   <span>Diesel</span><span>Auto</span><span>18,200 km</span>
@@ -55,7 +55,7 @@ export default function LeadUnlock() {
             </div>
           </div>
 
-          {/* Right — lead card mock */}
+          {/* Right: lead card mock */}
           <div className={`lead__mock lead__mock--card ${visible ? 'lead__mock--visible' : ''}`} style={{ transitionDelay: '0.5s' }}>
             <div className="lead__mock-plate brackets">
               <div className="lead__mock-bar">

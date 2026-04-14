@@ -1,0 +1,101 @@
+.spec-block {
+  scroll-margin-top: 72px;
+  padding-top: clamp(56px, 9vw, 100px);
+  padding-bottom: clamp(56px, 9vw, 100px);
+  background: linear-gradient(180deg, var(--bg-0) 0%, var(--bg-deep) 50%, var(--bg-0) 100%);
+}
+
+.spec-block__shell {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(181, 166, 145, 0.35) 0%,
+    rgba(90, 82, 74, 0.25) 45%,
+    rgba(181, 166, 145, 0.22) 100%
+  );
+  box-shadow: var(--shadow-product);
+}
+
+.spec-block__shell::before {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(var(--radius-xl) - 1px);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 38%),
+    linear-gradient(180deg, var(--surface-pearl) 0%, var(--surface) 100%);
+  z-index: 0;
+}
+
+.spec-block__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(28px, 4.5vw, 44px);
+  padding: clamp(28px, 4.5vw, 44px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .spec-block__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+}
+
+.spec-block__copy {
+  max-width: 36rem;
+}
+
+.spec-block__title {
+  margin-top: 10px;
+  font-size: clamp(30px, 3.6vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.036em;
+  font-weight: 600;
+  font-family: var(--font-headline);
+}
+
+.spec-block__body {
+  margin-top: 16px;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.6;
+  max-width: 48ch;
+}
+
+.spec-block__actions {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+
+.spec-block__btn-primary {
+  min-height: 48px;
+  padding-inline: 24px;
+}
+
+.spec-block__visual {
+  margin: 0;
+  min-height: clamp(220px, 32vw, 340px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.spec-block__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 899px) {
+  .spec-block__visual {
+    order: -1;
+  }
+}

@@ -5,38 +5,48 @@ import './Pricing.css';
 const PRICING_TIERS = [
   {
     key: 'core',
-    label: 'Core',
-    audience: 'For most independent dealers. Fast launch, full operating stack.',
+    label: 'Core package',
+    audience:
+      'Built for independent dealers who want a premium public site and a single workspace for stock, leads, WhatsApp, CRM, and admin.',
     pricePrefix: 'From',
     priceValue: '€999',
-    priceSuffix: 'Typical range €999–€2,499',
+    priceSuffix: 'Typical range €999–€2,499 depending on spec',
     features: [
-      'Premium dealer website (mobile-first)',
-      'Stock search + VDP enquiry flow',
-      'Tap-to-call sticky bar',
-      'Dealer OS: reg + photos → instant drafts',
-      'Publish everywhere (Website + Carzone + DoneDeal + Cars.ie)',
-      'Unified inbox + Intent signals (Hot/Warm)',
-      'Onboarding + launch support (5–7 days)',
+      'Premium branded dealer website (responsive, conversion-led)',
+      'Stock search, vehicle pages, finance, trade-in, and enquiry flows (as specified)',
+      'Dashboard, vehicle management, and listing / inventory health',
+      'Lead and appointment handling across website and marketplaces',
+      'WhatsApp AI sales agent or WhatsApp handling layer (package-dependent)',
+      'Customer profiles / CRM foundations',
+      'Social Studio and branding tools, including logo and watermark where specified',
+      'Import price calculator where specified',
+      'Digitised dealer documents and admin workflow setup (scope on spec)',
+      'Onboarding and launch support, usually 5–7 days',
     ],
     highlight: true,
   },
 ];
 
+const OPTIONAL_ADDONS = [
+  'Online reservations / deposit flow',
+  'Deeper finance and trade-in capture',
+  'Expanded WhatsApp AI and automation',
+  'Richer document packs and workflow automation',
+  'Extended custom branding and launch support',
+];
+
 function usePricingReveal(threshold = 0.15) {
   const ref = useRef(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return reducedMotion || !('IntersectionObserver' in window);
+  });
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const el = ref.current;
-
-    if (!el) return undefined;
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-      setVisible(true);
-      return undefined;
-    }
+    if (!el || visible) return undefined;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -50,7 +60,7 @@ function usePricingReveal(threshold = 0.15) {
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [threshold]);
+  }, [threshold, visible]);
 
   return [ref, visible];
 }
@@ -66,7 +76,6 @@ export default function Pricing({ onBookDemo }) {
     if (typeof window === 'undefined') return undefined;
     const media = window.matchMedia('(max-width: 767px)');
     const handleChange = (event) => setIsMobile(event.matches);
-    setIsMobile(media.matches);
 
     if (typeof media.addEventListener === 'function') {
       media.addEventListener('change', handleChange);
@@ -78,17 +87,19 @@ export default function Pricing({ onBookDemo }) {
   }, []);
 
   return (
-    <section className="pricing section" id="pricing" ref={ref}>
+    <section className="pricing section pricing--architecture" id="pricing" ref={ref}>
       <div className="container">
+        <div className="pricing__shell">
         <div className={`pricing__header reveal ${visible ? 'pricing__header--visible' : ''}`}>
-          <span className="section-label">Pricing</span>
-          <h2>Pricing</h2>
+          <p className="section-label">Pricing</p>
+          <h2 className="pricing__headline">
+            One <span className="text-gradient">core package.</span> Spec-based additions.
+          </h2>
           <p className="pricing__sub">
-            One package. Built around your dealership.
+            We scope around your yard: same foundation, optional depth on WhatsApp AI, documents, automation, and
+            branding where they earn their keep.
           </p>
-          <p className="pricing__micro">
-            From €999.
-          </p>
+          <p className="pricing__micro">From €999. We confirm scope on a short call.</p>
         </div>
 
         <div className={`pricing__grid ${visible ? 'pricing__grid--visible' : ''} ${PRICING_TIERS.length === 1 ? 'pricing__grid--single' : ''}`}>
@@ -113,9 +124,17 @@ export default function Pricing({ onBookDemo }) {
                 </div>
                 <p className="pricing__suffix">{tier.priceSuffix}</p>
 
+                <p className="pricing__includes">Typically includes:</p>
                 <ul className="pricing__features" id={`pricing-features-${tier.key}`} data-stagger>
                   {visibleFeatures.map((feature) => (
                     <li key={`${tier.key}-${feature}`}>{feature}</li>
+                  ))}
+                </ul>
+
+                <p className="pricing__optional-label">Optional additions (examples)</p>
+                <ul className="pricing__optional">
+                  {OPTIONAL_ADDONS.map((item) => (
+                    <li key={item}>{item}</li>
                   ))}
                 </ul>
 
@@ -127,13 +146,13 @@ export default function Pricing({ onBookDemo }) {
                     aria-expanded={isExpanded}
                     aria-controls={`pricing-features-${tier.key}`}
                   >
-                    {isExpanded ? 'Show fewer features' : 'See all features'}
+                    {isExpanded ? 'Show fewer details' : 'See full list'}
                   </button>
                 ) : null}
 
                 <div className="pricing__actions">
                   <Link to="/spec" className="btn btn-primary btn-micro pricing__cta">
-                    Spec out your website
+                    Spec out your system
                   </Link>
                   <button className="btn btn-secondary btn-micro pricing__demo-link" onClick={onBookDemo} type="button">
                     Book a 10-minute demo
@@ -146,10 +165,11 @@ export default function Pricing({ onBookDemo }) {
 
         <div className={`pricing__meta ${visible ? 'pricing__meta--visible' : ''}`}>
           <p>No contracts</p>
-          <span aria-hidden="true">•</span>
+          <span aria-hidden="true">·</span>
           <p>Live in 5–7 days</p>
-          <span aria-hidden="true">•</span>
-          <p>Built for independent dealers</p>
+          <span aria-hidden="true">·</span>
+          <p>Built for independent dealers in Ireland</p>
+        </div>
         </div>
       </div>
     </section>

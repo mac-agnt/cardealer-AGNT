@@ -1,0 +1,373 @@
+.cap {
+  scroll-margin-top: 72px;
+  background: var(--bg-0);
+  --cap-pad-x: clamp(20px, 2.4vw, 26px);
+  /* Locked height: all three cards identical at each breakpoint */
+  --cap-card-h: clamp(428px, 52vw, 492px);
+  --cap-veil-total: 132px;
+  --cap-deck-pad-x: clamp(20px, 4vw, 48px);
+}
+
+.cap__header {
+  max-width: 42rem;
+  margin-bottom: clamp(32px, 5vw, 48px);
+}
+
+.cap__title {
+  font-size: clamp(28px, 3.6vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.036em;
+  font-weight: 600;
+  font-family: var(--font-headline);
+}
+
+.cap__lede {
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--text-1);
+  max-width: 48ch;
+  letter-spacing: -0.01em;
+}
+
+/* —— Mobile / tablet: horizontal snap deck —— */
+.cap-summary__viewport {
+  position: relative;
+}
+
+.cap-summary.cap-summary--deck {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 14px;
+  margin: 0;
+  padding: 4px var(--cap-deck-pad-x) 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--cap-deck-pad-x);
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.cap-summary.cap-summary--deck::-webkit-scrollbar {
+  display: none;
+}
+
+.cap-summary__deck-meta {
+  display: flex;
+  justify-content: center;
+  margin-top: 18px;
+  padding-bottom: 2px;
+}
+
+.cap-summary__deck-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cap-summary__deck-dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+  transition:
+    transform 0.2s var(--ease-out),
+    background-color 0.2s var(--ease-out),
+    box-shadow 0.2s var(--ease-out);
+}
+
+.cap-summary__deck-dot:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.cap-summary__deck-dot.is-active {
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+  transform: scale(1.08);
+}
+
+.cap-summary__deck-dot:focus-visible {
+  outline: 2px solid var(--metal);
+  outline-offset: 3px;
+}
+
+/* Edge hint: very soft, no harsh band */
+.cap-summary__viewport::before,
+.cap-summary__viewport::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: min(28px, 6vw);
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.5;
+}
+
+.cap-summary__viewport::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-0) 0%, transparent 100%);
+}
+
+.cap-summary__viewport::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg-0) 0%, transparent 100%);
+}
+
+@media (min-width: 960px) {
+  .cap-summary__viewport::before,
+  .cap-summary__viewport::after {
+    display: none;
+  }
+
+  .cap-summary__deck-meta {
+    display: none;
+  }
+
+  .cap-summary.cap-summary--deck {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 22px);
+    align-items: start;
+    overflow: visible;
+    padding: 0;
+    scroll-snap-type: none;
+    overscroll-behavior-x: auto;
+  }
+
+  .cap-summary__card--center {
+    transform: translateY(-8px);
+  }
+}
+
+.cap-summary__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: var(--cap-card-h);
+  min-height: var(--cap-card-h);
+  max-height: var(--cap-card-h);
+  min-width: 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-edge);
+  background: var(--gradient-panel);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-inner-glow),
+    var(--shadow-inner-foot),
+    0 0 0 1px rgba(0, 0, 0, 0.26),
+    0 18px 44px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(8px) saturate(1.04);
+  -webkit-backdrop-filter: blur(8px) saturate(1.04);
+  transition:
+    border-color 0.22s var(--ease-out),
+    box-shadow 0.22s var(--ease-out),
+    transform 0.22s var(--ease-out);
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  flex: 0 0 min(360px, calc(100vw - var(--cap-deck-pad-x) * 2 - 28px));
+}
+
+@media (min-width: 960px) {
+  .cap-summary__card {
+    scroll-snap-align: unset;
+    scroll-snap-stop: normal;
+    flex: none;
+    width: auto;
+  }
+}
+
+@media (hover: hover) {
+  .cap-summary__card:hover {
+    border-color: var(--border-subtle);
+    box-shadow:
+      var(--shadow-inner-glow),
+      var(--shadow-inner-foot),
+      0 0 0 1px var(--border-edge),
+      0 26px 56px rgba(0, 0, 0, 0.3);
+  }
+
+  .cap-summary__card--center:hover {
+    transform: translateY(-10px);
+  }
+}
+
+@media (max-width: 959px) {
+  .cap-summary__card--center {
+    transform: none;
+  }
+
+  @media (hover: hover) {
+    .cap-summary__card--center:hover {
+      transform: none;
+    }
+  }
+}
+
+.cap-summary__glass {
+  position: absolute;
+  inset: auto -25% -45% -25%;
+  height: 72%;
+  background: radial-gradient(ellipse 75% 68% at 50% 100%, rgba(181, 166, 145, 0.1), transparent 70%);
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.cap-summary__surface {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: clamp(22px, 2.6vw, 28px) var(--cap-pad-x) 0;
+  padding-bottom: calc(var(--cap-veil-total) + 4px);
+}
+
+.cap-summary__eyebrow {
+  margin: 0 0 10px;
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--metal);
+  opacity: 0.9;
+}
+
+.cap-summary__title {
+  margin: 0;
+  flex-shrink: 0;
+  font-family: var(--font-headline);
+  font-size: clamp(20px, 1.85vw, 23px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-0);
+}
+
+.cap-summary__tagline {
+  margin: 12px 0 0;
+  flex-shrink: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-2);
+  letter-spacing: -0.01em;
+  max-width: 42ch;
+}
+
+.cap-summary__features-wrap {
+  flex: 1;
+  min-height: 0;
+  margin-top: 16px;
+  position: relative;
+  overflow: hidden;
+  /* Soft handoff into the card’s lower frost (no hard clip) */
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 3rem),
+    rgba(0, 0, 0, 0.55) calc(100% - 1.35rem),
+    rgba(0, 0, 0, 0.18) calc(100% - 0.4rem),
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 calc(100% - 3rem),
+    rgba(0, 0, 0, 0.55) calc(100% - 1.35rem),
+    rgba(0, 0, 0, 0.18) calc(100% - 0.4rem),
+    transparent 100%
+  );
+}
+
+.cap-summary__features {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 6px;
+  display: grid;
+  gap: 8px;
+}
+
+.cap-summary__feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 12px;
+  line-height: 1.42;
+  letter-spacing: -0.012em;
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+.cap-summary__tick {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  fill: none;
+  stroke: var(--metal);
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.78;
+}
+
+/* Lower zone: frost fills band; CTA centred on that blur (x + y) */
+.cap-summary__lower {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: var(--cap-veil-total);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px var(--cap-pad-x) 12px;
+  pointer-events: none;
+}
+
+/* ProgressiveBlur component: card chrome only */
+.cap-summary__progressive-blur {
+  z-index: 0;
+  right: 0;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+}
+
+.cap-summary__cta-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+.cap-summary__cta {
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+@media (max-width: 719px) {
+  .cap {
+    --cap-card-h: clamp(416px, 118vw, 472px);
+    --cap-veil-total: 130px;
+  }
+}
+
+@media (min-width: 720px) and (max-width: 959px) {
+  .cap-summary__card--center {
+    transform: none;
+  }
+}

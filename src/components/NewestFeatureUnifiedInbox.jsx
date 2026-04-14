@@ -6,7 +6,7 @@ const FEATURES = [
   {
     id: 'inbox',
     label: 'Unified Inbox',
-    benefit: 'All your enquiries in one feed — with clear ownership.',
+    benefit: 'All your enquiries in one feed, with clear ownership.',
     bullets: [
       'WhatsApp, website and email together',
       'Assign, tag and track every thread',
@@ -17,7 +17,7 @@ const FEATURES = [
   {
     id: 'publisher',
     label: 'Publish Everywhere',
-    benefit: 'Edit once in AGNT — push updates to every platform.',
+    benefit: 'Edit once in AGNT, push updates to every platform.',
     bullets: [
       'One change updates all listings',
       'Status per platform (Live / Queued)',
@@ -39,7 +39,7 @@ const FEATURES = [
   {
     id: 'draft',
     label: 'Instant Drafts',
-    benefit: 'Reg + photos in — listing draft out.',
+    benefit: 'Reg + photos in, listing draft out.',
     bullets: [
       'Auto title, highlights and description',
       'Ready to edit in seconds',
@@ -50,7 +50,7 @@ const FEATURES = [
   {
     id: 'unlock',
     label: 'Buyer Detail Unlock',
-    benefit: 'Capture real buyer details — not anonymous clicks.',
+    benefit: 'Capture real buyer details, not anonymous clicks.',
     bullets: [
       'Name + phone captured with consent',
       'More usable leads, less time-wasters',

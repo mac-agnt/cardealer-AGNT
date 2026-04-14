@@ -1,254 +1,723 @@
-/* ==========================================================
-   Hero — Product Story Composite
-   ========================================================== */
+/* Hero — architectural layout, dual-device: dominant desk + overlapping phone */
 
 .hero {
   position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(80% 90% at 18% 5%, rgba(255, 255, 255, 0.06), transparent 52%),
-    var(--bg-0);
-  padding-top: clamp(60px, 8.2vw, 82px);
-  padding-bottom: clamp(64px, 10vw, 96px);
+  overflow-x: clip;
+  overflow-y: visible;
+  scroll-margin-top: clamp(72px, 12vw, 96px);
+  background: var(--bg-hero-canvas);
 }
 
-.hero::before {
-  content: '';
+/* Override global .section--airy padding — no giant top band, no double bottom */
+.hero.section--airy {
+  padding-top: clamp(16px, 2.8vw, 36px);
+  padding-bottom: clamp(56px, 9vw, 104px);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 639px) {
+  .hero.section--airy {
+    padding-top: 0;
+    padding-bottom: clamp(56px, 12vw, 80px);
+  }
+}
+
+.hero__ambient {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.16;
-  background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
-  background-size: 64px 64px;
-  -webkit-mask-image: radial-gradient(ellipse 100% 80% at 50% 20%, black, transparent 82%);
-  mask-image: radial-gradient(ellipse 100% 80% at 50% 20%, black, transparent 82%);
+  /* Flat hero: no top/bottom tint that reads as a different “stripe” */
+  background: transparent;
 }
 
-.hero > .container {
+.hero__container {
   position: relative;
   z-index: 1;
 }
 
-.hero__layout {
+.hero__grid {
   display: grid;
-  gap: clamp(28px, 4vw, 44px);
-  align-items: center;
-}
-
-.hero__mobile {
-  display: none;
-}
-
-.hero__desktop {
-  display: block;
+  gap: clamp(20px, 3.8vw, 40px);
+  align-items: end;
 }
 
 .hero__copy {
-  max-width: 56ch;
+  max-width: min(32rem, 100%);
+  padding-top: clamp(6px, 1.2vw, 14px);
+  padding-bottom: clamp(4px, 1.2vw, 20px);
 }
 
 .hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  min-height: 28px;
-  padding: 0 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(194, 138, 58, 0.28);
-  background: rgba(194, 138, 58, 0.08);
-  color: rgba(229, 213, 184, 0.94);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 10px;
   font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--metal);
+  margin: 0 0 clamp(8px, 1.1vw, 14px);
+  line-height: 1.4;
 }
 
 .hero__headline {
-  margin-top: 10px;
-  font-size: clamp(36px, 5.5vw, 68px);
-  line-height: 1.08;
-  letter-spacing: -0.03em;
+  margin: 0;
+  font-size: clamp(32px, 4.4vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.038em;
+  font-family: var(--font-headline);
+  font-weight: 600;
+  color: var(--text-0);
 }
 
-.hero__subhead {
-  margin-top: 12px;
-  max-width: 44ch;
-  font-size: clamp(15px, 1.15vw, 18px);
-  line-height: 1.58;
-  color: rgba(182, 190, 203, 0.92);
+.hero__headline-line {
+  display: block;
 }
 
-.hero__outcomes {
-  margin-top: 12px;
-  display: grid;
-  gap: 10px;
+.hero__headline-line + .hero__headline-line {
+  margin-top: 0.07em;
 }
 
-.hero__outcomes li {
-  display: grid;
-  grid-template-columns: 16px 1fr;
-  gap: 10px;
+/* Muted brushed brass on glyphs — linear only, site palette, no bright gold */
+.hero__display-accent {
+  font-weight: 600;
+  letter-spacing: -0.038em;
+  color: var(--metal-light);
+}
+
+@supports ((-webkit-background-clip: text) and (color: transparent)) or (background-clip: text) {
+  .hero__display-accent {
+    color: transparent;
+    background-image: linear-gradient(
+      98deg,
+      #d1c4b0 0%,
+      #b5a691 28%,
+      #958d82 52%,
+      #c4bdb2 72%,
+      #9a8f82 88%,
+      #e0d8cc 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
+.hero__lead {
+  margin: clamp(14px, 2vw, 22px) 0 0;
+  max-width: 38ch;
+  font-size: clamp(14px, 1.05vw, 16px);
+  line-height: 1.55;
+  color: var(--text-1);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.hero__cta-cluster {
+  margin-top: clamp(14px, 2vw, 20px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
   align-items: center;
-  color: rgba(236, 239, 245, 0.94);
-  font-size: 14px;
-  line-height: 1.35;
-}
-
-.hero__check-icon {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: var(--bronze);
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.hero__cta-row {
-  margin-top: 16px;
-  display: grid;
-  gap: 10px;
 }
 
 .hero__cta {
-  width: 100%;
+  min-height: 46px;
+  padding: 0 22px;
+}
+
+.hero__cta:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+.hero__cta--primary {
+  min-width: min(100%, 228px);
+  font-weight: 600;
+}
+
+.hero__cta--secondary {
+  font-weight: 500;
 }
 
 .hero__trust {
-  margin-top: 10px;
-  color: rgba(171, 178, 190, 0.86);
-  font-size: 12px;
+  margin-top: clamp(12px, 1.75vw, 18px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hero__trust-chip {
+  display: inline-flex;
+  align-items: center;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-fine);
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.hero__hint {
+  margin: clamp(10px, 1.5vw, 14px) 0 0;
+  max-width: 36ch;
+  font-size: 10px;
   line-height: 1.45;
-  letter-spacing: 0.01em;
+  color: var(--text-2);
+  letter-spacing: -0.01em;
 }
 
-.hero__visual {
-  min-width: 0;
-}
+/* ——— Stage: desk (anchor) + phone (foreground) ——— */
 
-.hero__composite {
+.hero__stage {
   position: relative;
-  border-radius: 0;
-  border: none;
-  background: transparent;
-  overflow: visible;
-  aspect-ratio: 16 / 10;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: clamp(248px, 42vw, 480px);
 }
 
-.hero__base-image {
+.hero__stage-inner {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 0;
+  padding-bottom: clamp(4px, 1.2vw, 14px);
+}
+
+/* Centred product stack: browser + overlapping phone (same logic at all breakpoints) */
+.hero__composition {
+  position: relative;
+  width: min(100%, 600px);
+  min-height: clamp(232px, 38vw, 460px);
+  margin: 0 auto;
+}
+
+/* Layered composition: browser surface behind, phone over bottom-left */
+.hero__desk-wrap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: min(100%, 560px);
+  z-index: 1;
+  filter: drop-shadow(0 26px 52px rgba(0, 0, 0, 0.36));
+}
+
+.hero__phone-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: min(29%, 152px);
+  max-width: 152px;
+  z-index: 2;
+  transform: translate(2%, 50%);
+  transform-origin: center bottom;
+  filter: drop-shadow(0 16px 32px rgba(0, 0, 0, 0.38));
+}
+
+/* Browser window — AGNT in desktop browser */
+.hero-desk--browser {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-fine);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow:
+    var(--shadow-inner-glow),
+    0 0 0 1px var(--border-edge),
+    0 24px 48px rgba(0, 0, 0, 0.32);
+}
+
+.hero-desk__chrome {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 5px 10px;
+  background: linear-gradient(180deg, #363432 0%, #2a2826 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.hero-desk__traffic {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.hero-desk__traffic span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hero-desk__traffic span:nth-child(1) {
+  background: rgba(220, 95, 85, 0.52);
+}
+.hero-desk__traffic span:nth-child(2) {
+  background: rgba(215, 165, 70, 0.48);
+}
+.hero-desk__traffic span:nth-child(3) {
+  background: rgba(85, 175, 95, 0.42);
+}
+
+.hero-desk__url-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  padding: 0 4px;
+}
+
+.hero-desk__url-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  max-width: min(280px, 52vw);
+  padding: 4px 10px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.hero-desk__url-shield {
+  width: 9px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  border: 1.5px solid rgba(180, 175, 168, 0.35);
+  border-bottom-width: 2px;
+  opacity: 0.75;
+}
+
+.hero-desk__url-text {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: rgba(232, 228, 220, 0.88);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero-desk__plus {
+  flex-shrink: 0;
+  width: 26px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  cursor: default;
+}
+
+.hero-desk__plus-icon {
+  width: 9px;
+  height: 9px;
+  background:
+    linear-gradient(var(--text-2), var(--text-2)) center/1px 100% no-repeat,
+    linear-gradient(var(--text-2), var(--text-2)) center/100% 1px no-repeat;
+  opacity: 0.65;
+}
+
+.hero-desk__chrome-end {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.hero-desk__chrome-icon {
+  display: block;
+  opacity: 0.45;
+  background: rgba(230, 225, 218, 0.55);
+}
+
+.hero-desk__chrome-icon--tabs {
+  width: 13px;
+  height: 11px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px currentColor;
+  color: rgba(230, 225, 218, 0.4);
+  background: transparent;
+}
+
+.hero-desk__chrome-icon--menu {
+  width: 12px;
+  height: 10px;
+  color: rgba(230, 225, 218, 0.42);
+  background:
+    radial-gradient(circle at 15% 50%, currentColor 1px, transparent 1.6px),
+    radial-gradient(circle at 50% 50%, currentColor 1px, transparent 1.6px),
+    radial-gradient(circle at 85% 50%, currentColor 1px, transparent 1.6px);
+  opacity: 0.9;
+}
+
+.hero-desk__viewport {
+  background: linear-gradient(180deg, #1a1918 0%, #121110 100%);
+  position: relative;
+}
+
+.hero-desk__viewport::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 22%);
+}
+
+.hero-desk__img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  object-position: top center;
+  max-height: min(280px, 36vw);
+}
+
+/* Phone — portrait glass: thin bezel, fixed aspect, screenshot clipped as real screen */
+.hero-phone {
+  width: 100%;
+  position: relative;
+}
+
+.hero-phone__frame {
+  position: relative;
+  border-radius: 26px;
+  padding: 2px;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.1) 0%, transparent 38%),
+    linear-gradient(155deg, #4a4743 0%, #141312 38%, #2c2a27 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.58),
+    0 12px 32px rgba(0, 0, 0, 0.42);
+}
+
+.hero-phone__screen {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #0a0a0a;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.hero-phone__display {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 19.5;
+  max-height: min(400px, 52vh);
+  margin: 0 auto;
+  overflow: hidden;
+  isolation: isolate;
+  line-height: 0;
+}
+
+.hero-phone__img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   width: 100%;
   height: 100%;
+  display: block;
   object-fit: cover;
-  object-position: center;
-  filter: saturate(0.88) contrast(1.04) brightness(0.84);
-  border-radius: 0;
+  object-position: top center;
 }
 
-@media (min-width: 640px) {
-  .hero__cta-row {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.hero-phone__island {
+  position: absolute;
+  z-index: 2;
+  top: 2.4%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(34%, 52px);
+  height: 10px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: linear-gradient(180deg, #1a1a1a 0%, #000 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
-@media (min-width: 980px) {
-  .hero__layout {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+.hero-phone__home-indicator {
+  position: absolute;
+  z-index: 2;
+  bottom: 1.6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(34%, 68px);
+  height: 3px;
+  border-radius: 999px;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.35);
+}
+
+/* Desktop grid */
+@media (min-width: 1024px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(22px, 3.2vw, 36px);
+    align-items: center;
   }
 
   .hero__copy {
-    grid-column: span 5;
+    padding-top: clamp(4px, 1vw, 12px);
+    padding-bottom: clamp(18px, 2.8vw, 36px);
   }
 
-  .hero__visual {
-    grid-column: span 7;
+  .hero__stage-inner {
+    padding-left: 0;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .hero__phone-wrap {
+    width: min(29%, 138px);
+    max-width: 138px;
+    transform: translate(1%, 46%);
+  }
+
+  .hero-desk__img {
+    max-height: min(248px, 32vw);
+  }
+
+  .hero-desk__url-pill {
+    max-width: min(240px, 48vw);
+  }
+}
+
+@media (max-width: 1023px) {
+  .hero__grid {
+    align-items: stretch;
+    gap: clamp(16px, 3.5vw, 24px);
+  }
+
+  .hero__copy {
+    order: 1;
+    padding-bottom: 0;
+    max-width: 100%;
+  }
+
+  .hero__headline {
+    font-size: clamp(30px, 5.5vw, 42px);
+  }
+
+  .hero__stage {
+    order: 2;
+    min-height: clamp(188px, 48vw, 280px);
+    margin-top: clamp(4px, 1.5vw, 12px);
+  }
+
+  .hero__stage-inner {
+    padding-left: 0;
+    padding-bottom: clamp(4px, 1.5vw, 12px);
+  }
+
+  .hero__composition {
+    min-height: clamp(178px, 44vw, 268px);
+    width: min(100%, 400px);
+  }
+
+  .hero__desk-wrap {
+    width: min(100%, 400px);
+    filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.3));
+  }
+
+  .hero__phone-wrap {
+    width: min(29%, 120px);
+    max-width: 120px;
+    transform: translate(0, 44%);
+    filter: drop-shadow(0 12px 26px rgba(0, 0, 0, 0.36));
+  }
+
+  .hero-desk__img {
+    max-height: min(200px, 42vw);
+  }
+
+  .hero-desk__chrome {
+    min-height: 28px;
+    padding: 4px 7px;
+    gap: 5px;
+  }
+
+  .hero-desk__url-text {
+    font-size: 9px;
+  }
+
+  .hero-desk__traffic span {
+    width: 7px;
+    height: 7px;
+  }
+
+  .hero-desk__plus {
+    width: 24px;
+    height: 19px;
+  }
+
+  .hero-phone__frame {
+    border-radius: 24px;
+  }
+
+  .hero-phone__screen {
+    border-radius: 22px;
+  }
+
+  .hero-phone__display {
+    max-height: min(360px, 50vh);
+  }
+
+  .hero-phone__island {
+    width: min(34%, 48px);
+    height: 9px;
+    top: 2.3%;
+  }
+
+  .hero-phone__home-indicator {
+    width: min(34%, 62px);
+    bottom: 1.55%;
   }
 }
 
 @media (max-width: 639px) {
   .hero {
-    padding-top: 56px;
-    padding-bottom: 64px;
+    scroll-margin-top: clamp(64px, 14vw, 88px);
   }
 
-  .hero__desktop {
-    display: none;
+  .hero__grid {
+    gap: clamp(14px, 4.5vw, 20px);
+    align-items: stretch;
   }
 
-  .hero__mobile {
-    display: grid;
-    gap: 10px;
-  }
-
-  .hero__mobile-image-wrap {
-    width: 100%;
-    border-radius: 0;
-    overflow: hidden;
-    border: none;
-    background: transparent;
-    display: flex;
-    justify-content: center;
-    aspect-ratio: 4 / 3;
-  }
-
-  .hero__mobile-image-wrap .hero__base-image {
-    object-fit: cover;
-    object-position: center;
+  .hero__copy {
+    max-width: 100%;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .hero__eyebrow {
-    min-height: 24px;
-    padding: 0 10px;
-    font-size: 10px;
+    margin-bottom: clamp(7px, 1.8vw, 11px);
+    letter-spacing: 0.14em;
   }
 
   .hero__headline {
-    margin-top: 8px;
-    font-size: clamp(26px, 7.2vw, 34px);
-    line-height: 1.08;
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.07;
+    letter-spacing: -0.035em;
   }
 
-  .hero__mobile-subhead {
-    font-size: 13px;
-    line-height: 1.35;
-    max-width: 34ch;
-    color: rgba(182, 190, 203, 0.92);
-    margin: 0;
+  .hero__lead {
+    margin-top: 12px;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.52;
   }
 
-  .hero__outcomes {
-    margin-top: 0;
+  .hero__cta-cluster {
+    flex-direction: column;
+    align-items: stretch;
+    margin-top: 14px;
     gap: 8px;
-  }
-
-  .hero__outcomes li {
-    font-size: 13px;
-    line-height: 1.25;
-    gap: 8px;
-  }
-
-  .hero__cta-row {
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    flex-wrap: wrap;
-    width: auto;
   }
 
   .hero__cta {
-    width: auto;
-    flex: 0 0 auto;
-    min-height: 40px;
-    padding: 0 14px;
-    white-space: nowrap;
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
   }
 
   .hero__trust {
-    margin-top: 8px;
-    max-width: 36ch;
-    font-size: 11px;
+    margin-top: 12px;
+    gap: 5px;
+  }
+
+  .hero__trust-chip {
+    font-size: 8px;
+    padding: 5px 8px;
+  }
+
+  .hero__hint {
+    margin-top: 10px;
+    font-size: 10px;
+  }
+
+  .hero__stage {
+    min-height: clamp(188px, 50vw, 252px);
+  }
+
+  .hero__composition {
+    min-height: clamp(178px, 46vw, 248px);
+    width: min(100%, 336px);
+  }
+
+  .hero__desk-wrap {
+    width: min(100%, 320px);
+  }
+
+  .hero__phone-wrap {
+    width: min(29%, 110px);
+    max-width: 110px;
+    transform: translate(0, 40%);
+  }
+
+  .hero-desk__img {
+    max-height: min(156px, 42vw);
+  }
+
+  .hero-desk__chrome {
+    min-height: 26px;
+    padding: 3px 6px;
+  }
+
+  .hero-desk__traffic span {
+    width: 7px;
+    height: 7px;
+  }
+
+  .hero-desk__plus {
+    width: 24px;
+    height: 20px;
+  }
+
+  .hero-phone__frame {
+    border-radius: 22px;
+  }
+
+  .hero-phone__screen {
+    border-radius: 20px;
+  }
+
+  .hero-phone__display {
+    max-height: min(320px, 48vh);
+  }
+
+  .hero-phone__island {
+    width: min(34%, 44px);
+    height: 9px;
+    top: 2.2%;
+  }
+
+  .hero-phone__home-indicator {
+    width: min(36%, 58px);
+    height: 2.5px;
+    bottom: 1.5%;
   }
 }

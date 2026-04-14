@@ -1,0 +1,67 @@
+/* Standalone demo for ProgressiveBlur (not routed in the app). Light theme. */
+.skiper41 {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f5f4f3;
+  color: rgba(0, 0, 0, 0.4);
+  min-height: 100vh;
+}
+
+.skiper41__scroll {
+  display: flex;
+  height: calc(100vh - 1rem);
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.skiper41__intro {
+  margin-top: 2.5rem;
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  color: #000;
+}
+
+.skiper41__hint {
+  position: relative;
+  max-width: 12ch;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  line-height: 1.25;
+  opacity: 0.4;
+}
+
+.skiper41__hint::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  height: 4rem;
+  width: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom, #fff, #000);
+}
+
+.skiper41__body {
+  margin-top: 4rem;
+  width: 100%;
+  max-width: 32rem;
+  padding: 0 1.25rem 4rem;
+  text-align: justify;
+}
+
+.skiper41__body p {
+  margin: 0 0 5rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(0, 0, 0, 0.55);
+}

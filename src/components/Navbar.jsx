@@ -1,28 +1,30 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useScrolled } from '../hooks/useScrolled';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'HOME', href: '#hero' },
-  { label: 'SYSTEMS', href: '#system' },
-  { label: 'FEATURES', href: '#features' },
-  { label: 'PRICING', href: '#pricing' },
-  { label: 'CONTACT', href: '#contact' },
+  { label: 'Home', href: '#hero' },
+  { label: 'Capabilities', href: '#capabilities' },
+  { label: 'Inside AGNT', href: '#inside' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
-  const scrolled = useScrolled(8);
+export default function Navbar({ onBookDemo }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const scrolled = useScrolled(12);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHref, setActiveHref] = useState('#hero');
 
   useEffect(() => {
-    const sections = NAV_LINKS
-      .map((link) => ({ href: link.href, el: document.querySelector(link.href) }))
-      .filter((entry) => entry.el);
+    const sections = NAV_LINKS.map((link) => ({ href: link.href, el: document.querySelector(link.href) })).filter(
+      (entry) => entry.el
+    );
 
     const onScroll = () => {
-      const offset = 130;
+      const offset = 88;
       let current = '#hero';
       for (const section of sections) {
         if (section.el.offsetTop - offset <= window.scrollY) {
@@ -41,6 +43,14 @@ export default function Navbar() {
     e.preventDefault();
     setMobileOpen(false);
     setActiveHref(href);
+    if (location.pathname !== '/') {
+      if (href === '#hero') {
+        navigate('/');
+        return;
+      }
+      navigate({ pathname: '/', hash: href.replace(/^#/, '') });
+      return;
+    }
     if (href === '#hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
@@ -50,21 +60,24 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar-wrap">
-      <div className="navbar-grid-backdrop" aria-hidden="true" />
+    <div className={`navbar-wrap ${scrolled ? 'navbar-wrap--scrolled' : ''}`}>
       <header className={`navbar nav-settle ${scrolled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
           <a
             href="#hero"
-            className="navbar__logo"
+            className="navbar__logo logo-micro"
             onClick={(e) => {
               e.preventDefault();
               setMobileOpen(false);
               setActiveHref('#hero');
+              if (location.pathname !== '/') {
+                navigate('/');
+                return;
+              }
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            AGNT.IE
+            AGNT
           </a>
 
           <div className="navbar__links" role="navigation" aria-label="Primary">
@@ -72,7 +85,7 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className={`navbar__link link-micro ${activeHref === link.href ? 'navbar__link--active' : ''}`}
+                className={`navbar__link ${activeHref === link.href ? 'navbar__link--active' : ''}`}
                 onClick={(e) => handleNav(e, link.href)}
               >
                 {link.label}
@@ -84,6 +97,11 @@ export default function Navbar() {
             <Link to="/spec" className="btn btn-primary btn-micro navbar__cta navbar__cta--primary">
               Spec out your system
             </Link>
+            {typeof onBookDemo === 'function' ? (
+              <button type="button" className="navbar__demo btn-micro" onClick={onBookDemo} aria-label="Book a demo">
+                Book a demo
+              </button>
+            ) : null}
           </div>
 
           <div className="navbar__mobile-controls">
@@ -93,6 +111,7 @@ export default function Navbar() {
               aria-label="Toggle navigation menu"
               aria-expanded={mobileOpen}
               aria-controls="mobile-nav-panel"
+              type="button"
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 {mobileOpen ? (
@@ -111,7 +130,7 @@ export default function Navbar() {
               <a
                 key={`mobile-${link.href}`}
                 href={link.href}
-                className={`navbar__mobile-link link-micro ${activeHref === link.href ? 'navbar__mobile-link--active' : ''}`}
+                className={`navbar__mobile-link ${activeHref === link.href ? 'navbar__mobile-link--active' : ''}`}
                 onClick={(e) => handleNav(e, link.href)}
               >
                 {link.label}
@@ -119,16 +138,24 @@ export default function Navbar() {
             ))}
           </div>
           <div className="navbar__mobile-ctas">
-            <Link
-              to="/spec"
-              className="btn btn-primary btn-micro navbar__mobile-cta"
-              onClick={() => setMobileOpen(false)}
-            >
+            <Link to="/spec" className="btn btn-primary btn-micro navbar__mobile-cta" onClick={() => setMobileOpen(false)}>
               Spec out your system
             </Link>
+            {typeof onBookDemo === 'function' ? (
+              <button
+                type="button"
+                className="btn btn-secondary btn-micro navbar__mobile-cta"
+                onClick={() => {
+                  setMobileOpen(false);
+                  onBookDemo();
+                }}
+              >
+                Book a 10-minute demo
+              </button>
+            ) : null}
           </div>
         </div>
       </header>
-    </nav>
+    </div>
   );
 }

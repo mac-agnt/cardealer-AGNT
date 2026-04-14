@@ -24,7 +24,7 @@ export function useRevealOnScroll() {
           }
         });
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
     );
 
     nodes.forEach((node) => observer.observe(node));
