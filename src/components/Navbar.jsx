@@ -4,12 +4,17 @@ import { useScrolled } from '../hooks/useScrolled';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: '#hero' },
+  { label: 'Home', href: 'https://agnt.ie', activeMatch: '#hero' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Inside AGNT', href: '#inside' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'Contact', href: '#contact' },
 ];
+
+function linkIsActive(link, activeHref) {
+  const key = link.activeMatch ?? link.href;
+  return activeHref === key;
+}
 
 export default function Navbar({ onBookDemo }) {
   const location = useLocation();
@@ -19,16 +24,19 @@ export default function Navbar({ onBookDemo }) {
   const [activeHref, setActiveHref] = useState('#hero');
 
   useEffect(() => {
-    const sections = NAV_LINKS.map((link) => ({ href: link.href, el: document.querySelector(link.href) })).filter(
-      (entry) => entry.el
-    );
+    const sections = NAV_LINKS.map((link) => {
+      const selector = link.activeMatch ?? link.href;
+      if (typeof selector !== 'string' || !selector.startsWith('#')) return null;
+      const el = document.querySelector(selector);
+      return el ? { activeKey: link.activeMatch ?? link.href, el } : null;
+    }).filter(Boolean);
 
     const onScroll = () => {
       const offset = 88;
       let current = '#hero';
       for (const section of sections) {
         if (section.el.offsetTop - offset <= window.scrollY) {
-          current = section.href;
+          current = section.activeKey;
         }
       }
       setActiveHref(current);
@@ -39,19 +47,24 @@ export default function Navbar({ onBookDemo }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNav = (e, href) => {
+  const handleNav = (e, href, activeMatch) => {
     e.preventDefault();
     setMobileOpen(false);
-    setActiveHref(href);
+    if (href.startsWith('http://') || href.startsWith('https://')) {
+      window.location.assign(href);
+      return;
+    }
+    const scrollKey = activeMatch ?? href;
+    setActiveHref(scrollKey);
     if (location.pathname !== '/') {
-      if (href === '#hero') {
+      if (scrollKey === '#hero') {
         navigate('/');
         return;
       }
       navigate({ pathname: '/', hash: href.replace(/^#/, '') });
       return;
     }
-    if (href === '#hero') {
+    if (scrollKey === '#hero') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -85,8 +98,8 @@ export default function Navbar({ onBookDemo }) {
               <a
                 key={link.href}
                 href={link.href}
-                className={`navbar__link ${activeHref === link.href ? 'navbar__link--active' : ''}`}
-                onClick={(e) => handleNav(e, link.href)}
+                className={`navbar__link ${linkIsActive(link, activeHref) ? 'navbar__link--active' : ''}`}
+                onClick={(e) => handleNav(e, link.href, link.activeMatch)}
               >
                 {link.label}
               </a>
@@ -130,8 +143,8 @@ export default function Navbar({ onBookDemo }) {
               <a
                 key={`mobile-${link.href}`}
                 href={link.href}
-                className={`navbar__mobile-link ${activeHref === link.href ? 'navbar__mobile-link--active' : ''}`}
-                onClick={(e) => handleNav(e, link.href)}
+                className={`navbar__mobile-link ${linkIsActive(link, activeHref) ? 'navbar__mobile-link--active' : ''}`}
+                onClick={(e) => handleNav(e, link.href, link.activeMatch)}
               >
                 {link.label}
               </a>

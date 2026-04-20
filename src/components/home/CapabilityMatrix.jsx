@@ -81,7 +81,7 @@ export default function CapabilityMatrix() {
             {CAPABILITY_SUMMARY.map((card, index) => (
               <article
                 key={card.id}
-                className={`cap-summary__card reveal-sm ${index === 1 ? 'cap-summary__card--center' : ''}`}
+                className="cap-summary__card reveal-sm"
                 aria-roledescription="slide"
                 aria-label={`${index + 1} of ${CAPABILITY_SUMMARY.length}: ${card.title}`}
               >
