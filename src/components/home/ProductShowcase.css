@@ -174,7 +174,7 @@
   }
 }
 
-/* —— Mobile: infinite auto marquee + 16:9 cards + glass overlay (desktop unchanged) —— */
+/* Mobile: infinite auto marquee + 16:9 cards + glass overlay (desktop unchanged) */
 .inside__ticker-wrap {
   display: none;
 }
@@ -212,10 +212,6 @@
     width: max-content;
     animation: inside-marquee 72s linear infinite;
     will-change: transform;
-  }
-
-  .inside__ticker-marquee--paused {
-    animation-play-state: paused;
   }
 
   .inside__ticker-set {
@@ -269,6 +265,7 @@
     height: 100%;
     border-radius: var(--radius-lg);
     overflow: hidden;
+    isolation: isolate;
     border: 1px solid var(--border-edge);
     background: var(--surface);
     box-shadow:
@@ -357,13 +354,15 @@
 
   .inside__slide-overlay {
     position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
+    inset: 46% 0 0;
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 14px 16px 16px;
     text-align: left;
     pointer-events: none;
+    transform: translateZ(0);
   }
 
   .inside__slide-title {

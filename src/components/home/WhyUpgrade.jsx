@@ -3,7 +3,7 @@ import './WhyUpgrade.css';
 const CARDS = [
   {
     title: 'Buyers judge you before the call',
-    body: 'A generic site reads as a generic operation—shoppers decide how serious you are long before anyone answers.',
+    body: 'A generic site reads as a generic operation: shoppers decide how serious you are long before anyone answers.',
   },
   {
     title: 'Leads need an owner',

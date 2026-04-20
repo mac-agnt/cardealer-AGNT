@@ -5,7 +5,7 @@ import './FAQ.css';
 const FAQS = [
   {
     q: 'How long does setup take?',
-    a: 'Most dealerships are live within 5–7 business days. We handle the build, migration, and launch. You provide your stock and branding.',
+    a: 'Most dealerships are live within 3 to 5 business days. We handle the build, migration, and launch. You provide your stock and branding.',
   },
   {
     q: 'Can I use my own domain?',

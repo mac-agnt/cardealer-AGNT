@@ -1,6 +1,6 @@
 import './ValueStrip.css';
 
-/** Processed transparent PNGs — scripts/process_product_visuals.py */
+/** Processed transparent PNGs (see scripts/process_product_visuals.py) */
 const VISUAL_PREMIUM_WEBSITE = '/agnt-visual-premium-website.png';
 const VISUAL_DEALER_DASHBOARD = '/agnt-visual-dealer-dashboard.png';
 const VISUAL_WHATSAPP_AGENT = '/agnt-visual-whatsapp-agent.png';

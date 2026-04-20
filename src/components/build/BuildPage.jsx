@@ -100,7 +100,7 @@ export default function BuildPage({ onBookDemo }) {
             <p className="guided__kicker">Independent dealers · Ireland</p>
             <h1 className="guided__h1">Find the AGNT setup that fits how you operate</h1>
             <p className="guided__intro-copy">
-              Seven short questions. No feature checklist—just enough to match you to Core, Growth, or Performance with
+              Seven short questions. No feature checklist, just enough to match you to Core, Growth, or Performance with
               clear pricing.
             </p>
             <button

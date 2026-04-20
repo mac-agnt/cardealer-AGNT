@@ -9,7 +9,7 @@ const STEPS = [
   {
     num: '02',
     title: 'Spec and build',
-    body: 'We configure your public site and dealer workspace around that—not an off-the-shelf bundle.',
+    body: 'We configure your public site and dealer workspace around that, not an off-the-shelf bundle.',
   },
   {
     num: '03',
@@ -19,7 +19,7 @@ const STEPS = [
   {
     num: '04',
     title: 'Launch and handover',
-    body: 'Usually 5–7 days to live. We walk the team through day-to-day use—no tech headache.',
+    body: 'Usually 3 to 5 days to live. We walk the team through day-to-day use, with no tech headache.',
   },
 ];
 

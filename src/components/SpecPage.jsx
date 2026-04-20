@@ -22,7 +22,7 @@ export default function SpecPage({ onBookDemo }) {
             <h1 className="spec-gateway__title">The right AGNT setup for your dealership</h1>
             <p className="spec-gateway__lead">
               Answer seven focused questions on stock, leads, and how you work today. We recommend Core, Growth, or
-              Performance—clear pricing, no manual feature picking.
+              Performance: clear pricing, no manual feature picking.
             </p>
 
             <ul className="spec-gateway__trust" aria-label="What to expect">

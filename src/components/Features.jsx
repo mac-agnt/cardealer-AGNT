@@ -81,7 +81,7 @@ export default function Features({ onBookDemo }) {
         >
           <span className="section-label">Onboarding</span>
           <h2>Onboarding</h2>
-          <p className="features__promise">Live in 5–7 days.</p>
+          <p className="features__promise">Live in 3 to 5 days.</p>
           <p className="features__sub">
             From first call to live site, everything is handled in a simple guided setup built around how dealerships actually work.
           </p>

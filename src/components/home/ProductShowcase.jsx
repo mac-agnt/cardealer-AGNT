@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
 import './ProductShowcase.css';
 
 /** Same assets as ValueStrip “One connected dealer system” */
@@ -14,11 +13,11 @@ const REVEALS = [
   {
     title: 'Retail-grade dealer website',
     caption:
-      'Fully branded and built for buyers who compare: stock discovery, detailed vehicle pages, finance and trade-in paths, reservations, and direct WhatsApp or contact. A proper retail front end—clear next steps from first search to enquiry, not a static brochure.',
+      'Fully branded and built for buyers who compare: stock discovery, detailed vehicle pages, finance and trade-in paths, reservations, and direct WhatsApp or contact. A proper retail front end, with clear next steps from first search to enquiry, not a static brochure.',
     captionMobile:
-      'Branded stock discovery, vehicle pages, finance, trade-in, reservations, and WhatsApp—built to convert, not to sit as a brochure.',
+      'Branded stock discovery, vehicle pages, finance, trade-in, reservations, and WhatsApp, built to convert, not to sit as a brochure.',
     visualLabel:
-      '[PLACEHOLDER VISUAL — premium branded dealer website on desktop and mobile, stock cards, VDP, finance and enquiry paths]',
+      '[PLACEHOLDER VISUAL: premium branded dealer website on desktop and mobile, stock cards, VDP, finance and enquiry paths]',
     layout: 'a',
     visualSrc: VISUAL_PREMIUM_WEBSITE,
     visualAlt:
@@ -27,11 +26,11 @@ const REVEALS = [
   {
     title: 'WhatsApp AI sales agent',
     caption:
-      'Incoming messages answered in natural, dealer-appropriate language. It checks stock, answers vehicle questions, qualifies intent, books viewings or test drives, and passes the thread to your team the moment a human needs to own the deal—so conversations keep moving around the clock.',
+      'Incoming messages answered in natural, dealer-appropriate language. It checks stock, answers vehicle questions, qualifies intent, books viewings or test drives, and passes the thread to your team the moment a human needs to own the deal, so conversations keep moving around the clock.',
     captionMobile:
-      'AI answers WhatsApp in plain language: stock checks, qualification, bookings—then hands off cleanly when your team takes the deal.',
+      'AI answers WhatsApp in plain language: stock checks, qualification, bookings, then hands off cleanly when your team takes the deal.',
     visualLabel:
-      '[PLACEHOLDER VISUAL — WhatsApp AI sales agent handling stock questions, booking a viewing, and handing off to staff]',
+      '[PLACEHOLDER VISUAL: WhatsApp AI sales agent handling stock questions, booking a viewing, and handing off to staff]',
     layout: 'b',
     visualSrc: VISUAL_WHATSAPP_AGENT,
     visualAlt: 'Mobile phone with WhatsApp AI sales agent conversation and handoff.',
@@ -42,9 +41,9 @@ const REVEALS = [
     caption:
       'One record per buyer or seller: what they asked, what they viewed, what they bought, what they traded in. Handovers stay factual; the next call or visit starts with context instead of guesswork or a filing cabinet.',
     captionMobile:
-      'Every enquiry, view, purchase, and trade-in on one profile—so the next conversation starts with facts, not memory.',
+      'Every enquiry, view, purchase, and trade-in on one profile, so the next conversation starts with facts, not memory.',
     visualLabel:
-      '[PLACEHOLDER VISUAL — customer profile with enquiry history, vehicle interest, trade-in and purchase records]',
+      '[PLACEHOLDER VISUAL: customer profile with enquiry history, vehicle interest, trade-in and purchase records]',
     layout: 'a',
     visualSrc: showcaseFigureSrc('Customer profiles that keep context'),
     visualAlt:
@@ -53,11 +52,11 @@ const REVEALS = [
   {
     title: 'Digitised dealer documents',
     caption:
-      'Invoices, receipts, trade-in agreements, sales contracts, vehicle declarations, and GDPR forms live against the right customer and vehicle. Less redoing admin because a form went missing—and no parallel paper trail outside the deal.',
+      'Invoices, receipts, trade-in agreements, sales contracts, vehicle declarations, and GDPR forms live against the right customer and vehicle. Less redoing admin because a form went missing, and no parallel paper trail outside the deal.',
     captionMobile:
-      'Invoices, agreements, declarations, and GDPR—stored on the customer and vehicle, not lost in a drawer.',
+      'Invoices, agreements, declarations, and GDPR, stored on the customer and vehicle, not lost in a drawer.',
     visualLabel:
-      '[PLACEHOLDER VISUAL — digitised dealer paperwork linked to customer and vehicle records]',
+      '[PLACEHOLDER VISUAL: digitised dealer paperwork linked to customer and vehicle records]',
     layout: 'b',
     visualSrc: showcaseFigureSrc('Digitised dealer documents'),
     visualAlt: 'Digitised dealer documents and forms linked to a customer and vehicle record.',
@@ -65,11 +64,11 @@ const REVEALS = [
   {
     title: 'Import landed cost, before you price or promise',
     caption:
-      'Paste a Japan, UK, or Northern Ireland source listing and see full landed economics for Ireland—shipping, insurance, duty, VAT, VRT, NOx, fees, and margin in one view. Know what the car really owes you before you buy stock or quote a buyer—clarity independents rarely get without a dedicated import desk.',
+      'Paste a Japan, UK, or Northern Ireland source listing and see full landed economics for Ireland: shipping, insurance, duty, VAT, VRT, NOx, fees, and margin in one view. Know what the car really owes you before you buy stock or quote a buyer: clarity independents rarely get without a dedicated import desk.',
     captionMobile:
-      'Japan, UK, or NI listings → full Irish landed cost: duties, VAT, VRT, NOx, fees, margin—before you buy or quote.',
+      'Japan, UK, or NI listings → full Irish landed cost: duties, VAT, VRT, NOx, fees, margin, before you buy or quote.',
     visualLabel:
-      '[PLACEHOLDER VISUAL — import calculator with source URL, landed cost breakdown, tax logic, and margin view]',
+      '[PLACEHOLDER VISUAL: import calculator with source URL, landed cost breakdown, tax logic, and margin view]',
     layout: 'a',
     visualSrc: showcaseFigureSrc('Import landed cost, before you price or promise'),
     visualAlt:
@@ -118,38 +117,16 @@ function MobileFeatureSlide({ item }) {
 }
 
 export default function ProductShowcase() {
-  const resumeTimerRef = useRef(null);
-  const [marqueePaused, setMarqueePaused] = useState(false);
-
-  const pause = useCallback(() => {
-    setMarqueePaused(true);
-    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-  }, []);
-
-  const scheduleResume = useCallback(() => {
-    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    resumeTimerRef.current = setTimeout(() => {
-      setMarqueePaused(false);
-      resumeTimerRef.current = null;
-    }, 3200);
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current);
-    };
-  }, []);
-
   return (
     <section className="inside section" id="inside" aria-labelledby="inside-heading">
       <div className="container">
         <header className="inside__header reveal">
-          <p className="section-label">Proof points</p>
+          <p className="section-label">Highlights</p>
           <h2 id="inside-heading" className="inside__title">
-            What sets <span className="text-gradient">AGNT</span> apart.
+            Our <span className="text-gradient">unique selling points</span>
           </h2>
           <p className="inside__lede">
-            Five product strengths independents lean on—public site, WhatsApp coverage, customer records, document
+            Five product strengths independents lean on: public site, WhatsApp coverage, customer records, document
             discipline, and import economics you can price before you commit.
           </p>
         </header>
@@ -196,15 +173,8 @@ export default function ProductShowcase() {
             className="inside__ticker-viewport"
             role="region"
             aria-label="AGNT product highlights, auto-playing reel"
-            onPointerDown={pause}
-            onPointerUp={scheduleResume}
-            onPointerLeave={scheduleResume}
-            onPointerCancel={scheduleResume}
           >
-            <div
-              className={`inside__ticker-marquee${marqueePaused ? ' inside__ticker-marquee--paused' : ''}`}
-              aria-live="off"
-            >
+            <div className="inside__ticker-marquee" aria-live="off">
               <div className="inside__ticker-set">
                 {REVEALS.map((item) => (
                   <MobileFeatureSlide key={`${item.title}-a`} item={item} />

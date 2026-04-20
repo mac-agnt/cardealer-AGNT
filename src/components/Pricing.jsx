@@ -21,7 +21,7 @@ const PRICING_TIERS = [
       'Social Studio and branding tools, including logo and watermark where specified',
       'Import price calculator where specified',
       'Digitised dealer documents and admin workflow setup (scope on spec)',
-      'Onboarding and launch support, usually 5–7 days',
+      'Onboarding and launch support, usually 3 to 5 days',
     ],
     highlight: true,
   },
@@ -166,7 +166,7 @@ export default function Pricing({ onBookDemo }) {
         <div className={`pricing__meta ${visible ? 'pricing__meta--visible' : ''}`}>
           <p>No contracts</p>
           <span aria-hidden="true">·</span>
-          <p>Live in 5–7 days</p>
+          <p>Live in 3 to 5 days</p>
           <span aria-hidden="true">·</span>
           <p>Built for independent dealers in Ireland</p>
         </div>

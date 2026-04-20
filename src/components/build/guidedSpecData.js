@@ -115,7 +115,7 @@ export const PACKAGES = {
     monthly: 200,
     bestFor: 'Smaller independents who want a sharper operating base without the full conversion and automation layer.',
     whyDefault:
-      'You do not need every advanced module to get value. Core gives operating essentials—stock, CRM, publishing, and Social Studio—without loading day one with tools you may not lean on yet.',
+      'You do not need every advanced module to get value. Core gives operating essentials (stock, CRM, publishing, and Social Studio) without loading day one with tools you may not lean on yet.',
     groups: [
       {
         title: 'Dealer workspace',
@@ -143,7 +143,7 @@ export const PACKAGES = {
     includesNote: 'Includes everything in Core.',
     bestFor: 'Growing independents who need stronger enquiry handling and a retail-grade site without the deepest automation tier.',
     whyDefault:
-      'Growth fits when the website and lead path need to match how buyers actually shop—while keeping the stack disciplined before you step up to full AI and import tooling.',
+      'Growth fits when the website and lead path need to match how buyers actually shop, while keeping the stack disciplined before you step up to full AI and import tooling.',
     groups: [
       {
         title: 'Website & conversion',
@@ -184,7 +184,7 @@ export const PACKAGES = {
     includesNote: 'Includes everything in Growth.',
     bestFor: 'Established independents who want conversion, customer handling, sourcing, and admin running through one tighter system.',
     whyDefault:
-      'Performance is the right fit when WhatsApp, imports, paperwork, and operational load all need to sit in one place—so nothing serious lives in parallel tools or memory.',
+      'Performance is the right fit when WhatsApp, imports, paperwork, and operational load all need to sit in one place, so nothing serious lives in parallel tools or memory.',
     groups: [
       {
         title: 'Website & conversion',
@@ -291,7 +291,7 @@ export function getResultNarrative(packageId, answers) {
   } else if (packageId === 'growth') {
     if (answers.priority === 'website_stock' || answers.priority === 'leads') {
       lines.push(
-        'You flagged the public site and enquiry path as the priority. Growth adds the retail tooling and lead structure Core does not carry—without jumping to the full automation tier.'
+        'You flagged the public site and enquiry path as the priority. Growth adds the retail tooling and lead structure Core does not carry, without jumping to the full automation tier.'
       );
     } else {
       lines.push(pkg.whyDefault);
