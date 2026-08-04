@@ -8,6 +8,7 @@ import UspHighlights from './components/home/UspHighlights';
 import AshfordCaseStudy from './components/home/AshfordCaseStudy';
 import PricingPage from './components/PricingPage';
 import UspPage from './components/UspPage';
+import ContactPage from './components/ContactPage';
 import SpecPage from './components/SpecPage';
 import SpecPackagesPage from './components/SpecPackagesPage';
 import CapabilityDetailPage from './components/capabilities/CapabilityDetailPage';
@@ -76,7 +77,7 @@ export default function App() {
         <Route path="/" element={<HomePage onBookDemo={openModal} />} />
         <Route path="/pricing" element={<PricingPage onBookDemo={openModal} />} />
         <Route path="/unique-selling-points" element={<UspPage onBookDemo={openModal} />} />
-        <Route path="/contact" element={<Navigate to="/#contact" replace />} />
+        <Route path="/contact" element={<ContactPage onBookDemo={openModal} />} />
         <Route path="/spec" element={<SpecPage onBookDemo={openModal} />} />
         <Route path="/spec/packages" element={<SpecPackagesPage onBookDemo={openModal} />} />
         <Route path="/capabilities/:slug" element={<CapabilityDetailPage onBookDemo={openModal} />} />

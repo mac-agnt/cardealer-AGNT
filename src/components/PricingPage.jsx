@@ -1,5 +1,4 @@
 import Navbar from './Navbar';
-import WhyUpgrade from './home/WhyUpgrade';
 import HowItWorks from './home/HowItWorks';
 import Pricing from './Pricing';
 import FinalCTA from './FinalCTA';
@@ -15,9 +14,8 @@ export default function PricingPage({ onBookDemo }) {
       <Navbar onBookDemo={onBookDemo} />
 
       <main>
-        <WhyUpgrade />
-        <HowItWorks />
         <Pricing onBookDemo={onBookDemo} />
+        <HowItWorks />
         <FinalCTA onBookDemo={onBookDemo} />
       </main>
 

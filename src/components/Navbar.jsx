@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { label: 'Home', href: 'https://agnt.ie', activeMatch: '#hero' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 function linkIsActive(link, activeHref) {
@@ -40,6 +40,8 @@ export default function Navbar({ onBookDemo }) {
   const location = useLocation();
   const navigate = useNavigate();
   const scrolled = useScrolled(12);
+  // On sub-pages there is no dark hero behind the bar, so keep it settled (solid + legible)
+  const settled = scrolled || location.pathname !== '/';
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeHref, setActiveHref] = useState('#hero');
 
@@ -93,8 +95,8 @@ export default function Navbar({ onBookDemo }) {
   };
 
   return (
-    <div className={`navbar-wrap ${scrolled ? 'navbar-wrap--scrolled' : ''}`}>
-      <header className={`navbar nav-settle ${scrolled ? 'navbar--scrolled' : ''}`}>
+    <div className={`navbar-wrap ${settled ? 'navbar-wrap--scrolled' : ''}`}>
+      <header className={`navbar nav-settle ${settled ? 'navbar--scrolled' : ''}`}>
         <div className="navbar__inner">
           <a
             href="#hero"

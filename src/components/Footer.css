@@ -1,5 +1,5 @@
 .footer {
-  background: var(--bg-deep);
+  background: var(--bg-1);
   padding: clamp(24px, 4vw, 44px) clamp(16px, 4vw, 40px) 40px;
   padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
   color: rgba(210, 205, 196, 0.85);
@@ -15,7 +15,7 @@
   background:
     radial-gradient(ellipse 60% 45% at 12% 0%, rgba(181, 166, 145, 0.05), transparent 55%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 26%),
-    var(--bg-1);
+    var(--bg-deep);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.04),
     0 26px 64px rgba(0, 0, 0, 0.42);
