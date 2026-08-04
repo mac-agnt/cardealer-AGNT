@@ -1,0 +1,289 @@
+/* Hero product mock — AGNT Admin dashboard, coded replica.
+   Self-contained, scoped under .dash. Tokenised dark theme to match the live app. */
+
+.dash {
+  --d-bg: #0c0c0b;
+  --d-side: #100f0e;
+  --d-card: #161513;
+  --d-card-bd: rgba(255, 255, 255, 0.06);
+  --d-ink: #f3f0ea;
+  --d-ink-2: #b4ada2;
+  --d-ink-3: #8c857a;
+  --d-ink-4: #645d54;
+  --d-green: #5aa17a;
+  --d-green-bg: rgba(76, 150, 110, 0.14);
+  --d-green-bd: rgba(90, 161, 122, 0.3);
+  --d-orange: #e6913a;
+
+  display: grid;
+  grid-template-columns: 224px 1fr;
+  width: 1180px;
+  height: 760px;
+  transform-origin: top left;
+  background: var(--d-bg);
+  color: var(--d-ink);
+  font-family: var(--font-family);
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+/* ——— Sidebar ——— */
+.dash__side {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 14px 12px 12px;
+  background: var(--d-side);
+  border-right: 1px solid var(--d-card-bd);
+}
+
+.dash__brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 2px 4px 14px;
+}
+
+.dash__brand-logo {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  background: var(--d-green-bg);
+  border: 1px solid var(--d-green-bd);
+  color: var(--d-green);
+}
+.dash__brand-logo svg { width: 17px; height: 17px; }
+
+.dash__brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--d-ink);
+}
+
+.dash__brand-toggle {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--d-card-bd);
+  color: var(--d-ink-3);
+}
+.dash__brand-toggle svg { width: 15px; height: 15px; }
+
+.dash__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-height: 0;
+}
+
+.dash__nav-label {
+  margin: 12px 8px 5px;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--d-ink-4);
+}
+.dash__nav-label:first-child { margin-top: 2px; }
+
+.dash__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  color: var(--d-ink-2);
+  font-size: 13px;
+  font-weight: 450;
+}
+
+.dash__nav-item.is-sub { padding-left: 28px; }
+
+.dash__nav-item.is-active {
+  background: var(--d-green-bg);
+  border: 1px solid var(--d-green-bd);
+  color: var(--d-ink);
+  font-weight: 550;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.dash__nav-item.is-active .dash__nav-icon { color: var(--d-green); }
+
+.dash__nav-icon {
+  display: grid;
+  place-items: center;
+  color: var(--d-ink-3);
+  flex-shrink: 0;
+}
+.dash__nav-icon svg { width: 17px; height: 17px; }
+
+.dash__account {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 11px;
+  border: 1px solid var(--d-card-bd);
+  background: rgba(255, 255, 255, 0.015);
+}
+.dash__account-email {
+  font-size: 12px;
+  color: var(--d-ink-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.dash__account-logout {
+  margin-left: auto;
+  display: grid;
+  place-items: center;
+  color: var(--d-ink-3);
+}
+.dash__account-logout svg { width: 15px; height: 15px; }
+
+/* ——— Main ——— */
+.dash__main {
+  min-width: 0;
+  padding: 18px 22px 22px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash__stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.dash__stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 13px 11px;
+  min-height: 78px;
+  border-radius: 13px;
+  border: 1px solid var(--d-card-bd);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), rgba(255, 255, 255, 0) 60%), var(--d-card);
+}
+
+.dash__stat-dot {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--d-orange);
+  box-shadow: 0 0 7px rgba(230, 145, 58, 0.6);
+}
+
+.dash__stat-num {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--d-ink);
+  line-height: 1;
+}
+
+.dash__stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--d-ink-3);
+}
+
+/* Center stack */
+.dash__center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 26px 0 0;
+}
+
+.dash__greeting {
+  margin: 0;
+  font-family: var(--font-headline);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--d-ink);
+}
+
+.dash__sub {
+  margin: 10px 0 0;
+  font-size: 13.5px;
+  color: var(--d-ink-3);
+}
+
+.dash__composer {
+  position: relative;
+  width: min(560px, 100%);
+  margin: 22px auto 0;
+  display: flex;
+  align-items: center;
+  min-height: 84px;
+  padding: 14px 60px 14px 20px;
+  border-radius: 16px;
+  border: 1px solid var(--d-card-bd);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0) 70%), var(--d-card);
+  text-align: left;
+}
+.dash__composer-text {
+  font-size: 14px;
+  color: var(--d-ink-4);
+}
+.dash__composer-send {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--d-card-bd);
+  color: var(--d-ink-2);
+}
+.dash__composer-send svg { width: 15px; height: 15px; }
+
+.dash__chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  width: min(620px, 100%);
+  margin: 16px auto 0;
+}
+
+.dash__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--d-card-bd);
+  background: var(--d-card);
+  font-size: 12.5px;
+  color: var(--d-ink-2);
+}
+.dash__chip-icon {
+  display: grid;
+  place-items: center;
+  color: var(--d-ink-3);
+}
+.dash__chip-icon svg { width: 14px; height: 14px; }

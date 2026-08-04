@@ -6,14 +6,34 @@ import './Navbar.css';
 const NAV_LINKS = [
   { label: 'Home', href: 'https://agnt.ie', activeMatch: '#hero' },
   { label: 'Capabilities', href: '#capabilities' },
-  { label: 'Inside AGNT', href: '#inside' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Contact', href: '#contact' },
 ];
 
 function linkIsActive(link, activeHref) {
+  if (link.to) return false;
   const key = link.activeMatch ?? link.href;
   return activeHref === key;
+}
+
+function NavItem({ link, base, activeHref, onNav, onClose }) {
+  if (link.to) {
+    return (
+      <Link to={link.to} className={base} onClick={onClose}>
+        {link.label}
+      </Link>
+    );
+  }
+  const active = linkIsActive(link, activeHref);
+  return (
+    <a
+      href={link.href}
+      className={`${base} ${active ? `${base}--active` : ''}`}
+      onClick={(e) => onNav(e, link.href, link.activeMatch)}
+    >
+      {link.label}
+    </a>
+  );
 }
 
 export default function Navbar({ onBookDemo }) {
@@ -95,14 +115,14 @@ export default function Navbar({ onBookDemo }) {
 
           <div className="navbar__links" role="navigation" aria-label="Primary">
             {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`navbar__link ${linkIsActive(link, activeHref) ? 'navbar__link--active' : ''}`}
-                onClick={(e) => handleNav(e, link.href, link.activeMatch)}
-              >
-                {link.label}
-              </a>
+              <NavItem
+                key={link.label}
+                link={link}
+                base="navbar__link"
+                activeHref={activeHref}
+                onNav={handleNav}
+                onClose={() => setMobileOpen(false)}
+              />
             ))}
           </div>
 
@@ -140,14 +160,14 @@ export default function Navbar({ onBookDemo }) {
         <div id="mobile-nav-panel" className={`navbar__mobile-panel ${mobileOpen ? 'navbar__mobile-panel--open' : ''}`}>
           <div className="navbar__mobile-links" role="navigation" aria-label="Mobile primary">
             {NAV_LINKS.map((link) => (
-              <a
-                key={`mobile-${link.href}`}
-                href={link.href}
-                className={`navbar__mobile-link ${linkIsActive(link, activeHref) ? 'navbar__mobile-link--active' : ''}`}
-                onClick={(e) => handleNav(e, link.href, link.activeMatch)}
-              >
-                {link.label}
-              </a>
+              <NavItem
+                key={`mobile-${link.label}`}
+                link={link}
+                base="navbar__mobile-link"
+                activeHref={activeHref}
+                onNav={handleNav}
+                onClose={() => setMobileOpen(false)}
+              />
             ))}
           </div>
           <div className="navbar__mobile-ctas">

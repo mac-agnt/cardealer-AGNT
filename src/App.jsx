@@ -4,14 +4,10 @@ import ScrollToTop from './lib/ScrollToTop';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import ValueStrip from './components/home/ValueStrip';
-import CapabilityMatrix from './components/home/CapabilityMatrix';
-import ThePackage from './components/home/ThePackage';
-import ProductShowcase from './components/home/ProductShowcase';
-import WhyUpgrade from './components/home/WhyUpgrade';
-import HowItWorks from './components/home/HowItWorks';
-import Pricing from './components/Pricing';
-import SpecTailored from './components/home/SpecTailored';
-import FinalCTA from './components/FinalCTA';
+import UspHighlights from './components/home/UspHighlights';
+import AshfordCaseStudy from './components/home/AshfordCaseStudy';
+import PricingPage from './components/PricingPage';
+import UspPage from './components/UspPage';
 import SpecPage from './components/SpecPage';
 import SpecPackagesPage from './components/SpecPackagesPage';
 import CapabilityDetailPage from './components/capabilities/CapabilityDetailPage';
@@ -31,14 +27,8 @@ function HomePage({ onBookDemo }) {
       <main>
         <Hero onBookDemo={onBookDemo} />
         <ValueStrip onBookDemo={onBookDemo} />
-        <CapabilityMatrix />
-        <ThePackage />
-        <ProductShowcase />
-        <WhyUpgrade />
-        <HowItWorks />
-        <Pricing onBookDemo={onBookDemo} />
-        <SpecTailored onBookDemo={onBookDemo} />
-        <FinalCTA onBookDemo={onBookDemo} />
+        <UspHighlights />
+        <AshfordCaseStudy onBookDemo={onBookDemo} />
       </main>
 
       <Footer onBookDemo={onBookDemo} />
@@ -84,6 +74,8 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage onBookDemo={openModal} />} />
+        <Route path="/pricing" element={<PricingPage onBookDemo={openModal} />} />
+        <Route path="/unique-selling-points" element={<UspPage onBookDemo={openModal} />} />
         <Route path="/contact" element={<Navigate to="/#contact" replace />} />
         <Route path="/spec" element={<SpecPage onBookDemo={openModal} />} />
         <Route path="/spec/packages" element={<SpecPackagesPage onBookDemo={openModal} />} />

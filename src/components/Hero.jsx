@@ -1,31 +1,8 @@
 import { Link } from 'react-router-dom';
+import HeroDashboardMock from './HeroDashboardMock';
 import './Hero.css';
 
-const HERO_PHONE_PREVIEW = '/Screenshot%202026-04-13%20at%2001.29.49.png';
-
-function HeroPhoneShell() {
-  return (
-    <div className="hero-phone">
-      <div className="hero-phone__frame">
-        <div className="hero-phone__screen">
-          <div className="hero-phone__display">
-            <img
-              src={HERO_PHONE_PREVIEW}
-              alt="Premium dealer website on mobile: stock, search, and showroom presentation"
-              className="hero-phone__img"
-              loading="eager"
-              decoding="async"
-            />
-            <div className="hero-phone__island" aria-hidden="true" />
-            <div className="hero-phone__home-indicator" aria-hidden="true" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function HeroDeskBrowser() {
+function HeroBrowser() {
   return (
     <div className="hero-desk hero-desk--browser">
       <div className="hero-desk__chrome" aria-hidden="true">
@@ -49,66 +26,53 @@ function HeroDeskBrowser() {
         </div>
       </div>
       <div className="hero-desk__viewport">
-        <img
-          src="/car dealer dashbaord template.png"
-          alt="AGNT in the browser: dealership workspace"
-          className="hero-desk__img"
-          loading="eager"
-          decoding="async"
-        />
+        <HeroDashboardMock />
       </div>
     </div>
   );
 }
 
-export default function Hero({ onBookDemo }) {
+export default function Hero() {
   return (
     <section className="hero section--airy" id="hero">
       <div className="hero__ambient" aria-hidden="true" />
       <div className="container container--wide hero__container">
-        <div className="hero__grid">
-          <div className="hero__copy">
-            <p className="hero__eyebrow reveal">Independent dealers · Ireland</p>
-            <h1 className="hero__headline reveal">
-              <span className="hero__headline-line">Franchise-grade dealer control.</span>
-              <span className="hero__headline-line">
-                <span className="hero__display-accent">Built for independent dealers.</span>
+        <div className="hero__copy">
+          <h1 className="hero__headline reveal">
+            <span className="hero__headline-line">Franchise-level dealer tools.</span>
+            <span className="hero__headline-line">
+              <span className="hero__display-accent" data-ghost="Built for independent dealers">
+                Built for independent dealers
               </span>
-            </h1>
-            <p className="hero__lead reveal-sm">
-              A premium public website plus a serious dealer workspace: stock, listings, leads, appointments, WhatsApp AI,
-              CRM, digitised documents, and admin automation. Independents get the discipline larger groups expect.
-            </p>
-            <div className="hero__cta-cluster reveal-sm" data-stagger>
-              <Link to="/spec" className="btn btn-primary btn-micro hero__cta hero__cta--primary">
-                Spec out your system
-              </Link>
-              <button type="button" className="btn btn-secondary btn-micro hero__cta hero__cta--secondary" onClick={onBookDemo}>
-                Book a demo
-              </button>
-            </div>
-            <div className="hero__trust reveal-sm" role="group" aria-label="At a glance">
-              <span className="hero__trust-chip">Live in 3–5 days</span>
-              <span className="hero__trust-chip">No lock-in</span>
-              <span className="hero__trust-chip">7-day support</span>
-            </div>
-            <p className="hero__hint reveal-sm">
-              In flight: richer customer profiles, deeper admin automation, and sharper reporting.
-            </p>
+              .
+            </span>
+          </h1>
+          <p className="hero__lead reveal-sm">
+            A complete dealer management system in one workspace, the setup franchise groups pay
+            six figures for, priced for independents.
+          </p>
+          <p className="hero__trust reveal-sm">
+            <span className="hero__trust-star" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 20.4l1.4-6.8L2.2 9l6.9-.8z" />
+              </svg>
+            </span>
+            Trusted by independent dealers across Ireland and the UK
+          </p>
+          <div className="hero__cta-cluster reveal-sm">
+            <Link to="/spec" className="hero__cta">
+              <span>Get started</span>
+              <span className="hero__cta-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </span>
+            </Link>
           </div>
+        </div>
 
-          <div className="hero__stage reveal-sm" aria-label="Product preview">
-            <div className="hero__stage-inner">
-              <div className="hero__composition">
-                <div className="hero__desk-wrap">
-                  <HeroDeskBrowser />
-                </div>
-                <div className="hero__phone-wrap">
-                  <HeroPhoneShell />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="hero__stage reveal-sm" aria-label="AGNT dealer workspace preview">
+          <HeroBrowser />
         </div>
       </div>
     </section>

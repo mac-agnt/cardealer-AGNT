@@ -3,11 +3,10 @@
   scroll-margin-top: 72px;
   padding-top: clamp(40px, 6vw, 76px);
   padding-bottom: clamp(40px, 6vw, 76px);
-  border-top: 1px solid var(--border-fine);
   border-bottom: 1px solid var(--border-fine);
   background:
     radial-gradient(ellipse 85% 55% at 50% -12%, rgba(181, 166, 145, 0.07), transparent 55%),
-    linear-gradient(180deg, var(--surface) 0%, var(--bg-1) 100%);
+    linear-gradient(180deg, var(--bg-hero-canvas) 0%, var(--surface) 16%, var(--bg-1) 100%);
 }
 
 .value-strip__head {

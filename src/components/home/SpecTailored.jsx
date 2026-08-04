@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
+import HeroDashboardMock from '../HeroDashboardMock';
 import './SpecTailored.css';
-
-const SPEC_VISUAL_SRC = encodeURI('/Spec out your system.png');
 
 export default function SpecTailored({ onBookDemo }) {
   return (
@@ -28,14 +27,8 @@ export default function SpecTailored({ onBookDemo }) {
                 </button>
               </div>
             </div>
-            <figure className="spec-block__visual">
-              <img
-                src={SPEC_VISUAL_SRC}
-                alt="AGNT spec setup: market, marketplaces, phone, CRM choice, and revenue snapshot on a dark dashboard."
-                className="spec-block__img"
-                loading="lazy"
-                decoding="async"
-              />
+            <figure className="spec-block__visual spec-block__visual--mock">
+              <HeroDashboardMock />
             </figure>
           </div>
         </div>

@@ -1,0 +1,339 @@
+.ashford {
+  position: relative;
+  scroll-margin-top: 88px;
+  padding-top: clamp(56px, 8vw, 104px);
+  padding-bottom: clamp(56px, 8vw, 104px);
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(181, 166, 145, 0.06), transparent 60%),
+    var(--bg-1);
+  border-top: 1px solid var(--border-fine);
+}
+
+/* Contained panel so the block reads as one deliberate card, not floating text */
+.ashford__panel {
+  position: relative;
+  display: grid;
+  gap: clamp(32px, 5vw, 60px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 56px);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-strong);
+  background:
+    radial-gradient(ellipse 70% 60% at 100% 0%, rgba(181, 166, 145, 0.07), transparent 58%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.022) 0%, transparent 30%),
+    var(--surface);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 30px 72px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 900px) {
+  .ashford__panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+  }
+}
+
+/* ——— Copy ——— */
+.ashford__eyebrow {
+  color: var(--metal);
+}
+
+.ashford__title {
+  margin: 14px 0 0;
+  font-family: var(--font-headline);
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.06;
+  letter-spacing: -0.038em;
+  font-weight: 600;
+  color: var(--text-0);
+}
+
+.ashford__mark {
+  color: var(--metal-light);
+}
+
+.ashford__lead {
+  margin: clamp(16px, 2vw, 22px) 0 0;
+  max-width: 46ch;
+  font-size: clamp(15px, 1.15vw, 17px);
+  line-height: 1.55;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+
+/* ——— Proof points ——— */
+.ashford__proof {
+  margin: clamp(20px, 2.6vw, 26px) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 11px;
+}
+
+.ashford__proof-item {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: clamp(14px, 1.05vw, 15px);
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+
+.ashford__proof-tick {
+  display: grid;
+  place-items: center;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: var(--metal-light);
+  background: rgba(181, 166, 145, 0.14);
+}
+.ashford__proof-tick svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* ——— Live-site link card ——— */
+.ashford__site {
+  margin-top: clamp(22px, 3vw, 30px);
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-strong);
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
+    var(--surface-pearl);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out),
+    box-shadow var(--dur-2) var(--ease-out);
+}
+
+.ashford__site:hover {
+  transform: translateY(-1px);
+  border-color: var(--border-subtle);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.ashford__site-glyph {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  color: var(--metal-light);
+  background: rgba(181, 166, 145, 0.12);
+}
+.ashford__site-glyph svg {
+  width: 18px;
+  height: 18px;
+}
+
+.ashford__site-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.ashford__site-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.ashford__site-url {
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
+}
+
+.ashford__site-arrow {
+  display: grid;
+  place-items: center;
+  margin-left: 4px;
+  color: var(--text-1);
+  transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.ashford__site-arrow svg {
+  width: 16px;
+  height: 16px;
+}
+.ashford__site:hover .ashford__site-arrow {
+  transform: translate(2px, -2px);
+  color: var(--metal-light);
+}
+
+/* ——— CTAs ——— */
+.ashford__cta-cluster {
+  margin-top: clamp(24px, 3vw, 32px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ashford__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 24px;
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out),
+    color var(--dur-2) var(--ease-out),
+    border-color var(--dur-2) var(--ease-out);
+}
+
+.ashford__cta--primary {
+  color: var(--cta-on-ivory);
+  background: linear-gradient(180deg, var(--cta-ivory-top), var(--cta-ivory-bot));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 12px 28px rgba(0, 0, 0, 0.3);
+  border: none;
+}
+.ashford__cta--primary:hover {
+  transform: translateY(-1px);
+  color: var(--cta-ivory-top);
+  background: linear-gradient(180deg, #4b3826 0%, #2f2318 100%);
+}
+
+.ashford__cta--ghost {
+  color: var(--text-0);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--border-strong);
+}
+.ashford__cta--ghost:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-subtle);
+}
+
+/* ——— LinkedIn embed in a browser chrome ——— */
+.ashford__embed {
+  justify-self: center;
+  width: 100%;
+  max-width: 460px;
+}
+
+.ashford__browser {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px var(--border-edge),
+    0 34px 74px rgba(0, 0, 0, 0.44);
+}
+
+.ashford__browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 8px 14px;
+  background: linear-gradient(180deg, #363432 0%, #2a2826 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.ashford__browser-dots {
+  display: flex;
+  gap: 7px;
+  flex-shrink: 0;
+}
+.ashford__browser-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+.ashford__browser-dots span:nth-child(1) { background: rgba(220, 95, 85, 0.55); }
+.ashford__browser-dots span:nth-child(2) { background: rgba(215, 165, 70, 0.5); }
+.ashford__browser-dots span:nth-child(3) { background: rgba(85, 175, 95, 0.45); }
+
+.ashford__browser-url {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 5px 14px;
+  border-radius: 7px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: rgba(232, 228, 220, 0.88);
+}
+
+.ashford__browser-lock {
+  width: 9px;
+  height: 10px;
+  flex-shrink: 0;
+  border-radius: 2px;
+  border: 1.5px solid rgba(180, 175, 168, 0.4);
+  border-bottom-width: 2px;
+  opacity: 0.8;
+}
+
+.ashford__browser-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+.ashford__browser-menu span {
+  width: 15px;
+  height: 1.5px;
+  border-radius: 1px;
+  background: rgba(230, 225, 218, 0.55);
+}
+
+.ashford__browser-view {
+  position: relative;
+  height: 560px;
+  max-height: 66vh;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.ashford__embed-frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+@media (max-width: 520px) {
+  .ashford__browser-view {
+    height: 560px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ashford__site,
+  .ashford__cta,
+  .ashford__site-arrow {
+    transition: none;
+  }
+}

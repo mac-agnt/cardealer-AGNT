@@ -1,7 +1,7 @@
+import HeroDashboardMock from '../HeroDashboardMock';
 import './ThePackage.css';
 
 const WEBSITE_IMG = '/car dealer website template.png';
-const WORKSPACE_IMG = '/car dealer dashbaord template.png';
 
 export default function ThePackage() {
   return (
@@ -45,12 +45,8 @@ export default function ThePackage() {
 
           <div className="pkg__block pkg__block--internal reveal-sm">
             <div className="pkg__block-visual">
-              <div className="pkg__shot">
-                <img
-                  src={WORKSPACE_IMG}
-                  alt="AGNT dealer workspace dashboard with stock and lead overview"
-                  loading="lazy"
-                />
+              <div className="pkg__shot pkg__shot--mock">
+                <HeroDashboardMock />
               </div>
             </div>
             <div className="pkg__block-body">

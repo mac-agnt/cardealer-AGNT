@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   QUESTIONS,
   PACKAGES,
@@ -12,7 +12,8 @@ import './BuildPage.css';
 const TOTAL_Q = QUESTIONS.length;
 
 export default function BuildPage({ onBookDemo }) {
-  const [phase, setPhase] = useState('intro');
+  const navigate = useNavigate();
+  const [phase, setPhase] = useState(0);
   const [answers, setAnswers] = useState({});
   const [matchedId, setMatchedId] = useState(null);
   const [loadingStage, setLoadingStage] = useState(0);
@@ -62,13 +63,12 @@ export default function BuildPage({ onBookDemo }) {
       setPhase(phase - 1);
       return;
     }
-    if (phase === 0) setPhase('intro');
+    if (phase === 0) navigate('/spec');
   };
 
-  const progressCurrent =
-    phase === 'intro' ? 0 : typeof phase === 'number' ? phase + 1 : phase === 'loading' ? TOTAL_Q : TOTAL_Q;
+  const progressCurrent = typeof phase === 'number' ? phase + 1 : TOTAL_Q;
 
-  const progressFrac = phase === 'intro' ? 0 : Math.min(progressCurrent / TOTAL_Q, 1);
+  const progressFrac = Math.min(progressCurrent / TOTAL_Q, 1);
 
   const pkg = matchedId ? PACKAGES[matchedId] : null;
   const narrative = matchedId ? getResultNarrative(matchedId, answers) : null;
@@ -82,7 +82,7 @@ export default function BuildPage({ onBookDemo }) {
             <span>AGNT</span>
           </Link>
           <div className="guided__top-actions">
-            {phase !== 'intro' && phase !== 'result' ? (
+            {typeof phase === 'number' ? (
               <button type="button" className="guided__text-btn" onClick={goBack}>
                 Back
               </button>
@@ -95,29 +95,6 @@ export default function BuildPage({ onBookDemo }) {
       </header>
 
       <main className="guided__main">
-        {phase === 'intro' ? (
-          <div className="guided__stage container guided__stage--narrow">
-            <p className="guided__kicker">Independent dealers · Ireland</p>
-            <h1 className="guided__h1">Find the AGNT setup that fits how you operate</h1>
-            <p className="guided__intro-copy">
-              Seven short questions. No feature checklist, just enough to match you to Core, Growth, or Performance with
-              clear pricing.
-            </p>
-            <button
-              type="button"
-              className="btn btn-primary guided__cta"
-              onClick={() => {
-                setAnswers({});
-                setMatchedId(null);
-                setPhase(0);
-              }}
-            >
-              Start
-            </button>
-            <p className="guided__intro-foot">About 2 minutes · You can go back and change answers anytime</p>
-          </div>
-        ) : null}
-
         {typeof phase === 'number' ? (
           <div className="guided__stage container guided__stage--narrow">
             <div className="guided__progress" aria-hidden="true">
@@ -229,7 +206,7 @@ export default function BuildPage({ onBookDemo }) {
                   onClick={() => {
                     setAnswers({});
                     setMatchedId(null);
-                    setPhase('intro');
+                    setPhase(0);
                   }}
                 >
                   Start over

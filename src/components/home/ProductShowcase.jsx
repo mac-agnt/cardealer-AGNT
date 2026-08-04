@@ -1,3 +1,6 @@
+import CustomersMock from './CustomersMock';
+import DocumentsMock from './DocumentsMock';
+import ImportCalcMock from './ImportCalcMock';
 import './ProductShowcase.css';
 
 /** Same assets as ValueStrip “One connected dealer system” */
@@ -9,7 +12,7 @@ function showcaseFigureSrc(title) {
   return encodeURI(`/screen-q2/what-sets-apart/${title}.png`);
 }
 
-const REVEALS = [
+export const REVEALS = [
   {
     title: 'Retail-grade dealer website',
     caption:
@@ -45,7 +48,7 @@ const REVEALS = [
     visualLabel:
       '[PLACEHOLDER VISUAL: customer profile with enquiry history, vehicle interest, trade-in and purchase records]',
     layout: 'a',
-    visualSrc: showcaseFigureSrc('Customer profiles that keep context'),
+    render: 'customers',
     visualAlt:
       'Customer profile view with enquiry history, vehicles of interest, trade-in notes, and purchase context.',
   },
@@ -58,7 +61,7 @@ const REVEALS = [
     visualLabel:
       '[PLACEHOLDER VISUAL: digitised dealer paperwork linked to customer and vehicle records]',
     layout: 'b',
-    visualSrc: showcaseFigureSrc('Digitised dealer documents'),
+    render: 'documents',
     visualAlt: 'Digitised dealer documents and forms linked to a customer and vehicle record.',
   },
   {
@@ -70,14 +73,14 @@ const REVEALS = [
     visualLabel:
       '[PLACEHOLDER VISUAL: import calculator with source URL, landed cost breakdown, tax logic, and margin view]',
     layout: 'a',
-    visualSrc: showcaseFigureSrc('Import landed cost, before you price or promise'),
+    render: 'import',
     visualAlt:
       'Import landed cost calculator with source listing, Irish duty, VAT, VRT, fees, and margin breakdown.',
   },
 ];
 
-function MobileFeatureSlide({ item }) {
-  const hasVisual = Boolean(item.visualSrc);
+export function MobileFeatureSlide({ item }) {
+  const hasVisual = Boolean(item.visualSrc) || item.render === 'customers' || item.render === 'documents' || item.render === 'import';
   const stageClass = [
     'inside__slide-placeholder',
     hasVisual ? 'inside__slide-placeholder--image' : 'inside__stage--placeholder',
@@ -94,7 +97,19 @@ function MobileFeatureSlide({ item }) {
           role={hasVisual ? undefined : 'img'}
           aria-label={hasVisual ? undefined : item.visualLabel}
         >
-          {hasVisual ? (
+          {item.render === 'customers' ? (
+            <div className="inside__stage--mock inside__slide-mock">
+              <CustomersMock />
+            </div>
+          ) : item.render === 'documents' ? (
+            <div className="inside__stage--mock inside__slide-mock">
+              <DocumentsMock />
+            </div>
+          ) : item.render === 'import' ? (
+            <div className="inside__stage--mock inside__slide-mock">
+              <ImportCalcMock />
+            </div>
+          ) : hasVisual ? (
             <img
               src={item.visualSrc}
               alt={item.visualAlt}
@@ -142,7 +157,19 @@ export default function ProductShowcase() {
                 <p className="inside__reveal-caption">{item.caption}</p>
               </div>
               <div className="inside__frame inside__frame--media">
-                {item.visualSrc ? (
+                {item.render === 'customers' ? (
+                  <div className="inside__stage product-stage inside__stage--mock">
+                    <CustomersMock />
+                  </div>
+                ) : item.render === 'documents' ? (
+                  <div className="inside__stage product-stage inside__stage--mock">
+                    <DocumentsMock />
+                  </div>
+                ) : item.render === 'import' ? (
+                  <div className="inside__stage product-stage inside__stage--mock">
+                    <ImportCalcMock />
+                  </div>
+                ) : item.visualSrc ? (
                   <div
                     className={`inside__stage product-stage inside__stage--visual${item.visualVariant === 'whatsapp-large' ? ' inside__stage--whatsapp-large' : ''}`}
                   >

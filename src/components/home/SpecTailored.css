@@ -94,6 +94,17 @@
   object-position: center;
 }
 
+/* Hero product mock, sized down to this section's column */
+.spec-block__visual--mock {
+  display: block;
+  position: relative;
+  min-height: 0;
+  width: 100%;
+  border: 1px solid var(--border-strong);
+  background: #0c0c0b;
+  box-shadow: var(--shadow-inner-glow), 0 22px 56px rgba(0, 0, 0, 0.4);
+}
+
 @media (max-width: 899px) {
   .spec-block__visual {
     order: -1;
