@@ -17,6 +17,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* Copy at the top, product mock hugging the bottom edge: on short viewports
+     the spare height opens between them instead of pooling under the mock */
+  justify-content: space-between;
   min-height: min(880px, calc(100svh - 66px));
   padding: clamp(34px, 5vh, 62px) clamp(16px, 3vw, 40px) 0;
   border-radius: clamp(14px, 1.5vw, 20px) clamp(14px, 1.5vw, 20px) 0 0;
@@ -297,7 +300,7 @@
   z-index: 2;
   width: min(1080px, 100%);
   margin: clamp(20px, 2.6vw, 34px) auto 0;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
 }
 
@@ -463,9 +466,11 @@
     padding: 0 6px;
   }
 
+  /* Full-screen hero on mobile: the panel fills the viewport under the nav so
+     the next section starts below the fold instead of chopping the panel off */
   .hero__panel {
-    min-height: auto;
-    padding: clamp(30px, 7vw, 48px) 16px 0;
+    min-height: calc(100svh - 70px);
+    padding: clamp(26px, 6vw, 40px) 16px 0;
   }
 
   .hero__headline {
@@ -482,9 +487,14 @@
     min-height: 46px;
   }
 
+  /* Pinned to the bottom edge and slightly oversized, so the workspace peeks
+     out of the fold and is cut by the panel instead of floating mid-panel */
   .hero__stage {
-    width: 100%;
-    margin-top: clamp(24px, 7vw, 36px);
+    flex: 0 0 auto;
+    width: 142%;
+    max-width: none;
+    margin-left: 0;
+    margin-bottom: -26px;
   }
 }
 
