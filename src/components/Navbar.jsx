@@ -4,7 +4,7 @@ import { useScrolled } from '../hooks/useScrolled';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  { label: 'Home', href: 'https://agnt.ie', activeMatch: '#hero' },
+  { label: 'Home', href: '#hero' },
   { label: 'Capabilities', href: '#capabilities' },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Contact', to: '/contact' },

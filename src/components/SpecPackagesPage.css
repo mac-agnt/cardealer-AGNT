@@ -61,14 +61,14 @@
   font-size: 14px;
   color: var(--text-2);
   text-decoration: none;
-  border-bottom: 1px solid rgba(181, 166, 145, 0.35);
+  border-bottom: 1px solid rgba(255, 94, 28,  0.35);
   padding-bottom: 2px;
   transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
 }
 
 .pkg-review-hero__link:hover {
   color: var(--metal-light);
-  border-bottom-color: rgba(209, 196, 176, 0.55);
+  border-bottom-color: rgba(255, 138, 84,  0.55);
 }
 
 .pkg-grid {
@@ -89,9 +89,9 @@
 }
 
 .pkg-card--featured {
-  border-color: rgba(143, 74, 78, 0.38);
+  border-color: rgba(255, 94, 28,  0.38);
   box-shadow:
-    0 0 0 1px rgba(143, 74, 78, 0.12) inset,
+    0 0 0 1px rgba(255, 94, 28,  0.12) inset,
     var(--shadow-card);
 }
 
@@ -108,7 +108,7 @@
   justify-self: start;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  border: 1px solid rgba(143, 74, 78, 0.4);
+  border: 1px solid rgba(255, 94, 28,  0.4);
   background: var(--red-soft);
   color: rgba(236, 220, 222, 0.95);
   font-size: 10px;
@@ -278,7 +278,7 @@
 }
 
 .pkg-btn-outline:hover {
-  border-color: rgba(209, 196, 176, 0.45);
+  border-color: rgba(255, 138, 84,  0.45);
   background: rgba(255, 255, 255, 0.04);
 }
 
@@ -365,7 +365,7 @@
   gap: 6px;
   padding: 0 10px;
   border-bottom: 1px solid var(--border-fine);
-  background: linear-gradient(180deg, #2e2c29, #232220);
+  background: linear-gradient(180deg, #232220, #1a1917);
 }
 
 .pkg-macframe__bar span {

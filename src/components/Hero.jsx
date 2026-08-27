@@ -34,30 +34,25 @@ function HeroBrowser() {
 
 export default function Hero() {
   return (
-    <section className="hero section--airy" id="hero">
-      <div className="hero__ambient" aria-hidden="true" />
-      <div className="container container--wide hero__container">
+    <section className="hero" id="hero">
+      <div className="hero__panel">
+        {/* Flickering dot matrix — four interleaved grids, each pulsing on its own clock */}
+        <div className="hero__dots" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="hero__glow" aria-hidden="true" />
+
         <div className="hero__copy">
           <h1 className="hero__headline reveal">
             <span className="hero__headline-line">Franchise-level dealer tools.</span>
-            <span className="hero__headline-line">
-              <span className="hero__display-accent" data-ghost="Built for independent dealers">
-                Built for independent dealers
-              </span>
-              .
-            </span>
+            <span className="hero__headline-line">Built for independent dealers</span>
           </h1>
           <p className="hero__lead reveal-sm">
             A complete dealer management system in one workspace, the setup franchise groups pay
             six figures for, priced for independents.
-          </p>
-          <p className="hero__trust reveal-sm">
-            <span className="hero__trust-star" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 6 20.4l1.4-6.8L2.2 9l6.9-.8z" />
-              </svg>
-            </span>
-            Trusted by independent dealers across Ireland and the UK
           </p>
           <div className="hero__cta-cluster reveal-sm">
             <Link to="/spec" className="hero__cta">

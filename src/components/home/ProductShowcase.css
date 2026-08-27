@@ -91,7 +91,7 @@
   position: absolute;
   inset: -8% -4% auto 8%;
   height: 60%;
-  background: radial-gradient(ellipse at 30% 20%, rgba(181, 166, 145, 0.12), transparent 70%);
+  background: radial-gradient(ellipse at 30% 20%, rgba(255, 94, 28,  0.12), transparent 70%);
   pointer-events: none;
   z-index: 0;
 }
@@ -125,7 +125,7 @@
   overflow: hidden;
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-strong);
-  background: #0c0c0b;
+  background: #0b0b0a;
   box-shadow: var(--shadow-inner-glow), 0 24px 60px rgba(0, 0, 0, 0.42);
 }
 
@@ -144,22 +144,15 @@
   display: block;
 }
 
-/* WhatsApp: taller frame + scale so the phone reads large in the grid */
-.inside__stage--whatsapp-large {
+/* Portrait device mocks (WhatsApp, dealer app): a taller frame, with the
+   handset scaled to its height rather than its width */
+.inside__stage--phone {
   aspect-ratio: 3 / 4;
   min-height: clamp(248px, 40vw, 460px);
-  max-height: min(520px, 66vh);
-}
-
-.inside__stage--whatsapp-large .inside__stage-img {
-  transform: scale(0.96);
-  transform-origin: center center;
-}
-
-@media (min-width: 920px) {
-  .inside__stage--whatsapp-large .inside__stage-img {
-    transform: scale(0.94);
-  }
+  max-height: min(540px, 68vh);
+  border: none;
+  background: transparent;
+  box-shadow: none;
 }
 
 .inside__stage--placeholder {
@@ -325,11 +318,6 @@
     object-fit: contain;
     object-position: center;
     display: block;
-  }
-
-  .inside__slide-placeholder--whatsapp-large .inside__slide-img {
-    transform: scale(1.12);
-    transform-origin: center center;
   }
 
   .inside__placeholder-label--slide {

@@ -2,19 +2,19 @@
    Same dark screen theme as the hero dashboard / Customers mock, emerald accent. */
 
 .imp {
-  --i-bg: #0c0c0b;
-  --i-side: #100f0e;
-  --i-card: #15140f;
+  --i-bg: #0b0b0a;
+  --i-side: #141412;
+  --i-card: #181816;
   --i-card-bd: rgba(255, 255, 255, 0.06);
   --i-field-bg: rgba(0, 0, 0, 0.25);
-  --i-ink: #f3f0ea;
-  --i-ink-2: #b4ada2;
-  --i-ink-3: #8c857a;
-  --i-ink-4: #645d54;
-  --i-green: #34d399;
-  --i-green-bg: rgba(52, 211, 153, 0.13);
-  --i-green-bd: rgba(52, 211, 153, 0.32);
-  --i-blue: #6db3d6;
+  --i-ink: #f5f3ee;
+  --i-ink-2: #a29e96;
+  --i-ink-3: #949089;
+  --i-ink-4: #807d76;
+  --i-accent: #ff8a54;
+  --i-accent-bg: rgba(255, 94, 28, 0.16);
+  --i-accent-bd: rgba(255, 122, 60, 0.36);
+  --i-note: #e8b33c;
 
   position: relative;
   display: grid;
@@ -52,9 +52,9 @@
   width: 30px;
   height: 30px;
   border-radius: 9px;
-  background: var(--i-green-bg);
-  border: 1px solid var(--i-green-bd);
-  color: var(--i-green);
+  background: var(--i-accent-bg);
+  border: 1px solid var(--i-accent-bd);
+  color: var(--i-accent);
 }
 .imp__brand-logo svg { width: 17px; height: 17px; }
 .imp__brand-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
@@ -92,13 +92,13 @@
 }
 .imp__nav-item.is-sub { padding-left: 28px; }
 .imp__nav-item.is-active {
-  background: var(--i-green-bg);
-  border: 1px solid var(--i-green-bd);
+  background: var(--i-accent-bg);
+  border: 1px solid var(--i-accent-bd);
   color: var(--i-ink);
   font-weight: 550;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
-.imp__nav-item.is-active .imp__nav-icon { color: var(--i-green); }
+.imp__nav-item.is-active .imp__nav-icon { color: var(--i-accent); }
 .imp__nav-icon { display: grid; place-items: center; color: var(--i-ink-3); flex-shrink: 0; }
 .imp__nav-icon svg { width: 17px; height: 17px; }
 
@@ -203,7 +203,7 @@
   border: 1px solid var(--i-card-bd);
   color: var(--i-ink);
 }
-.imp-mode.is-active .imp-mode__ic { color: var(--i-green); }
+.imp-mode.is-active .imp-mode__ic { color: var(--i-accent); }
 .imp-mode__ic { display: grid; place-items: center; color: var(--i-ink-4); }
 .imp-mode__ic svg { width: 15px; height: 15px; }
 
@@ -251,11 +251,11 @@
   padding: 0 26px;
   height: 46px;
   border-radius: 12px;
-  background: linear-gradient(180deg, #3ee0a4, #22b27c);
-  color: #04130c;
+  background: linear-gradient(180deg, #ff8a54, #ff5e1c);
+  color: #10100f;
   font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.4), 0 8px 22px rgba(34, 178, 124, 0.32);
+  box-shadow: 0 0 0 1px rgba(255, 122, 60, 0.44), 0 8px 22px rgba(255, 94, 28, 0.26);
 }
 .imp-url__hint { margin: 12px 0 0; font-size: 12px; color: var(--i-ink-4); }
 
@@ -324,9 +324,9 @@
   margin: 18px 0 0;
   font-size: 13px;
   font-weight: 500;
-  color: var(--i-blue);
+  color: var(--i-note);
 }
-.imp-duty__ic { display: grid; place-items: center; color: var(--i-blue); }
+.imp-duty__ic { display: grid; place-items: center; color: var(--i-note); }
 .imp-duty__ic svg { width: 16px; height: 16px; }
 
 /* Total panel */
@@ -345,7 +345,7 @@
   margin: 18px 0 0;
   font-size: 13px;
   font-weight: 500;
-  color: var(--i-blue);
+  color: var(--i-note);
 }
 .imp-total__link-ic { display: grid; place-items: center; }
 .imp-total__link-ic svg { width: 15px; height: 15px; }
@@ -365,11 +365,11 @@
   gap: 9px;
   height: 48px;
   border-radius: 13px;
-  background: linear-gradient(180deg, #3ee0a4, #22b27c);
-  color: #04130c;
+  background: linear-gradient(180deg, #ff8a54, #ff5e1c);
+  color: #10100f;
   font-size: 14px;
   font-weight: 600;
-  box-shadow: 0 0 0 1px rgba(52, 211, 153, 0.4), 0 10px 26px rgba(34, 178, 124, 0.35);
+  box-shadow: 0 0 0 1px rgba(255, 122, 60, 0.44), 0 10px 26px rgba(255, 94, 28, 0.28);
 }
 .imp-save__ic { display: grid; place-items: center; }
 .imp-save__ic svg { width: 16px; height: 16px; }
@@ -397,7 +397,7 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 2px solid var(--i-green);
+  border: 2px solid var(--i-accent);
   opacity: 0;
   transform: scale(0.3);
   animation: imp-ripple 11s linear infinite;

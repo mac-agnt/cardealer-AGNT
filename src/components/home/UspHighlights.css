@@ -87,7 +87,7 @@
   overflow: hidden;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-edge);
-  background: #0c0c0b;
+  background: #0b0b0a;
   display: grid;
   place-items: center;
 }
@@ -109,6 +109,13 @@
   overflow: hidden;
 }
 
+/* Portrait device: the frame keeps the card's own height and the mock crops
+   into the screen, so the UI stays legible at thumbnail size */
+.usp__card-frame--phone {
+  bottom: 0;
+  height: 100%;
+}
+
 .usp__card-body {
   padding: clamp(13px, 1.4vw, 16px) clamp(5px, 0.6vw, 7px) clamp(5px, 0.6vw, 7px);
 }
@@ -128,7 +135,7 @@
   font-weight: 600;
   line-height: 1.22;
   letter-spacing: -0.02em;
-  color: #f4efe8;
+  color: #f5f3ee;
 }
 
 .usp__card-caption {
@@ -196,8 +203,9 @@
 }
 .usp__cta--primary:hover {
   transform: translateY(-1px);
-  color: var(--cta-ivory-top);
-  background: linear-gradient(180deg, #4b3826 0%, #2f2318 100%);
+  /* Dark ink on copper: white text on this orange is only 2.8:1 */
+  color: var(--on-copper);
+  background: linear-gradient(180deg, var(--copper-light) 0%, var(--copper) 100%);
 }
 
 .usp__cta--ghost {

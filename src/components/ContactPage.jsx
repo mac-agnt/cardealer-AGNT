@@ -42,11 +42,22 @@ export default function ContactPage({ onBookDemo }) {
       <Navbar onBookDemo={onBookDemo} />
 
       <main>
-        <section className="contact section--airy" id="contact-top" aria-labelledby="contact-heading">
-          <div className="container contact__inner reveal-sm">
+        <section className="contact" id="contact-top" aria-labelledby="contact-heading">
+          <div className="contact__panel">
+            {/* Flowing warm gradient, built from layered blurred sheets rather
+                than a bitmap so it stays sharp at any viewport and costs nothing
+                to download. */}
+            <span className="contact__canvas" aria-hidden="true">
+              <i className="contact__ribbon contact__ribbon--sweep" />
+              <i className="contact__ribbon contact__ribbon--loop" />
+              <i className="contact__ribbon contact__ribbon--core" />
+              <i className="contact__ribbon contact__ribbon--fold" />
+            </span>
+
+            <div className="container contact__inner reveal-sm">
             <p className="section-label contact__eyebrow">Contact</p>
             <h1 id="contact-heading" className="contact__title">
-              Talk to a human at <span className="text-gradient">AGNT</span>
+              Talk to <span className="text-gradient">us</span>
             </h1>
             <p className="contact__lead">
               Questions on a build, pricing, or getting your forecourt live? Email or call and we
@@ -81,6 +92,7 @@ export default function ContactPage({ onBookDemo }) {
                   Book a 10-minute demo
                 </button>
               ) : null}
+            </div>
             </div>
           </div>
         </section>

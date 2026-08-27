@@ -144,7 +144,7 @@ export default function CustomersMock() {
       {/* Animated cursor */}
       <span className="cust__cursor" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
-          <path d="M5 3l14 8.5-6 1.2 3.2 6.3-2.7 1.3-3.3-6.4L5 19z" fill="#fff" stroke="#0c0c0b" strokeWidth="1.2" strokeLinejoin="round" />
+          <path d="M5 3l14 8.5-6 1.2 3.2 6.3-2.7 1.3-3.3-6.4L5 19z" fill="#fff" stroke="#0b0b0a" strokeWidth="1.2" strokeLinejoin="round" />
         </svg>
       </span>
     </div>

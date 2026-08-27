@@ -1,0 +1,478 @@
+/* Dealer app replica — scoped tokens, board-aligned palette.
+   Fixed 348px design canvas, transform-scaled by the component. */
+
+.papp {
+  --p-shell: #080807;
+  --p-bg: #10100f;
+  --p-card: #1b1a18;
+  --p-raise: #232220;
+  --p-line: rgba(255, 255, 255, 0.08);
+  --p-line-soft: rgba(255, 255, 255, 0.05);
+  --p-ink: #f5f3ee;
+  --p-ink-2: #a29e96;
+  --p-ink-3: #949089;
+  --p-copper: #ff5e1c;
+  --p-copper-lt: #ff8a54;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 348px;
+  height: 706px;
+  transform-origin: top left;
+  font-family: var(--font-family);
+  user-select: none;
+}
+
+/* ——— Phone shell ——— */
+.papp__shell {
+  position: relative;
+  width: 348px;
+  height: 706px;
+  border-radius: 46px;
+  padding: 10px;
+  background: linear-gradient(160deg, #2a2926 0%, #121211 46%, #26241f 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.09),
+    0 30px 70px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.papp__shell::before {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: 37px;
+  background: var(--p-bg);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.papp__island {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92px;
+  height: 24px;
+  border-radius: 999px;
+  background: #050505;
+  z-index: 3;
+}
+
+/* ——— Status bar ——— */
+.papp__status {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 26px 0;
+  flex: none;
+}
+
+.papp__time {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--p-ink);
+  letter-spacing: -0.01em;
+}
+
+.papp__status-ic {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.papp__sig,
+.papp__wifi,
+.papp__batt {
+  display: block;
+  background: var(--p-ink);
+  opacity: 0.85;
+}
+
+.papp__sig {
+  width: 15px;
+  height: 9px;
+  clip-path: polygon(0 68%, 22% 68%, 22% 100%, 0 100%, 0 68%, 30% 44%, 48% 44%, 48% 100%, 30% 100%, 30% 44%, 56% 22%, 74% 22%, 74% 100%, 56% 100%, 56% 22%, 82% 0, 100% 0, 100% 100%, 82% 100%);
+}
+
+.papp__wifi {
+  width: 12px;
+  height: 9px;
+  clip-path: polygon(50% 100%, 20% 62%, 80% 62%);
+  box-shadow: none;
+}
+
+.papp__batt {
+  width: 20px;
+  height: 10px;
+  border-radius: 3px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(245, 243, 238, 0.5);
+  position: relative;
+}
+
+.papp__batt::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  right: 6px;
+  border-radius: 1px;
+  background: var(--p-ink);
+}
+
+/* ——— Screen body ——— */
+.papp__screen {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 22px 0;
+  overflow: hidden;
+}
+
+.papp__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.papp__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.papp__brand-mark {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 94, 28, 0.5);
+  display: grid;
+  place-items: center;
+  font-size: 9.5px;
+  font-weight: 700;
+  color: var(--p-copper-lt);
+}
+
+.papp__brand-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  color: var(--p-ink);
+}
+
+.papp__bell {
+  position: relative;
+  width: 19px;
+  height: 19px;
+  color: var(--p-ink-2);
+}
+
+.papp__bell svg { width: 100%; height: 100%; }
+
+.papp__bell-dot {
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--p-copper);
+  box-shadow: 0 0 0 2px var(--p-bg);
+}
+
+.papp__greet {
+  margin: 2px 0 0;
+  font-family: var(--font-headline);
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  color: var(--p-ink);
+}
+
+.papp__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 13px;
+  border-radius: 11px;
+  background: var(--p-card);
+  border: 1px solid var(--p-line-soft);
+  font-size: 11.5px;
+  color: var(--p-ink-3);
+}
+
+.papp__search-ic {
+  width: 14px;
+  height: 14px;
+  flex: none;
+  color: var(--p-ink-3);
+}
+
+.papp__search-ic svg { width: 100%; height: 100%; }
+
+.papp__label {
+  margin: 4px 0 -2px;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p-ink-3);
+}
+
+/* ——— Featured vehicle ——— */
+.papp__feature {
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  border: 1px solid var(--p-line-soft);
+  background: var(--p-card);
+  overflow: hidden;
+}
+
+.papp__feature-shot {
+  position: relative;
+  display: block;
+  height: 104px;
+  background-image:
+    radial-gradient(80% 120% at 32% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #2a2825 0%, #141312 100%);
+}
+
+.papp__feature-shot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/hero.car.png') no-repeat 48% 64% / 148% auto;
+  opacity: 0.46;
+}
+
+.papp__feature-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: rgba(11, 11, 10, 0.82);
+  border: 1px solid rgba(255, 94, 28, 0.42);
+  color: var(--p-copper-lt);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.papp__feature-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 11px 12px 12px;
+}
+
+.papp__feature-name {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--p-ink);
+}
+
+.papp__feature-meta {
+  font-size: 10px;
+  color: var(--p-ink-3);
+}
+
+.papp__feature-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3px;
+}
+
+.papp__feature-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--p-ink);
+}
+
+.papp__feature-price s {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--p-ink-3);
+}
+
+.papp__feature-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 25px;
+  padding: 0 11px;
+  border-radius: 999px;
+  background: var(--p-copper);
+  color: #10100f;
+  font-size: 10.5px;
+  font-weight: 700;
+}
+
+.papp__feature-cta-ic {
+  width: 11px;
+  height: 11px;
+  display: grid;
+  place-items: center;
+}
+
+.papp__feature-cta-ic svg { width: 100%; height: 100%; }
+
+/* ——— Quick actions ——— */
+.papp__actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.papp__action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 3px;
+  border-radius: 12px;
+  border: 1px solid var(--p-line-soft);
+  background: rgba(255, 255, 255, 0.028);
+  font-size: 8.5px;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--p-ink-2);
+}
+
+.papp__action-ic {
+  width: 17px;
+  height: 17px;
+  color: var(--p-copper-lt);
+}
+
+.papp__action-ic svg { width: 100%; height: 100%; }
+
+/* ——— Activity rows ——— */
+.papp__row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  border-radius: 12px;
+  border: 1px solid var(--p-line-soft);
+  background: var(--p-card);
+}
+
+.papp__row-ic {
+  width: 28px;
+  height: 28px;
+  flex: none;
+  border-radius: 9px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--p-ink-2);
+}
+
+.papp__row-ic svg { width: 15px; height: 15px; }
+
+.papp__row-ic--copper {
+  background: rgba(255, 94, 28, 0.14);
+  color: var(--p-copper-lt);
+}
+
+.papp__row-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.papp__row-text b {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--p-ink);
+}
+
+.papp__row-text i {
+  font-style: normal;
+  font-size: 9.5px;
+  color: var(--p-ink-3);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ——— Tab bar ——— */
+.papp__tabs {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding: 9px 14px 4px;
+  margin-top: auto;
+  border-top: 1px solid var(--p-line-soft);
+  background: rgba(24, 24, 22, 0.78);
+  backdrop-filter: blur(18px) saturate(1.3);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  flex: none;
+}
+
+.papp__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  letter-spacing: 0.01em;
+  color: var(--p-ink-3);
+}
+
+.papp__tab.is-active {
+  color: var(--p-copper);
+}
+
+.papp__tab-ic {
+  position: relative;
+  width: 19px;
+  height: 19px;
+}
+
+.papp__tab-ic svg { width: 100%; height: 100%; }
+
+.papp__tab-dot {
+  position: absolute;
+  top: -1px;
+  right: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--p-copper);
+}
+
+.papp__bar {
+  position: relative;
+  z-index: 2;
+  width: 110px;
+  height: 4px;
+  margin: 4px auto 8px;
+  border-radius: 999px;
+  background: rgba(245, 243, 238, 0.28);
+  flex: none;
+}

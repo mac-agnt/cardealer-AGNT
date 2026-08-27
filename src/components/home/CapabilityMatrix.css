@@ -196,7 +196,7 @@
   position: absolute;
   inset: auto -25% -45% -25%;
   height: 72%;
-  background: radial-gradient(ellipse 75% 68% at 50% 100%, rgba(181, 166, 145, 0.1), transparent 70%);
+  background: radial-gradient(ellipse 75% 68% at 50% 100%, rgba(255, 94, 28,  0.1), transparent 70%);
   pointer-events: none;
   opacity: 0.95;
 }

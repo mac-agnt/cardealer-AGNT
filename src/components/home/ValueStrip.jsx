@@ -1,42 +1,76 @@
+import HeroDashboardMock from '../HeroDashboardMock';
+import WebsiteMock from './mocks/WebsiteMock';
+import AskAgntMock from './mocks/AskAgntMock';
+import WireframeDottedGlobe from '../ui/WireframeDottedGlobe';
+import BrowserChrome from './mocks/BrowserChrome';
 import './ValueStrip.css';
 
-/** Processed transparent PNGs (see scripts/process_product_visuals.py) */
-const VISUAL_PREMIUM_WEBSITE = '/agnt-visual-premium-website.png';
-const VISUAL_DEALER_DASHBOARD = '/agnt-visual-dealer-dashboard.png';
-const VISUAL_WHATSAPP_AGENT = '/agnt-visual-whatsapp-agent.png';
+/* Inline stroke icons — matches the project convention (see HeroDashboardMock)
+   rather than pulling in an icon package for three glyphs. */
+const ic = {
+  globe: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="8" />
+      <path d="M4 12h16M12 4c2.5 2.5 2.5 13 0 16M12 4c-2.5 2.5-2.5 13 0 16" />
+    </svg>
+  ),
+  phone: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="7" y="2.5" width="10" height="19" rx="2.6" />
+      <path d="M10.8 5.4h2.4" />
+    </svg>
+  ),
+  board: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="4" width="18" height="16" rx="2" />
+      <path d="M3 9h18M9 9v11" />
+    </svg>
+  ),
+};
 
-const PRIMARY = [
-  {
-    id: 'website',
-    name: 'Premium tailored website',
-    visualSrc: VISUAL_PREMIUM_WEBSITE,
-    visualAlt: 'Desktop and mobile showing a premium tailored dealer website with stock and search.',
-  },
-  {
-    id: 'workspace',
-    name: 'Dealer workspace & dashboard',
-    visualSrc: VISUAL_DEALER_DASHBOARD,
-    visualAlt: 'Dealer workspace dashboard with leads, appointments, and operational overview.',
-  },
-  {
-    id: 'whatsapp',
-    name: 'WhatsApp AI sales agent',
-    visualSrc: VISUAL_WHATSAPP_AGENT,
-    visualAlt: 'Mobile phone with WhatsApp AI sales agent conversation and handoff.',
-  },
-];
+/** Corner brackets — the card signature. */
+function CardFrame({ children, className = '' }) {
+  return (
+    <article className={`vs-card${className ? ` ${className}` : ''}`}>
+      <span className="vs-card__corner vs-card__corner--tl" aria-hidden="true" />
+      <span className="vs-card__corner vs-card__corner--tr" aria-hidden="true" />
+      <span className="vs-card__corner vs-card__corner--bl" aria-hidden="true" />
+      <span className="vs-card__corner vs-card__corner--br" aria-hidden="true" />
+      {children}
+    </article>
+  );
+}
 
-const SUPPORT = [
-  'Stock & inventory',
-  'Leads & enquiries',
-  'Appointments & bookings',
-  'Customer profiles / CRM',
-  'Digitised dealer admin',
-  'Automated workflows',
-  'Import price calculator',
-  'Logo & watermark',
-  'Social Studio',
-];
+function CardHeading({ icon, label, statement }) {
+  return (
+    <div className="vs-card__head">
+      <span className="vs-card__label">
+        <span className="vs-card__label-ic">{ic[icon]}</span>
+        {label}
+      </span>
+      <p className="vs-card__statement">{statement}</p>
+    </div>
+  );
+}
+
+/** Schematic side rails: dot field, dashed verticals, node joints. */
+function Rails() {
+  return (
+    <div className="vs-rails" aria-hidden="true">
+      <span className="vs-rails__dots" />
+      <span className="vs-rails__rail vs-rails__rail--l">
+        <i style={{ top: '13%' }} />
+        <i style={{ top: '47%' }} />
+        <i style={{ top: '81%' }} />
+      </span>
+      <span className="vs-rails__rail vs-rails__rail--r">
+        <i style={{ top: '22%' }} />
+        <i style={{ top: '58%' }} />
+        <i style={{ top: '90%' }} />
+      </span>
+    </div>
+  );
+}
 
 export default function ValueStrip({ onBookDemo }) {
   return (
@@ -45,6 +79,8 @@ export default function ValueStrip({ onBookDemo }) {
       id="what-agnt-is"
       aria-labelledby="what-agnt-heading"
     >
+      <Rails />
+
       <div className="container container--wide">
         <header className="value-strip__head reveal">
           <p className="section-label">What AGNT is</p>
@@ -57,43 +93,48 @@ export default function ValueStrip({ onBookDemo }) {
           </p>
         </header>
 
-        <div className="value-strip__board reveal-sm" aria-label="AGNT system components">
-          <div className="value-strip__spine" aria-hidden="true" />
-          <div className="value-strip__primary">
-            {PRIMARY.map((m, i) => (
-              <div
-                key={m.id}
-                className={`value-strip__module value-strip__module--primary reveal-sm ${
-                  i === 0 ? 'value-strip__module--hero' : ''
-                }${m.visualSrc ? '' : ' value-strip__module--text-only'}`}
-              >
-                <span className="value-strip__module-accent" aria-hidden="true" />
-                {m.visualSrc ? (
-                  <div className={`value-strip__visual value-strip__visual--${m.id}`}>
-                    <img
-                      src={m.visualSrc}
-                      alt={m.visualAlt}
-                      className="value-strip__visual-img"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                ) : null}
-                <span className="value-strip__module-name">{m.name}</span>
+        <div className="vs-grid" aria-label="AGNT system components">
+          <CardFrame className="reveal-sm">
+            <CardHeading
+              icon="globe"
+              label="Premium tailored website"
+              statement="Your forecourt, open and selling at 2am."
+            />
+            <div className="vs-card__media vs-card__media--dashed">
+              <div className="vs-stage">
+                <WebsiteMock />
               </div>
-            ))}
-          </div>
+            </div>
+          </CardFrame>
 
-          <ul className="value-strip__support">
-            {SUPPORT.map((name) => (
-              <li key={name} className="value-strip__support-cell reveal-sm">
-                <span className="value-strip__support-inner">
-                  <span className="value-strip__support-mark" aria-hidden="true" />
-                  <span className="value-strip__support-name">{name}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
+          <CardFrame className="reveal-sm">
+            <CardHeading icon="phone" label="Dealer app" statement="A dealership in your pocket." />
+            <div className="vs-card__media vs-card__media--dashed vs-card__media--globe">
+              <div className="vs-globe">
+                <WireframeDottedGlobe />
+              </div>
+              <div className="vs-stage vs-stage--app">
+                <AskAgntMock />
+              </div>
+            </div>
+          </CardFrame>
+
+          <CardFrame className="vs-card--wide reveal-sm">
+            <CardHeading
+              icon="board"
+              label="Dealer workspace & dashboard"
+              statement="Every lead, deal, and vehicle on one screen."
+            />
+            <div className="vs-card__media vs-card__media--dashed">
+              <div className="vs-desk">
+                <BrowserChrome url="app.agnt.ie">
+                  <div className="vs-deskframe">
+                    <HeroDashboardMock revealHeight={470} />
+                  </div>
+                </BrowserChrome>
+              </div>
+            </div>
+          </CardFrame>
         </div>
 
         <div className="value-strip__cta reveal-sm">

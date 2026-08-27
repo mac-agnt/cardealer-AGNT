@@ -57,15 +57,15 @@ const NAV = [
 
 const STATS = [
   { label: 'Draft', n: '1', tone: 'grey' },
-  { label: 'Sent', n: '1', tone: 'blue' },
-  { label: 'Signed', n: '1', tone: 'green' },
+  { label: 'Sent', n: '1', tone: 'amber' },
+  { label: 'Signed', n: '1', tone: 'success' },
   { label: 'Void', n: '0', tone: 'red' },
-  { label: 'Completed', n: '0', tone: 'green' },
+  { label: 'Completed', n: '0', tone: 'success' },
 ];
 
 const ROWS = [
-  { title: 'Sales Contract — Shane Doyle — 2020 BMW 320d', status: 'Signed', tone: 'green', no: 'DOC-20260419-0001', ago: '2h ago', who: 'Shane Doyle' },
-  { title: 'Deposit Receipt — Darragh Kelly — 2021 VW Golf', status: 'Sent', tone: 'blue', no: 'DOC-20260419-0002', ago: '5h ago', who: 'Darragh Kelly' },
+  { title: 'Sales Contract — Shane Doyle — 2020 BMW 320d', status: 'Signed', tone: 'success', no: 'DOC-20260419-0001', ago: '2h ago', who: 'Shane Doyle' },
+  { title: 'Deposit Receipt — Darragh Kelly — 2021 VW Golf', status: 'Sent', tone: 'amber', no: 'DOC-20260419-0002', ago: '5h ago', who: 'Darragh Kelly' },
   { title: 'Invoice — Aoife Murphy — 2022 Toyota Corolla', status: 'Draft', tone: 'grey', no: 'DOC-20260419-0003', ago: '1h ago', who: 'Aoife Murphy' },
 ];
 
@@ -183,7 +183,7 @@ export default function DocumentsMock() {
 
       {/* Animated pointer */}
       <span className="docs__cursor">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 8-6 1.6L9.6 18z" fill="#f3f0ea" stroke="#0c0c0b" strokeWidth="1.2" strokeLinejoin="round" /></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 3l14 8-6 1.6L9.6 18z" fill="#f5f3ee" stroke="#0b0b0a" strokeWidth="1.2" strokeLinejoin="round" /></svg>
         <span className="docs__cursor-ring" />
       </span>
     </div>

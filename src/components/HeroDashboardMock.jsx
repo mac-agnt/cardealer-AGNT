@@ -1,12 +1,16 @@
 /* Coded replica of the AGNT Admin dashboard — used as the hero product mock.
    Non-interactive presentation surface (aria-hidden); mirrors the live app shell.
    Rendered at a fixed design width, then scaled to fit its frame so proportions
-   stay identical at every breakpoint. */
-import { useEffect, useRef } from 'react';
+   stay identical at every breakpoint.
+
+   A scripted demo drives a ghost cursor through a real interaction loop: it picks
+   a suggestion chip, types it, sends it, reads the reply, opens Leads, opens a
+   lead, then returns home. Every step is genuine component state, not decoration. */
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './HeroDashboardMock.css';
 
 const DESIGN_W = 1180; // fixed canvas width
-const REVEAL_H = 680;  // portion of the canvas shown before it bleeds below the cut
+const REVEAL_H = 632;  // portion of the canvas shown before it bleeds below the cut
 
 /* ——— Inline stroke icons (1.5px), matching project convention ——— */
 const ic = {
@@ -58,7 +62,7 @@ const STATS = [
 
 const NAV = [
   { type: 'label', text: 'Deals' },
-  { type: 'item', icon: 'home', text: 'Home', active: true },
+  { type: 'item', icon: 'home', text: 'Home' },
   { type: 'item', icon: 'pipeline', text: 'Pipeline' },
   { type: 'item', icon: 'leads', text: 'Leads' },
   { type: 'item', icon: 'customers', text: 'Customers' },
@@ -71,11 +75,6 @@ const NAV = [
   { type: 'item', icon: 'reg', text: 'Reg Check' },
   { type: 'item', icon: 'calc', text: 'Import Calculator' },
   { type: 'item', icon: 'social', text: 'Social Studio' },
-  { type: 'label', text: 'Setup' },
-  { type: 'item', icon: 'globe', text: 'Website Content' },
-  { type: 'item', icon: 'mail', text: 'Email Inbox' },
-  { type: 'item', icon: 'layers', text: 'Logo & Watermark' },
-  { type: 'item', icon: 'settings', text: 'Settings' },
 ];
 
 const CHIPS = [
@@ -88,9 +87,81 @@ const CHIPS = [
   { icon: 'trend', text: 'Pricing check' },
 ];
 
-export default function HeroDashboardMock() {
-  const ref = useRef(null);
+const LEADS = [
+  { name: 'Aoife Brennan', car: '2019 BMW 320d M Sport', src: 'DoneDeal', status: 'Unreplied', age: '2h' },
+  { name: 'Cathal Murray', car: '2021 Hyundai Tucson Executive', src: 'WhatsApp', status: 'Unreplied', age: '5h' },
+  { name: 'Niamh Kelleher', car: '2018 Audi A4 Avant', src: 'Website', status: 'Booked', age: '1d' },
+  { name: 'Declan Moloney', car: '2020 Ford Kuga ST-Line', src: 'Carzone', status: 'Quoted', age: '1d' },
+  { name: 'Saoirse Nolan', car: '2022 Kia Sportage K3', src: 'Facebook', status: 'Replied', age: '2d' },
+];
 
+const ASK = 'Give me a daily summary';
+const REPLY =
+  '2 leads are still unreplied, the oldest since 08:14. 1 finance deal is waiting on proof of address, and 11 cars have passed 45 days in stock.';
+
+function timeGreeting(hour) {
+  if (hour < 12) return 'Good morning.';
+  if (hour < 18) return 'Good afternoon.';
+  return 'Good evening.';
+}
+
+const INITIAL = {
+  view: 'home',
+  nav: 'Home',
+  chip: null,
+  press: false,
+  composer: '',
+  typeTarget: null,
+  thread: [],
+  thinking: false,
+  lead: null,
+  target: null,
+};
+
+/* [delay before the step, state transition] — runs on a loop. */
+const SCRIPT = [
+  [1400, (s) => ({ ...s, target: 'chip-2' })],
+  [820, (s) => ({ ...s, press: true, chip: 2 })],
+  [170, (s) => ({ ...s, press: false, typeTarget: ASK })],
+  [1500, (s) => ({ ...s, target: 'send' })],
+  [720, (s) => ({ ...s, press: true })],
+  [170, (s) => ({
+    ...s,
+    press: false,
+    chip: null,
+    composer: '',
+    typeTarget: null,
+    thinking: true,
+    thread: [{ role: 'user', text: ASK }],
+  })],
+  [1250, (s) => ({ ...s, thinking: false, thread: [...s.thread, { role: 'bot', text: REPLY }] })],
+  [2400, (s) => ({ ...s, target: 'nav-Leads' })],
+  [780, (s) => ({ ...s, press: true })],
+  [170, (s) => ({ ...s, press: false, view: 'leads', nav: 'Leads', thread: [], thinking: false })],
+  [1500, (s) => ({ ...s, target: 'row-0' })],
+  [820, (s) => ({ ...s, press: true })],
+  [170, (s) => ({ ...s, press: false, lead: 0 })],
+  [2600, (s) => ({ ...s, target: 'nav-Home' })],
+  [780, (s) => ({ ...s, press: true })],
+  [170, (s) => ({ ...s, press: false, view: 'home', nav: 'Home', lead: null })],
+  [2200, (s) => s],
+];
+
+/* `revealHeight` controls how much of the canvas is shown before it bleeds past
+   the frame — the hero crops tighter than the in-card usage. */
+export default function HeroDashboardMock({ revealHeight = REVEAL_H }) {
+  const ref = useRef(null);
+  const nodes = useRef({});
+  const [state, setState] = useState(INITIAL);
+  const [cursor, setCursor] = useState({ x: 470, y: 60 });
+  const [greeting, setGreeting] = useState(() => timeGreeting(new Date().getHours()));
+
+  const setNode = useCallback((key) => (el) => {
+    if (el) nodes.current[key] = el;
+    else delete nodes.current[key];
+  }, []);
+
+  /* Scale the fixed-width canvas into whatever frame it is dropped into */
   useEffect(() => {
     const el = ref.current;
     const frame = el?.parentElement;
@@ -98,16 +169,79 @@ export default function HeroDashboardMock() {
     const fit = () => {
       const s = frame.clientWidth / DESIGN_W;
       el.style.transform = `scale(${s})`;
-      frame.style.height = `${s * REVEAL_H}px`;
+      frame.style.height = `${s * revealHeight}px`;
     };
     fit();
     const ro = new ResizeObserver(fit);
     ro.observe(frame);
     return () => ro.disconnect();
+  }, [revealHeight]);
+
+  /* Greeting follows the clock — re-checked every minute so an open tab stays honest */
+  useEffect(() => {
+    const id = setInterval(() => setGreeting(timeGreeting(new Date().getHours())), 60000);
+    return () => clearInterval(id);
   }, []);
 
+  /* Demo loop */
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    let step = 0;
+    let timer;
+    const run = () => {
+      const [delay, fn] = SCRIPT[step % SCRIPT.length];
+      timer = setTimeout(() => {
+        setState(fn);
+        step += 1;
+        run();
+      }, delay);
+    };
+    run();
+    return () => clearTimeout(timer);
+  }, []);
+
+  /* Type the picked suggestion into the composer, character by character */
+  useEffect(() => {
+    const text = state.typeTarget;
+    if (!text) return undefined;
+    let i = 0;
+    const id = setInterval(() => {
+      i += 1;
+      setState((s) => (s.typeTarget === text ? { ...s, composer: text.slice(0, i) } : s));
+      if (i >= text.length) clearInterval(id);
+    }, 34);
+    return () => clearInterval(id);
+  }, [state.typeTarget]);
+
+  /* Park the cursor over whatever the script is pointing at (design-space coords) */
+  useEffect(() => {
+    if (!state.target) return undefined;
+    const id = requestAnimationFrame(() => {
+      const el = nodes.current[state.target];
+      const root = ref.current;
+      if (!el || !root) return;
+      let x = 0;
+      let y = 0;
+      let n = el;
+      while (n && n !== root) {
+        x += n.offsetLeft;
+        y += n.offsetTop;
+        n = n.offsetParent;
+      }
+      setCursor({ x: x + Math.min(el.offsetWidth / 2, 90), y: y + el.offsetHeight / 2 });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [state.target, state.view]);
+
+  const openLead = state.lead === null ? null : LEADS[state.lead];
+
   return (
-    <div className="dash" ref={ref} aria-hidden="true">
+    <div
+      className="dash"
+      ref={ref}
+      style={{ '--dash-reveal': `${revealHeight}px` }}
+      aria-hidden="true"
+    >
       {/* Sidebar */}
       <aside className="dash__side">
         <div className="dash__brand">
@@ -123,7 +257,8 @@ export default function HeroDashboardMock() {
             ) : (
               <span
                 key={i}
-                className={`dash__nav-item${row.active ? ' is-active' : ''}${row.sub ? ' is-sub' : ''}`}
+                ref={setNode(`nav-${row.text}`)}
+                className={`dash__nav-item${state.nav === row.text ? ' is-active' : ''}${row.sub ? ' is-sub' : ''}`}
               >
                 <span className="dash__nav-icon">{ic[row.icon]}</span>
                 <span className="dash__nav-text">{row.text}</span>
@@ -150,25 +285,123 @@ export default function HeroDashboardMock() {
           ))}
         </div>
 
-        <div className="dash__center">
-          <h2 className="dash__greeting">Good afternoon.</h2>
-          <p className="dash__sub">You have 2 unreplied leads, 2 WhatsApp handoffs and 11 vehicles aged 45d+.</p>
+        {state.view === 'home' ? (
+          <div className="dash__center">
+            {state.thread.length === 0 ? (
+              <>
+                <h2 className="dash__greeting">{greeting}</h2>
+                <p className="dash__sub">
+                  You have 2 unreplied leads, 2 WhatsApp handoffs and 11 vehicles aged 45d+.
+                </p>
+              </>
+            ) : (
+              <div className="dash__thread">
+                {state.thread.map((m, i) => (
+                  <div key={i} className={`dash__msg dash__msg--${m.role}`}>
+                    {m.text}
+                  </div>
+                ))}
+                {state.thinking && (
+                  <div className="dash__msg dash__msg--bot dash__msg--typing">
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+                )}
+              </div>
+            )}
 
-          <div className="dash__composer">
-            <span className="dash__composer-text">Draft a WhatsApp reply for a finance lead</span>
-            <span className="dash__composer-send">{ic.arrowUp}</span>
-          </div>
-
-          <div className="dash__chips">
-            {CHIPS.map((c) => (
-              <span key={c.text} className="dash__chip">
-                <span className="dash__chip-icon">{ic[c.icon]}</span>
-                {c.text}
+            <div className="dash__composer">
+              <span className={`dash__composer-text${state.composer ? ' is-filled' : ''}`}>
+                {state.composer || 'Ask anything about your stock, leads or deals'}
+                {state.composer && <i className="dash__caret" />}
               </span>
-            ))}
+              <span
+                ref={setNode('send')}
+                className={`dash__composer-send${state.composer ? ' is-ready' : ''}`}
+              >
+                {ic.arrowUp}
+              </span>
+            </div>
+
+            <div className="dash__chips">
+              {CHIPS.map((c, i) => (
+                <span
+                  key={c.text}
+                  ref={setNode(`chip-${i}`)}
+                  className={`dash__chip${state.chip === i ? ' is-picked' : ''}`}
+                >
+                  <span className="dash__chip-icon">{ic[c.icon]}</span>
+                  {c.text}
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="dash__leads">
+            <div className="dash__leads-table">
+              <div className="dash__leads-head">
+                <span>Lead</span>
+                <span>Vehicle</span>
+                <span>Source</span>
+                <span>Status</span>
+                <span>Age</span>
+              </div>
+              {LEADS.map((l, i) => (
+                <div
+                  key={l.name}
+                  ref={setNode(`row-${i}`)}
+                  className={`dash__leads-row${state.lead === i ? ' is-open' : ''}`}
+                >
+                  <span className="dash__leads-name">{l.name}</span>
+                  <span>{l.car}</span>
+                  <span>{l.src}</span>
+                  <span>
+                    <em className={`dash__pill dash__pill--${l.status.toLowerCase()}`}>{l.status}</em>
+                  </span>
+                  <span>{l.age}</span>
+                </div>
+              ))}
+            </div>
+
+            {openLead && (
+              <aside className="dash__drawer">
+                <p className="dash__drawer-name">{openLead.name}</p>
+                <p className="dash__drawer-car">{openLead.car}</p>
+                <div className="dash__drawer-meta">
+                  <span>{openLead.src}</span>
+                  <span>{openLead.age} old</span>
+                </div>
+                <p className="dash__drawer-note">
+                  Asked about finance on the {openLead.car.split(' ').slice(1, 3).join(' ')}. No reply sent yet.
+                </p>
+                <div className="dash__drawer-actions">
+                  <span className="dash__drawer-btn dash__drawer-btn--primary">Draft WhatsApp reply</span>
+                  <span className="dash__drawer-btn">Book viewing</span>
+                </div>
+              </aside>
+            )}
+          </div>
+        )}
       </main>
+
+      {/* Ghost cursor — driven by the script above */}
+      <div
+        className={`dash__cursor${state.press ? ' is-press' : ''}`}
+        style={{ transform: `translate(${cursor.x}px, ${cursor.y}px)` }}
+        aria-hidden="true"
+      >
+        <span className="dash__cursor-ring" />
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M5 2.5l13.2 10.3-5.9.6 3.2 6.2-2.5 1.2-3.1-6.2L5 18.6z"
+            fill="#fff"
+            stroke="rgba(12,11,10,0.55)"
+            strokeWidth="1"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
     </div>
   );
 }

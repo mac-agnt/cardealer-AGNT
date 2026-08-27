@@ -1,0 +1,226 @@
+/* Dark LinkedIn post replica — brand-recognisable, page-native palette. */
+
+.lipost {
+  --li-blue: #4d9fe8;
+  display: block;
+  padding: clamp(14px, 1.6vw, 20px);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-edge);
+  background:
+    linear-gradient(168deg, rgba(255, 255, 255, 0.05) 0%, transparent 46%),
+    var(--surface-pearl);
+  box-shadow:
+    var(--shadow-inner-glow),
+    0 18px 44px rgba(0, 0, 0, 0.34);
+  color: var(--text-0);
+  text-decoration: none;
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .lipost:hover {
+    border-color: rgba(77, 159, 232, 0.42);
+    transform: translateY(-2px);
+  }
+}
+
+.lipost:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+
+/* ——— Head ——— */
+.lipost__head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.lipost__avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.lipost__who {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.lipost__name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+}
+
+.lipost__role {
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+
+.lipost__time {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+
+.lipost__time i {
+  font-style: normal;
+}
+
+.lipost__globe {
+  width: 12px;
+  height: 12px;
+  display: block;
+}
+
+.lipost__brand {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  color: var(--li-blue);
+}
+
+.lipost__brand svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ——— Body ——— */
+.lipost__body {
+  margin: 14px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--text-0);
+}
+
+.lipost__body b {
+  color: var(--li-blue);
+  font-weight: 600;
+}
+
+.lipost__body--dim {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-1);
+}
+
+.lipost__more {
+  color: var(--text-2);
+}
+
+/* ——— Media ——— */
+.lipost__media {
+  position: relative;
+  display: block;
+  margin-top: 14px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-fine);
+  background: var(--bg-deep);
+}
+
+.lipost__media-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+/* ——— Reactions ——— */
+.lipost__stats {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-fine);
+}
+
+.lipost__reacts {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lipost__react {
+  width: 19px;
+  height: 19px;
+  display: block;
+  border-radius: 999px;
+  margin-right: -5px;
+  box-shadow: 0 0 0 1.5px var(--surface-pearl);
+}
+
+.lipost__react--like circle { fill: #378fe9; }
+.lipost__react--celebrate circle { fill: #6dae4f; }
+.lipost__react--love circle { fill: #df704d; }
+
+.lipost__count,
+.lipost__comments {
+  font-size: 12px;
+  color: var(--text-2);
+}
+
+.lipost__count {
+  margin-left: 13px;
+}
+
+/* ——— Action row ——— */
+.lipost__actions {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.lipost__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.lipost__action svg {
+  width: 15px;
+  height: 15px;
+  flex: none;
+}
+
+@media (hover: hover) {
+  .lipost:hover .lipost__action {
+    color: var(--text-1);
+  }
+}
+
+@media (max-width: 419px) {
+  .lipost__action {
+    font-size: 0;
+    gap: 0;
+  }
+
+  .lipost__action svg {
+    width: 17px;
+    height: 17px;
+  }
+}

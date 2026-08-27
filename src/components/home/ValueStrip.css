@@ -1,12 +1,18 @@
 .value-strip {
   position: relative;
+  overflow: hidden;
   scroll-margin-top: 72px;
   padding-top: clamp(40px, 6vw, 76px);
   padding-bottom: clamp(40px, 6vw, 76px);
   border-bottom: 1px solid var(--border-fine);
   background:
-    radial-gradient(ellipse 85% 55% at 50% -12%, rgba(181, 166, 145, 0.07), transparent 55%),
+    radial-gradient(ellipse 85% 55% at 50% -12%, rgba(255, 94, 28, 0.07), transparent 55%),
     linear-gradient(180deg, var(--bg-hero-canvas) 0%, var(--surface) 16%, var(--bg-1) 100%);
+}
+
+.value-strip > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .value-strip__head {
@@ -31,295 +37,288 @@
   letter-spacing: -0.01em;
 }
 
-/* Architectural board */
-.value-strip__board {
+/* ========================================
+   Schematic side rails — dot field in the gutters, dashed verticals with
+   node joints, so the section reads as a technical sheet rather than a
+   card grid floating in empty space.
+   ======================================== */
+
+.vs-rails {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.vs-rails__dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
+  background-size: 15px 15px;
+  /* Clear through the middle, dense around the perimeter */
+  -webkit-mask-image: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 0%, #000 82%);
+  mask-image: radial-gradient(ellipse 58% 54% at 50% 50%, transparent 0%, #000 82%);
+}
+
+.vs-rails__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0 6px, transparent 6px 12px);
+  background-size: 1px 12px;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 90%, transparent 100%);
+}
+
+.vs-rails__rail--l {
+  left: max(12px, calc(50% - 684px));
+}
+
+.vs-rails__rail--r {
+  right: max(12px, calc(50% - 684px));
+}
+
+.vs-rails__rail i {
+  position: absolute;
+  left: 50%;
+  width: 11px;
+  height: 11px;
+  transform: translate(-50%, -50%);
+  border-radius: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--bg-1);
+}
+
+/* One copper joint per rail, so the accent reads as deliberate */
+.vs-rails__rail i:nth-child(2) {
+  border-color: rgba(255, 94, 28, 0.55);
+}
+
+/* Short dashed tick running inward from each joint */
+.vs-rails__rail i::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 44px;
+  height: 1px;
+  background-image: linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 4px, transparent 4px 8px);
+  background-size: 8px 1px;
+}
+
+.vs-rails__rail--l i::after { left: 100%; }
+.vs-rails__rail--r i::after { right: 100%; }
+
+@media (max-width: 899px) {
+  .vs-rails__dots {
+    -webkit-mask-image: radial-gradient(ellipse 72% 46% at 50% 50%, transparent 0%, #000 84%);
+    mask-image: radial-gradient(ellipse 72% 46% at 50% 50%, transparent 0%, #000 84%);
+    opacity: 0.65;
+  }
+
+  .vs-rails__rail i::after {
+    width: 20px;
+  }
+}
+
+/* ========================================
+   Module cards — corner-bracketed frames, heading over a coded product mock.
+   Layout: two cards side by side, third spans the full width.
+   ======================================== */
+
+.vs-grid {
+  display: grid;
+  gap: 14px;
+}
+
+@media (min-width: 900px) {
+  .vs-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vs-card--wide {
+    grid-column: 1 / -1;
+  }
+}
+
+.vs-card {
   position: relative;
-  border-radius: var(--radius-xl);
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border-edge);
   background: var(--gradient-panel);
   box-shadow:
     var(--shadow-inner-glow),
     var(--shadow-inner-foot),
-    0 0 0 1px rgba(0, 0, 0, 0.35),
-   0 28px 64px rgba(0, 0, 0, 0.32);
-  padding: clamp(18px, 2.5vw, 26px);
+    0 0 0 1px rgba(0, 0, 0, 0.32),
+    0 22px 52px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition:
+    border-color var(--dur-2) var(--ease-out),
+    transform var(--dur-2) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .vs-card:hover {
+    border-color: rgba(255, 94, 28, 0.34);
+    transform: translateY(-2px);
+  }
+}
+
+/* Corner brackets */
+.vs-card__corner {
+  position: absolute;
+  z-index: 2;
+  width: 9px;
+  height: 9px;
+  border: 0 solid var(--copper);
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.vs-card__corner--tl { top: 7px; left: 7px; border-top-width: 1.5px; border-left-width: 1.5px; }
+.vs-card__corner--tr { top: 7px; right: 7px; border-top-width: 1.5px; border-right-width: 1.5px; }
+.vs-card__corner--bl { bottom: 7px; left: 7px; border-bottom-width: 1.5px; border-left-width: 1.5px; }
+.vs-card__corner--br { bottom: 7px; right: 7px; border-bottom-width: 1.5px; border-right-width: 1.5px; }
+
+/* Heading */
+.vs-card__head {
+  padding: clamp(20px, 2.4vw, 28px) clamp(20px, 2.4vw, 28px) clamp(16px, 2vw, 22px);
+}
+
+.vs-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text-1);
+}
+
+.vs-card__label-ic {
+  width: 15px;
+  height: 15px;
+  flex: none;
+  color: var(--copper);
+}
+
+.vs-card__label-ic svg {
+  width: 100%;
+  height: 100%;
+}
+
+.vs-card__statement {
+  margin: clamp(18px, 2.4vw, 28px) 0 0;
+  font-family: var(--font-headline);
+  font-size: clamp(19px, 1.85vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  color: var(--text-0);
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+/* Media well */
+.vs-card__media {
+  position: relative;
+  margin-top: auto;
+}
+
+.vs-card__media--dashed {
+  border-top: 1px dashed var(--border-strong);
+}
+
+/* Fade the mock into the card so it reads as a surface, not a pasted image */
+.vs-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    128% 128% at 50% 0%,
+    transparent 40%,
+    rgba(20, 20, 18, 0.5) 80%,
+    rgba(16, 16, 15, 0.9) 100%
+  );
+}
+
+/* Website stage — bordered screen */
+.vs-stage {
+  position: relative;
+  overflow: hidden;
+  margin: 16px 16px 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-fine);
+  background: var(--bg-deep);
+}
+
+.vs-stage--app {
+  position: relative;
+  z-index: 2;
+  max-width: 258px;
+  margin-inline: auto;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  overflow: visible;
+}
+
+/* Dealer app card — wireframe globe spinning in the corner, half of it cut
+   away by the card edge rather than sitting behind the phone like a halo */
+.vs-card__media--globe {
   overflow: hidden;
 }
 
-.value-strip__spine {
+.vs-globe {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(181, 166, 145, 0.14) 22%,
-    rgba(181, 166, 145, 0.1) 50%,
-    rgba(181, 166, 145, 0.06) 78%,
-    transparent 100%
-  );
-  pointer-events: none;
-  opacity: 0.85;
-}
-
-@media (max-width: 719px) {
-  .value-strip__spine {
-    display: none;
-  }
-}
-
-.value-strip__primary {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: 10px;
-}
-
-@media (min-width: 720px) {
-  .value-strip__primary {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
-  }
-}
-
-@media (max-width: 719px) {
-  .value-strip__primary {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      'hero hero'
-      'b c';
-  }
-
-  .value-strip__module--hero {
-    grid-area: hero;
-  }
-
-  .value-strip__module:nth-child(2) {
-    grid-area: b;
-  }
-
-  .value-strip__module:nth-child(3) {
-    grid-area: c;
-  }
-}
-
-.value-strip__module {
-  position: relative;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-fine);
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.045) 0%, transparent 52%),
-    var(--surface-pearl);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
-  transition:
-    border-color 0.2s var(--ease-out),
-    box-shadow 0.2s var(--ease-out),
-    transform 0.2s var(--ease-out);
-}
-
-.value-strip__module--primary {
-  padding: clamp(14px, 1.8vw, 20px) clamp(12px, 1.6vw, 18px) clamp(14px, 1.8vw, 18px);
-  display: flex;
-  flex-direction: column;
-}
-
-.value-strip__module--primary:not(.value-strip__module--text-only) {
-  min-height: clamp(200px, 30vw, 292px);
-}
-
-.value-strip__module--primary.value-strip__module--text-only {
-  min-height: clamp(92px, 16vw, 118px);
-  justify-content: center;
-}
-
-@media (max-width: 719px) {
-  .value-strip__module--primary:not(.value-strip__module--text-only) {
-    min-height: clamp(168px, 46vw, 248px);
-  }
-
-  .value-strip__module--primary.value-strip__module--text-only {
-    min-height: clamp(80px, 22vw, 104px);
-  }
-}
-
-.value-strip__visual {
-  position: relative;
+  left: 100%;
+  top: 100%;
+  transform: translate(-50%, -52%);
+  width: min(1020px, 186%);
+  aspect-ratio: 1;
   z-index: 0;
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 0;
-  margin-bottom: clamp(8px, 1.2vw, 12px);
   pointer-events: none;
 }
 
-.value-strip__visual-img {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  object-fit: contain;
-  object-position: center;
+/* Dashboard — Safari chrome, inset so it sits smaller in the wide card */
+.vs-desk {
+  margin: 20px clamp(18px, 6vw, 108px) 0;
 }
 
-/* Premium tailored website — wider composition */
-.value-strip__visual--website .value-strip__visual-img {
-  max-height: clamp(140px, 22vw, 236px);
-}
-
-.value-strip__module--hero .value-strip__visual--website .value-strip__visual-img {
-  max-height: clamp(152px, 24vw, 252px);
-}
-
-/* Dealer workspace & dashboard */
-.value-strip__visual--workspace .value-strip__visual-img {
-  max-height: clamp(128px, 20vw, 220px);
-}
-
-/* WhatsApp AI — phone visual */
-.value-strip__visual--whatsapp .value-strip__visual-img {
-  max-width: min(118px, 42%);
-  max-height: clamp(148px, 26vw, 248px);
-}
-
-@media (max-width: 719px) {
-  .value-strip__visual--whatsapp .value-strip__visual-img {
-    max-width: min(96px, 52%);
-  }
-
-  .value-strip__visual--website .value-strip__visual-img,
-  .value-strip__module--hero .value-strip__visual--website .value-strip__visual-img {
-    max-height: clamp(120px, 36vw, 200px);
-  }
-
-  .value-strip__visual--workspace .value-strip__visual-img {
-    max-height: clamp(112px, 34vw, 188px);
-  }
-}
-
-.value-strip__module-accent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  border-radius: var(--radius-md) var(--radius-md) 0 0;
-  background: linear-gradient(90deg, transparent, rgba(181, 166, 145, 0.55), transparent);
-  opacity: 0.75;
-}
-
-.value-strip__module-name {
-  margin-top: auto;
-  font-family: var(--font-headline);
-  font-size: clamp(15px, 1.35vw, 18px);
-  font-weight: 600;
-  letter-spacing: -0.026em;
-  line-height: 1.22;
-  color: var(--text-0);
-}
-
-.value-strip__module--text-only .value-strip__module-name {
-  margin-top: 0;
-  text-align: center;
-}
-
-.value-strip__module--hero .value-strip__module-name {
-  font-size: clamp(17px, 1.65vw, 20px);
-}
-
-@media (hover: hover) {
-  .value-strip__module--primary:hover {
-    border-color: var(--border-subtle);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.09),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.1),
-      0 10px 28px rgba(0, 0, 0, 0.2);
-    transform: translateY(-1px);
-  }
-}
-
-.value-strip__support {
+.vs-deskframe {
   position: relative;
-  z-index: 1;
-  list-style: none;
-  margin: 0;
-  margin-top: clamp(16px, 2.2vw, 22px);
-  padding: clamp(16px, 2.2vw, 22px) 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  display: grid;
-  gap: 8px;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  overflow: hidden;
+  background: var(--bg-deep);
 }
 
-@media (min-width: 560px) {
-  .value-strip__support {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 9px;
+@media (max-width: 899px) {
+  .vs-card__statement {
+    max-width: none;
+  }
+
+  .vs-stage--app {
+    max-width: 240px;
   }
 }
 
-@media (min-width: 960px) {
-  .value-strip__support {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
+@media (max-width: 479px) {
+  .vs-stage {
+    margin: 12px 12px 0;
   }
-}
 
-.value-strip__support-cell {
-  margin: 0;
-}
-
-.value-strip__support-inner {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  min-height: 100%;
-  padding: clamp(12px, 1.4vw, 14px) clamp(11px, 1.3vw, 13px);
-  border-radius: var(--radius-sm);
-  border: 1px solid rgba(255, 255, 255, 0.055);
-  background: rgba(0, 0, 0, 0.16);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  transition:
-    border-color 0.18s var(--ease-out),
-    background 0.18s var(--ease-out),
-    transform 0.18s var(--ease-out);
-}
-
-@media (hover: hover) {
-  .value-strip__support-inner:hover {
-    border-color: var(--border-fine);
-    background: rgba(255, 255, 255, 0.03);
-    transform: translateY(-0.5px);
+  .vs-stage--app {
+    max-width: 212px;
+    /* re-assert: the shorthand above resets the auto centring */
+    margin-inline: auto;
   }
-}
 
-.value-strip__support-mark {
-  width: 3px;
-  height: 3px;
-  margin-top: 6px;
-  flex-shrink: 0;
-  border-radius: 1px;
-  background: linear-gradient(135deg, var(--metal) 0%, var(--metal-light) 100%);
-  opacity: 0.85;
-}
-
-.value-strip__support-name {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: -0.018em;
-  line-height: 1.35;
-  color: var(--text-0);
-}
-
-@media (max-width: 399px) {
-  .value-strip__support-name {
-    font-size: 11px;
+  .vs-desk {
+    margin: 14px 12px 0;
   }
 }
 

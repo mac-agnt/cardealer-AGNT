@@ -15,7 +15,7 @@ import './ProgressiveBlur.css';
  */
 export function ProgressiveBlur({
   className = '',
-  backgroundColor = '#f5f4f3',
+  backgroundColor = '#f5f3ee',
   position = 'top',
   height = '150px',
   blurAmount = '4px',

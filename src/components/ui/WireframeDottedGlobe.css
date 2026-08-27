@@ -1,0 +1,12 @@
+/* Canvas fills its frame; the frame owns the sizing. */
+.globe {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.globe__canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

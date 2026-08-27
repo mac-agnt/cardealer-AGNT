@@ -147,7 +147,7 @@
 .guided__progress-fill {
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgba(181, 166, 145, 0.5), rgba(255, 255, 255, 0.35));
+  background: linear-gradient(90deg, rgba(255, 94, 28,  0.5), rgba(255, 255, 255, 0.35));
   transition: width 0.35s var(--ease-out);
 }
 
@@ -205,10 +205,10 @@
 }
 
 .guided__option--selected {
-  border-color: rgba(181, 166, 145, 0.35);
+  border-color: rgba(255, 94, 28,  0.35);
   box-shadow:
     var(--shadow-inner-glow),
-    0 0 0 1px rgba(181, 166, 145, 0.15);
+    0 0 0 1px rgba(255, 94, 28,  0.15);
 }
 
 .guided__option-label {
@@ -249,7 +249,7 @@
   height: 100%;
   width: 0;
   border-radius: inherit;
-  background: linear-gradient(90deg, rgba(181, 166, 145, 0.55), rgba(255, 255, 255, 0.35));
+  background: linear-gradient(90deg, rgba(255, 94, 28,  0.55), rgba(255, 255, 255, 0.35));
   animation: guided-load-bar 8s linear forwards;
 }
 
@@ -307,7 +307,7 @@
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-edge);
   background:
-    linear-gradient(155deg, rgba(181, 166, 145, 0.06) 0%, transparent 42%),
+    linear-gradient(155deg, rgba(255, 94, 28,  0.06) 0%, transparent 42%),
     linear-gradient(180deg, var(--surface-pearl) 0%, var(--surface) 100%);
   box-shadow:
     var(--shadow-inner-glow),

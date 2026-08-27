@@ -11,9 +11,9 @@
   padding: 1px;
   background: linear-gradient(
     135deg,
-    rgba(181, 166, 145, 0.35) 0%,
+    rgba(255, 94, 28,  0.35) 0%,
     rgba(90, 82, 74, 0.25) 45%,
-    rgba(181, 166, 145, 0.22) 100%
+    rgba(255, 94, 28,  0.22) 100%
   );
   box-shadow: var(--shadow-product);
 }
@@ -101,7 +101,7 @@
   min-height: 0;
   width: 100%;
   border: 1px solid var(--border-strong);
-  background: #0c0c0b;
+  background: #0b0b0a;
   box-shadow: var(--shadow-inner-glow), 0 22px 56px rgba(0, 0, 0, 0.4);
 }
 

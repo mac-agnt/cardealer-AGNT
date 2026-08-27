@@ -93,7 +93,7 @@
 }
 
 .pkg__block--public .pkg__block-list li::before {
-  background: rgba(230, 220, 205, 0.42);
+  background: rgba(245, 243, 238,  0.42);
   opacity: 1;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .pkg__block--internal .pkg__block-list li::before {
-  background: rgba(230, 220, 205, 0.45);
+  background: rgba(245, 243, 238,  0.45);
 }
 
 .pkg__block-visual {
@@ -165,7 +165,7 @@
 .pkg__shot--mock {
   position: relative;
   width: 100%;
-  background: #0c0c0b;
+  background: #0b0b0a;
 }
 
 .pkg__block-body {

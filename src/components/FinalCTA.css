@@ -12,7 +12,7 @@
   inset: auto -20% -40% -20%;
   height: 80%;
   pointer-events: none;
-  background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(181, 166, 145, 0.1), transparent 65%);
+  background: radial-gradient(ellipse 60% 70% at 50% 100%, rgba(255, 94, 28,  0.1), transparent 65%);
   opacity: 0.85;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .final-cta__headline-accent {
-  background: linear-gradient(105deg, #e8e0d4 0%, #c4b5a4 45%, #f0ebe3 100%);
+  background: linear-gradient(105deg, #f5f3ee 0%, #c3bfb6 45%, #fafaf7 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

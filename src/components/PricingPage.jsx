@@ -1,9 +1,6 @@
 import Navbar from './Navbar';
-import HowItWorks from './home/HowItWorks';
-import Pricing from './Pricing';
-import FinalCTA from './FinalCTA';
+import PlanCheckout from './PlanCheckout';
 import Footer from './Footer';
-import StickyBar from './StickyBar';
 import { useRevealOnScroll } from '../lib/useRevealOnScroll';
 
 export default function PricingPage({ onBookDemo }) {
@@ -14,13 +11,10 @@ export default function PricingPage({ onBookDemo }) {
       <Navbar onBookDemo={onBookDemo} />
 
       <main>
-        <Pricing onBookDemo={onBookDemo} />
-        <HowItWorks />
-        <FinalCTA onBookDemo={onBookDemo} />
+        <PlanCheckout />
       </main>
 
       <Footer onBookDemo={onBookDemo} />
-      <StickyBar onBookDemo={onBookDemo} />
     </>
   );
 }

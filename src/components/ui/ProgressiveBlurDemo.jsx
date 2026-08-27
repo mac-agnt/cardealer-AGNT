@@ -8,8 +8,8 @@ const LOREM =
 export function Skiper41() {
   return (
     <div className="skiper41">
-      <ProgressiveBlur position="top" backgroundColor="#f5f4f3" />
-      <ProgressiveBlur position="bottom" backgroundColor="#f5f4f3" />
+      <ProgressiveBlur position="top" backgroundColor="#f5f3ee" />
+      <ProgressiveBlur position="bottom" backgroundColor="#f5f3ee" />
 
       <div className="skiper41__scroll">
         <div className="skiper41__intro">

@@ -10,7 +10,7 @@
 .cap-detail__hero {
   border-bottom: 1px solid var(--border-fine);
   background:
-    radial-gradient(ellipse 65% 75% at 18% -15%, rgba(181, 166, 145, 0.07), transparent 52%),
+    radial-gradient(ellipse 65% 75% at 18% -15%, rgba(255, 94, 28,  0.07), transparent 52%),
     var(--bg-0);
 }
 

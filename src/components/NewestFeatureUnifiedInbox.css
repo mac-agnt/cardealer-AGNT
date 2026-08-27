@@ -301,7 +301,7 @@
 
 .update-chip.is-warm {
   color: rgba(229, 208, 172, 0.94);
-  background: rgba(194, 138, 58, 0.18);
+  background: rgba(255, 94, 28,  0.18);
 }
 
 .update-chip.is-live {
@@ -542,7 +542,7 @@
 
 .update-intent-badge.is-warm {
   color: rgba(229, 208, 172, 0.94);
-  background: rgba(194, 138, 58, 0.2);
+  background: rgba(255, 94, 28,  0.2);
 }
 
 .update-intent-item__vehicle {

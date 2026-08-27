@@ -1,15 +1,123 @@
+/* Contact — a warm gradient panel rather than the site's dark canvas, so the
+   page reads as an invitation. Everything on it is restyled for dark ink on a
+   bright surface. Panel geometry mirrors the hero's inset rounded block. */
+
 .contact {
-  min-height: calc(100dvh - 220px);
-  display: flex;
-  align-items: center;
-  padding-top: clamp(96px, 14vh, 168px);
-  padding-bottom: clamp(56px, 8vw, 104px);
-  background:
-    radial-gradient(ellipse 60% 42% at 50% -4%, rgba(181, 166, 145, 0.09) 0%, transparent 60%),
-    var(--bg-hero-canvas);
+  /* Ink: neutral graphite, not the warm brown the orange pulls everything
+     towards. Same family as the navbar and the site's dark surfaces. */
+  --ct-ink: #14110f;
+  --ct-ink-2: rgba(20, 17, 15, 0.76);
+  --ct-ink-3: rgba(20, 17, 15, 0.56);
+  --ct-solid: linear-gradient(180deg, #2b2724 0%, #100f0e 100%);
+  --ct-solid-hover: linear-gradient(180deg, #38332f 0%, #1a1817 100%);
+
+  /* One glass recipe for every translucent surface on the page. The
+     desaturation is the trick: without it the same glass reads cream over the
+     amber side and pink over the red side. */
+  --ct-glass: rgba(255, 252, 249, 0.42);
+  --ct-glass-hover: rgba(255, 253, 251, 0.56);
+  --ct-glass-bd: rgba(255, 255, 255, 0.66);
+  --ct-glass-bd-hover: rgba(255, 255, 255, 0.84);
+  --ct-glass-blur: blur(22px) saturate(0.5) brightness(1.02);
+  --ct-glass-shade:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    0 12px 30px rgba(38, 14, 4, 0.16);
+  --ct-glass-shade-hover:
+    inset 0 1px 0 rgba(255, 255, 255, 0.72),
+    0 18px 40px rgba(38, 14, 4, 0.22);
+
+  position: relative;
+  padding: 0 clamp(6px, 0.7vw, 12px) clamp(6px, 0.7vw, 12px);
+  /* Page black, matching the footer it runs into */
+  background: var(--bg-0);
+  overflow-x: clip;
 }
 
+.contact__panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(860px, calc(100dvh - 78px));
+  padding: clamp(96px, 14vh, 168px) clamp(16px, 3vw, 40px) clamp(56px, 8vw, 104px);
+  border-radius: clamp(14px, 1.5vw, 20px);
+}
+
+/* ——— The gradient itself ——— */
+.contact__canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(130% 96% at 6% 10%, #f9b449 0%, rgba(249, 180, 73, 0) 56%),
+    radial-gradient(96% 84% at 98% 82%, #cf2410 0%, rgba(207, 36, 16, 0) 62%),
+    linear-gradient(112deg, #f7a63a 0%, #f8862c 40%, #ef4f1e 72%, #dc2f12 100%);
+}
+
+/* Each ribbon is a soft blurred sheet. Screen lifts the light folds, multiply
+   sinks the deep one, which is what gives the layered translucent look. */
+.contact__ribbon {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.contact__ribbon--sweep {
+  left: -16%;
+  top: -30%;
+  width: 96%;
+  height: 82%;
+  transform: rotate(-16deg);
+  background: linear-gradient(158deg, rgba(255, 231, 189, 0.92) 0%, rgba(255, 205, 142, 0.62) 40%, rgba(255, 170, 98, 0) 58%);
+  filter: blur(26px);
+  mix-blend-mode: screen;
+  opacity: 0.72;
+}
+
+.contact__ribbon--loop {
+  right: -10%;
+  top: 4%;
+  width: 70%;
+  height: 56%;
+  transform: rotate(13deg);
+  background: linear-gradient(202deg, rgba(255, 222, 168, 0.86) 0%, rgba(255, 186, 116, 0.5) 44%, rgba(255, 142, 72, 0) 62%);
+  filter: blur(22px);
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.contact__ribbon--core {
+  left: 8%;
+  top: 34%;
+  width: 62%;
+  height: 38%;
+  transform: rotate(-8deg);
+  background: radial-gradient(closest-side, rgba(255, 206, 88, 0.92) 0%, rgba(255, 206, 88, 0) 100%);
+  filter: blur(56px);
+  mix-blend-mode: screen;
+  opacity: 0.78;
+}
+
+.contact__ribbon--fold {
+  left: 20%;
+  bottom: -34%;
+  width: 90%;
+  height: 60%;
+  transform: rotate(-10deg);
+  background: radial-gradient(closest-side, rgba(198, 34, 14, 0.9) 0%, rgba(198, 34, 14, 0) 100%);
+  filter: blur(44px);
+  mix-blend-mode: multiply;
+  opacity: 0.68;
+}
+
+/* ——— Copy ——— */
 .contact__inner {
+  position: relative;
+  z-index: 1;
   max-width: 720px;
   margin: 0 auto;
   text-align: center;
@@ -19,7 +127,7 @@
 }
 
 .contact__eyebrow {
-  color: var(--metal);
+  color: var(--ct-ink-2);
 }
 
 .contact__title {
@@ -29,7 +137,17 @@
   line-height: 1.04;
   letter-spacing: -0.04em;
   font-weight: 600;
-  color: var(--text-0);
+  color: var(--ct-ink);
+}
+
+/* The site's silver headline gradient has nothing to grip on a bright panel,
+   so the whole headline stays one solid ink. */
+.contact__title .text-gradient {
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: currentColor;
+  color: inherit;
 }
 
 .contact__lead {
@@ -37,7 +155,7 @@
   max-width: 46ch;
   font-size: clamp(15px, 1.15vw, 17px);
   line-height: 1.55;
-  color: var(--text-1);
+  color: var(--ct-ink-2);
   letter-spacing: -0.01em;
 }
 
@@ -61,25 +179,25 @@
   gap: 15px;
   padding: clamp(18px, 2.2vw, 24px);
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-strong);
-  background:
-    linear-gradient(155deg, rgba(255, 255, 255, 0.04) 0%, transparent 60%),
-    var(--surface-pearl);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ct-glass-bd);
+  background: var(--ct-glass);
+  -webkit-backdrop-filter: var(--ct-glass-blur);
+  backdrop-filter: var(--ct-glass-blur);
+  box-shadow: var(--ct-glass-shade);
   text-decoration: none;
   text-align: left;
   transition:
     transform var(--dur-2) var(--ease-out),
+    background var(--dur-2) var(--ease-out),
     border-color var(--dur-2) var(--ease-out),
     box-shadow var(--dur-2) var(--ease-out);
 }
 
 .contact__card:hover {
   transform: translateY(-2px);
-  border-color: var(--border-subtle);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 14px 32px rgba(0, 0, 0, 0.3);
+  background: var(--ct-glass-hover);
+  border-color: var(--ct-glass-bd-hover);
+  box-shadow: var(--ct-glass-shade-hover);
 }
 
 .contact__card-icon {
@@ -89,8 +207,9 @@
   height: 42px;
   flex-shrink: 0;
   border-radius: 50%;
-  color: var(--metal-light);
-  background: rgba(181, 166, 145, 0.13);
+  color: #f5f3ee;
+  background: var(--ct-solid);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 .contact__card-icon svg {
   width: 21px;
@@ -107,7 +226,7 @@
   font-size: 11px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--text-2);
+  color: var(--ct-ink-3);
 }
 
 .contact__card-value {
@@ -115,7 +234,7 @@
   font-size: clamp(15px, 1.6vw, 18px);
   font-weight: 600;
   letter-spacing: -0.01em;
-  color: var(--text-0);
+  color: var(--ct-ink);
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -124,7 +243,7 @@
   display: grid;
   place-items: center;
   margin-left: auto;
-  color: var(--text-1);
+  color: var(--ct-ink-3);
   transition: transform var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
 }
 .contact__card-arrow svg {
@@ -133,7 +252,7 @@
 }
 .contact__card:hover .contact__card-arrow {
   transform: translateX(3px);
-  color: var(--metal-light);
+  color: var(--ct-ink);
 }
 
 /* ——— CTAs ——— */
@@ -164,27 +283,53 @@
     border-color var(--dur-2) var(--ease-out);
 }
 
+/* Graphite pill: the only thing on the panel darker than the copy, so it reads
+   as the one action. Ivory or copper would both have washed out on the orange. */
 .contact__cta--primary {
-  color: var(--cta-on-ivory);
-  background: linear-gradient(180deg, var(--cta-ivory-top), var(--cta-ivory-bot));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5), 0 12px 28px rgba(0, 0, 0, 0.3);
-  border: none;
+  color: #f7f5f1;
+  background: var(--ct-solid);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    0 12px 30px rgba(38, 14, 4, 0.3);
+  border: 1px solid rgba(20, 17, 15, 0.42);
 }
 .contact__cta--primary:hover {
   transform: translateY(-1px);
-  color: var(--cta-ivory-top);
-  background: linear-gradient(180deg, #4b3826 0%, #2f2318 100%);
+  background: var(--ct-solid-hover);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 16px 38px rgba(38, 14, 4, 0.36);
 }
 
 .contact__cta--ghost {
-  color: var(--text-0);
-  background: rgba(255, 255, 255, 0.035);
-  border: 1px solid var(--border-strong);
+  color: var(--ct-ink);
+  background: var(--ct-glass);
+  border: 1px solid var(--ct-glass-bd);
+  -webkit-backdrop-filter: var(--ct-glass-blur);
+  backdrop-filter: var(--ct-glass-blur);
+  box-shadow: var(--ct-glass-shade);
 }
 .contact__cta--ghost:hover {
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.06);
-  border-color: var(--border-subtle);
+  background: var(--ct-glass-hover);
+  border-color: var(--ct-glass-bd-hover);
+  box-shadow: var(--ct-glass-shade-hover);
+}
+
+.contact__card:focus-visible,
+.contact__cta:focus-visible {
+  outline: 2px solid var(--ct-ink);
+  outline-offset: 3px;
+}
+
+/* Blur is decoration here, so solid fills carry the same hierarchy without it */
+@media (prefers-reduced-transparency: reduce) {
+  .contact__card,
+  .contact__cta--ghost {
+    background: rgba(252, 249, 245, 0.92);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

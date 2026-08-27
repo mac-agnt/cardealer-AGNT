@@ -1,16 +1,6 @@
-import CustomersMock from './CustomersMock';
-import DocumentsMock from './DocumentsMock';
-import ImportCalcMock from './ImportCalcMock';
+import MockVisual from './mocks/MockVisual';
+import { isPhoneMock } from './mocks/mockRegistry';
 import './ProductShowcase.css';
-
-/** Same assets as ValueStrip “One connected dealer system” */
-const VISUAL_PREMIUM_WEBSITE = '/agnt-visual-premium-website.png';
-const VISUAL_WHATSAPP_AGENT = '/agnt-visual-whatsapp-agent.png';
-
-/** PNGs in ``public/screen-q2/what-sets-apart/``, filenames match subsection titles */
-function showcaseFigureSrc(title) {
-  return encodeURI(`/screen-q2/what-sets-apart/${title}.png`);
-}
 
 export const REVEALS = [
   {
@@ -22,9 +12,9 @@ export const REVEALS = [
     visualLabel:
       '[PLACEHOLDER VISUAL: premium branded dealer website on desktop and mobile, stock cards, VDP, finance and enquiry paths]',
     layout: 'a',
-    visualSrc: VISUAL_PREMIUM_WEBSITE,
+    render: 'website',
     visualAlt:
-      'Desktop and mobile showing a premium tailored dealer website with stock, vehicle detail, and enquiry paths.',
+      'Branded dealer website with stock discovery, vehicle detail, finance, and enquiry paths.',
   },
   {
     title: 'WhatsApp AI sales agent',
@@ -35,9 +25,20 @@ export const REVEALS = [
     visualLabel:
       '[PLACEHOLDER VISUAL: WhatsApp AI sales agent handling stock questions, booking a viewing, and handing off to staff]',
     layout: 'b',
-    visualSrc: VISUAL_WHATSAPP_AGENT,
-    visualAlt: 'Mobile phone with WhatsApp AI sales agent conversation and handoff.',
-    visualVariant: 'whatsapp-large',
+    render: 'whatsapp',
+    visualAlt: 'WhatsApp conversation where the AI agent answers, books a viewing, and hands off to staff.',
+  },
+  {
+    title: 'Dealer app in the buyer’s pocket',
+    caption:
+      'Your stock, saved vehicles, trade-in valuations, service booking, and the live thread with your team, in a branded app. Buyers keep a route back to you between visits instead of drifting back to the portals.',
+    captionMobile:
+      'Branded app: stock, saved cars, trade-in value, service booking, and a live thread with your team.',
+    visualLabel:
+      '[PLACEHOLDER VISUAL: branded dealer app home with saved vehicle, quick actions, and activity feed]',
+    layout: 'a',
+    render: 'app',
+    visualAlt: 'Branded dealer app showing saved stock, quick actions, and recent activity.',
   },
   {
     title: 'Customer profiles that keep context',
@@ -47,7 +48,7 @@ export const REVEALS = [
       'Every enquiry, view, purchase, and trade-in on one profile, so the next conversation starts with facts, not memory.',
     visualLabel:
       '[PLACEHOLDER VISUAL: customer profile with enquiry history, vehicle interest, trade-in and purchase records]',
-    layout: 'a',
+    layout: 'b',
     render: 'customers',
     visualAlt:
       'Customer profile view with enquiry history, vehicles of interest, trade-in notes, and purchase context.',
@@ -60,7 +61,7 @@ export const REVEALS = [
       'Invoices, agreements, declarations, and GDPR, stored on the customer and vehicle, not lost in a drawer.',
     visualLabel:
       '[PLACEHOLDER VISUAL: digitised dealer paperwork linked to customer and vehicle records]',
-    layout: 'b',
+    layout: 'a',
     render: 'documents',
     visualAlt: 'Digitised dealer documents and forms linked to a customer and vehicle record.',
   },
@@ -72,7 +73,7 @@ export const REVEALS = [
       'Japan, UK, or NI listings → full Irish landed cost: duties, VAT, VRT, NOx, fees, margin, before you buy or quote.',
     visualLabel:
       '[PLACEHOLDER VISUAL: import calculator with source URL, landed cost breakdown, tax logic, and margin view]',
-    layout: 'a',
+    layout: 'b',
     render: 'import',
     visualAlt:
       'Import landed cost calculator with source listing, Irish duty, VAT, VRT, fees, and margin breakdown.',
@@ -80,11 +81,10 @@ export const REVEALS = [
 ];
 
 export function MobileFeatureSlide({ item }) {
-  const hasVisual = Boolean(item.visualSrc) || item.render === 'customers' || item.render === 'documents' || item.render === 'import';
+  const hasVisual = Boolean(item.visualSrc) || Boolean(item.render);
   const stageClass = [
     'inside__slide-placeholder',
     hasVisual ? 'inside__slide-placeholder--image' : 'inside__stage--placeholder',
-    item.visualVariant === 'whatsapp-large' ? 'inside__slide-placeholder--whatsapp-large' : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -97,17 +97,13 @@ export function MobileFeatureSlide({ item }) {
           role={hasVisual ? undefined : 'img'}
           aria-label={hasVisual ? undefined : item.visualLabel}
         >
-          {item.render === 'customers' ? (
-            <div className="inside__stage--mock inside__slide-mock">
-              <CustomersMock />
-            </div>
-          ) : item.render === 'documents' ? (
-            <div className="inside__stage--mock inside__slide-mock">
-              <DocumentsMock />
-            </div>
-          ) : item.render === 'import' ? (
-            <div className="inside__stage--mock inside__slide-mock">
-              <ImportCalcMock />
+          {item.render ? (
+            <div
+              className={`inside__stage--mock inside__slide-mock${
+                isPhoneMock(item.render) ? ' inside__stage--phone' : ''
+              }`}
+            >
+              <MockVisual name={item.render} variant="slide" />
             </div>
           ) : hasVisual ? (
             <img
@@ -141,8 +137,8 @@ export default function ProductShowcase() {
             Our <span className="text-gradient">unique selling points</span>
           </h2>
           <p className="inside__lede">
-            Five product strengths independents lean on: public site, WhatsApp coverage, customer records, document
-            discipline, and import economics you can price before you commit.
+            The product strengths independents lean on: public site, WhatsApp coverage, buyer app, customer records,
+            document discipline, and import economics you can price before you commit.
           </p>
         </header>
 
@@ -157,22 +153,16 @@ export default function ProductShowcase() {
                 <p className="inside__reveal-caption">{item.caption}</p>
               </div>
               <div className="inside__frame inside__frame--media">
-                {item.render === 'customers' ? (
-                  <div className="inside__stage product-stage inside__stage--mock">
-                    <CustomersMock />
-                  </div>
-                ) : item.render === 'documents' ? (
-                  <div className="inside__stage product-stage inside__stage--mock">
-                    <DocumentsMock />
-                  </div>
-                ) : item.render === 'import' ? (
-                  <div className="inside__stage product-stage inside__stage--mock">
-                    <ImportCalcMock />
+                {item.render ? (
+                  <div
+                    className={`inside__stage product-stage inside__stage--mock${
+                      isPhoneMock(item.render) ? ' inside__stage--phone' : ''
+                    }`}
+                  >
+                    <MockVisual name={item.render} variant="stage" />
                   </div>
                 ) : item.visualSrc ? (
-                  <div
-                    className={`inside__stage product-stage inside__stage--visual${item.visualVariant === 'whatsapp-large' ? ' inside__stage--whatsapp-large' : ''}`}
-                  >
+                  <div className="inside__stage product-stage inside__stage--visual">
                     <img
                       src={item.visualSrc}
                       alt={item.visualAlt}

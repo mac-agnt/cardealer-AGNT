@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { REVEALS } from './ProductShowcase';
-import CustomersMock from './CustomersMock';
-import DocumentsMock from './DocumentsMock';
-import ImportCalcMock from './ImportCalcMock';
+import MockVisual from './mocks/MockVisual';
+import { isPhoneMock } from './mocks/mockRegistry';
 import './UspHighlights.css';
 
 const CARDS = REVEALS.map((item, i) => ({
@@ -14,24 +13,14 @@ const CARDS = REVEALS.map((item, i) => ({
 }));
 
 function CardVisual({ card }) {
-  if (card.render === 'customers') {
+  if (card.render) {
     return (
-      <div className="usp__card-frame usp__card-frame--mock">
-        <CustomersMock />
-      </div>
-    );
-  }
-  if (card.render === 'documents') {
-    return (
-      <div className="usp__card-frame usp__card-frame--mock">
-        <DocumentsMock />
-      </div>
-    );
-  }
-  if (card.render === 'import') {
-    return (
-      <div className="usp__card-frame usp__card-frame--mock">
-        <ImportCalcMock />
+      <div
+        className={`usp__card-frame usp__card-frame--mock${
+          isPhoneMock(card.render) ? ' usp__card-frame--phone' : ''
+        }`}
+      >
+        <MockVisual name={card.render} variant="card" />
       </div>
     );
   }
@@ -50,7 +39,7 @@ export default function UspHighlights() {
           Our <span className="text-gradient">unique selling points</span>
         </h2>
         <p className="usp__lede">
-          The five strengths independents lean on, ticking through what sets an AGNT forecourt apart.
+          The strengths independents lean on, ticking through what sets an AGNT forecourt apart.
         </p>
       </div>
 

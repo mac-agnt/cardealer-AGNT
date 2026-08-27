@@ -1,55 +1,69 @@
 /* ========================================
    CAR DEALER AGNT — Dark premium design tokens
-   (Espresso / graphite system — aligned with “Built-in internal tools”)
+   (Copper / graphite system — aligned with “Built-in internal tools”)
    ======================================== */
 
 :root {
   /* Canvas — depth hierarchy, not flat black */
-  --bg-0: #131210;
-  --bg-1: #181614;
-  --bg-2: #1e1c19;
-  --bg-deep: #0c0b0a;
+  --bg-0: #10100f;
+  --bg-1: #181816;
+  --bg-2: #1e1d1a;
+  --bg-deep: #0b0b0a;
   /* Flat canvas under nav + hero (dominant hero tone — no top-to-bottom banding) */
   --bg-hero-canvas: var(--bg-0);
-  --bg-elevated: #22201d;
+  --bg-elevated: #232220;
 
   /* Panels — stepped above canvas */
-  --surface: #252320;
-  --surface-pearl: #2c2926;
-  --surface-raised: #32302c;
-  --surface-glass: rgba(22, 20, 18, 0.78);
+  --surface: #181816;
+  --surface-pearl: #1e1d1a;
+  --surface-raised: #232220;
+  --surface-glass: rgba(24, 24, 22, 0.78);
 
   /* Reference panel (internal tools block) */
-  --gradient-panel: linear-gradient(165deg, #2c2a28 0%, #1a1918 100%);
-  --gradient-panel-lifted: linear-gradient(168deg, #32302c 0%, #232220 100%);
+  --gradient-panel: linear-gradient(165deg, #232220 0%, #141412 100%);
+  --gradient-panel-lifted: linear-gradient(168deg, #2a2926 0%, #1a1917 100%);
 
   /* Text — warm ivory / stone (no cold blue-greys) */
-  --text-0: #f3f0ea;
-  --text-1: #c4bdb2;
-  --text-2: #958d82;
-  --text-3: #6f6860;
-  --text-on-dark: #f3f0ea;
+  --text-0: #f5f3ee;
+  --text-1: #a29e96;
+  /* Board gives 3 tones; site needs a 4th step. text-2 is an interpolated
+     mid so small labels stay >=4.5:1; text-3 is the board Tertiary (decorative). */
+  --text-2: #8a867e;
+  --text-3: #696761;
+  --text-on-dark: #f5f3ee;
 
-  /* Accents — metallic bronze / champagne */
-  --metal: #b5a691;
-  --metal-light: #d1c4b0;
-  --metal-dim: rgba(181, 166, 145, 0.16);
-  /* Rare emphasis only — muted, not loud automotive red */
-  --red: #8f4a4e;
-  --red-hover: #7a3f43;
-  --red-soft: rgba(143, 74, 78, 0.12);
+  /* Accent — copper (brand) + semantics */
+  --copper: #ff5e1c;
+  --copper-light: #ff8a54;
+  --copper-deep: #b33c0c;
+  --copper-dim: rgba(255, 94, 28, 0.16);
+  --copper-soft: rgba(255, 94, 28, 0.1);
+  /* Copper is bright: dark ink on any copper fill */
+  --on-copper: #10100f;
+
+  --success: #2fa36b;
+  --warning: #e8b33c;
+  --danger: #e0455a;
+
+  /* Legacy aliases — kept so existing rules inherit the copper system */
+  --metal: var(--copper);
+  --metal-light: var(--copper-light);
+  --metal-dim: var(--copper-dim);
+  --red: var(--copper);
+  --red-hover: var(--copper-deep);
+  --red-soft: var(--copper-soft);
   --red-glow: rgba(0, 0, 0, 0.32);
 
-  --bronze: var(--metal);
-  --bronze-light: var(--metal-light);
-  --bronze-dim: var(--metal-dim);
+  --bronze: var(--copper);
+  --bronze-light: var(--copper-light);
+  --bronze-dim: var(--copper-dim);
 
   /* Primary CTA — warm ivory / light stone (premium, high contrast on dark) */
-  --cta-ivory-top: #f2ede4;
-  --cta-ivory-bot: #ddd4c6;
-  --cta-ivory-hover-top: #f7f3ec;
-  --cta-ivory-hover-bot: #e5dbd0;
-  --cta-on-ivory: #161412;
+  --cta-ivory-top: #f5f3ee;
+  --cta-ivory-bot: #ddd9d0;
+  --cta-ivory-hover-top: #fafaf7;
+  --cta-ivory-hover-bot: #e8e4db;
+  --cta-on-ivory: #10100f;
 
   /* Typography — Inter (UI / reference match) + Plus Jakarta Sans (display complement) */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -77,7 +91,7 @@
   --border-subtle: rgba(255, 255, 255, 0.078);
   --border-strong: rgba(255, 255, 255, 0.115);
   --border-fine: rgba(255, 255, 255, 0.058);
-  --border-edge: rgba(230, 220, 205, 0.095);
+  --border-edge: rgba(255, 255, 255, 0.1);
   /* Calmer depth — precision, not bloom */
   --shadow-soft: 0 22px 56px rgba(0, 0, 0, 0.34);
   --shadow-card: 0 14px 40px rgba(0, 0, 0, 0.24);
@@ -99,11 +113,11 @@
   --dur-3: 560ms;
   --rise-sm: 12px;
   --rise-md: 18px;
-  --ring: 0 0 0 3px rgba(209, 196, 176, 0.28);
+  --ring: 0 0 0 3px rgba(255, 94, 28, 0.32);
 
   /* Configurator / spec routes — same world, warm base */
-  --spec-canvas: radial-gradient(ellipse 75% 55% at 18% 0%, rgba(181, 166, 145, 0.08) 0%, transparent 55%), var(--bg-deep);
-  --spec-topbar: rgba(12, 11, 10, 0.88);
+  --spec-canvas: radial-gradient(ellipse 75% 55% at 18% 0%, rgba(255, 94, 28, 0.07) 0%, transparent 55%), var(--bg-deep);
+  --spec-topbar: rgba(11, 11, 10, 0.88);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -352,11 +366,11 @@ p {
     color: transparent;
     background-image: linear-gradient(
       105deg,
-      #f5f1ea 0%,
-      #c9bba8 32%,
-      #ebe4d8 52%,
-      #a89884 72%,
-      #f3ede4 100%
+      #f5f3ee 0%,
+      #c5c1b8 32%,
+      #eae7e0 52%,
+      #a29e96 72%,
+      #f5f3ee 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -636,7 +650,7 @@ p {
 }
 
 ::selection {
-  background: rgba(181, 166, 145, 0.22);
+  background: rgba(255, 94, 28,  0.22);
   color: var(--text-0);
 }
 
@@ -654,5 +668,5 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(181, 166, 145, 0.35);
+  background: rgba(255, 94, 28,  0.35);
 }
