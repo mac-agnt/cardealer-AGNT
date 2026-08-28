@@ -499,6 +499,11 @@
   .pco__title { max-width: 18ch; }
 }
 
+/* Mobile order: product showcase first, plans and pricing under it */
+@media (max-width: 900px) {
+  .pco__panel--show { order: -1; }
+}
+
 @media (max-width: 640px) {
   .pco-plan__features { grid-template-columns: minmax(0, 1fr); }
   /* Keep the CTA on one line: the tail is nice to have, not the instruction */

@@ -18,7 +18,7 @@ export default function UspPage({ onBookDemo }) {
       </main>
 
       <Footer onBookDemo={onBookDemo} />
-      <StickyBar onBookDemo={onBookDemo} />
+      <StickyBar />
     </>
   );
 }

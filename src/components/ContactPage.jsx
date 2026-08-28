@@ -99,7 +99,7 @@ export default function ContactPage({ onBookDemo }) {
       </main>
 
       <Footer onBookDemo={onBookDemo} />
-      <StickyBar onBookDemo={onBookDemo} />
+      <StickyBar />
     </>
   );
 }

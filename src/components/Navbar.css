@@ -159,19 +159,33 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border-fine);
-  background: rgba(255, 255, 255, 0.03);
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02)),
+    rgba(255, 255, 255, 0.02);
   color: var(--text-0);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 2px 8px rgba(0, 0, 0, 0.25);
   transition:
     border-color 0.16s var(--ease-out),
-    background 0.16s var(--ease-out);
+    background 0.16s var(--ease-out),
+    transform 0.14s var(--ease-out);
+}
+
+.navbar__burger:active {
+  transform: scale(0.95);
+}
+
+.navbar__burger--open {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .navbar__burger svg {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
   stroke-width: 2;
@@ -283,8 +297,8 @@
   }
 
   .navbar__burger {
-    min-width: 36px;
-    min-height: 36px;
+    min-width: 38px;
+    min-height: 38px;
   }
 
   .navbar__mobile-links {

@@ -33,7 +33,7 @@ function HomePage({ onBookDemo }) {
       </main>
 
       <Footer onBookDemo={onBookDemo} />
-      <StickyBar onBookDemo={onBookDemo} />
+      <StickyBar />
     </>
   );
 }

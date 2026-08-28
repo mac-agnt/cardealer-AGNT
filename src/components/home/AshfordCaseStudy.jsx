@@ -110,7 +110,7 @@ export default function AshfordCaseStudy({ onBookDemo }) {
               </WaveStatement>
 
               <p className="ashford__credit">
-                <b>Nadia Adan</b>, Ashford &middot; Sandyford, Dublin
+                <b>Nadia Adan</b>, Ashford Motors &middot; Ashford
               </p>
 
               <ul className="ashford__proof">

@@ -135,7 +135,7 @@ export default function WebsiteMock() {
             <em>Priced with clarity.</em>
           </h1>
           <p className="wsite__lede">
-            Curated stock, transparent pricing, and fast follow-up from a family-run showroom in Sandyford.
+            Curated stock, transparent pricing, and fast follow-up from a family-run showroom in Ashford.
           </p>
           <span className="wsite__hero-cta">
             <span className="wsite__btn wsite__btn--accent wsite__btn--lg">

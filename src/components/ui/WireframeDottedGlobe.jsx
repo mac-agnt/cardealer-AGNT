@@ -77,6 +77,9 @@ export default function WireframeDottedGlobe({ className = '', dotSpacing = 1.3 
     if (!canvas || !frame || !context) return undefined;
 
     const reduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    // Phones: render once and hold. Repainting ~10k dots per frame is the main
+    // source of scroll jank on mobile, and the globe is decoration.
+    const still = reduced || window.matchMedia?.('(max-width: 900px)').matches;
     let width = 0;
     let height = 0;
     let radius = 0;
@@ -157,7 +160,7 @@ export default function WireframeDottedGlobe({ className = '', dotSpacing = 1.3 
     });
     observer.observe(frame);
 
-    const spin = reduced
+    const spin = still
       ? null
       : timer((elapsed) => {
           projection.rotate([((elapsed / 1000) * DEG_PER_SECOND) % 360, AXIS_TILT]);
